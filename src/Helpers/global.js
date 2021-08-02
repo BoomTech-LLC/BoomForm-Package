@@ -1,0 +1,47 @@
+export const setNestedValue = (key, value, values) => {
+  const keyPath = key.toString().split('.')
+  keyPath.reduce((acc, val, index) => {
+    if (keyPath.length - 1 === index) {
+      return (acc[val] = value)
+    }
+    if (typeof acc[val] !== 'object' || acc[val] === null)
+      return (acc[val] = {})
+    else return acc[val]
+  }, values)
+  return values
+}
+
+export const handleRadioEdit = (values, fields, name, id, value) => {
+  for (let i in fields) {
+    if (fields[i].type === 'radio' && fields[i].name === name)
+      if (fields[i].id.toString().includes('.'))
+        values = setNestedValue(
+          fields[i].id,
+          fields[i].id === id
+            ? { checked: true, value: fields[i].value }
+            : { checked: false, value: fields[i].value },
+          values
+        )
+      else if (fields[i].id === id) values[fields[i].id].checked = true
+      else values[fields[i].id].checked = false
+  }
+
+  return { values }
+}
+
+export const getFieldValue = (values, id) => {
+  if (!id) throw 'field should have a id attribute'
+  if (!id.toString().includes('.')) return values[id]
+  let idPath = id.split('.')
+  idPath = idPath.filter((path) => path)
+  return [values].concat(idPath).reduce((acc, val) => {
+    if (!acc) return undefined
+    return acc[val]
+  })
+}
+
+export const getNestedValue = (values, index) => {
+  return index.split('.').reduce((acc, index) => {
+    return acc[index]
+  }, values)
+}
