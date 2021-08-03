@@ -178,3 +178,90 @@ values: {
   }
 }
 ```
+
+## Fields
+
+Fields is the components which is returning simple html elements already connected with store.
+
+### Actions
+
+All Fields have all three actions described below.
+
+__onChange__ <br />
+Fires every time when user changes the field value <br />
+As a attribute you can get one object which is keeping following data 
+| Key | Description |
+| --- | --- |
+| e | The default event which is taken from actual HTML |
+| field | All parameters you have pass to the changed field |
+| id | The unique identification of your field |
+| value | The last value which user have changed |
+
+__onBlur__ <br />
+Fires every time when user click outside of the field <br />
+As a attribute you can get one object which is keeping following data 
+| Key | Description |
+| --- | --- |
+| e | The default event which is taken from actual HTML |
+| field | All parameters you have pass to the changed field |
+| id | The unique identification of your field |
+| value | The last value which user have changed |
+
+__onClick__ <br />
+Fires every time when user click in the field <br />
+As a attribute you can get one object which is keeping following data 
+| Key | Description |
+| --- | --- |
+| e | The default event which is taken from actual HTML |
+| field | All parameters you have pass to the changed field |
+| id | The unique identification of your field |
+| value | The last value which user have changed |
+
+> Every other attribute will be given to actual HTML input
+
+### Input
+
+| Key | Type | Description | 
+| --- | --- | --- |
+| id | _string_ or _number_ | The Field Identifier |
+| type | enum ( _text_, _number_, _password_, _phone_, _email_ ) | The HTML input type. All of them should be text input. This for identify inputted text type |
+| initial |  _string_ | The default value |
+
+### textarea
+
+| Key | Type | Description | 
+| --- | --- | --- |
+| id | _string_ or _number_ | The Field Identifier |
+| initial |  _string_ | The default value |
+
+### file
+
+| Key | Type | Description | 
+| --- | --- | --- |
+| id | _string_ or _number_ | The Field Identifier |
+
+### checkbox
+
+| Key | Type | Description | 
+| --- | --- | --- |
+| id | _string_ or _number_ | The Field Identifier |
+| initial |  _boolean_ | The default value |
+| name | _string_ or _number_ | By this parameter you can group checkboxes |
+| value | _any_ | The value of this parameter you can get in `values` object |
+
+### radio
+
+| Key | Type | Description | 
+| --- | --- | --- |
+| id | _string_ or _number_ | The Field Identifier |
+| initial |  _boolean_ | The default value |
+| name | _string_ or _number_ | By this parameter you can group radios |
+| value | _any_ | The value of this parameter you can get in `values` object |
+
+### options
+
+| Key | Type | Description | 
+| --- | --- | --- |
+| id | _string_ or _number_ | The Field Identifier |
+| initial |  _boolean_ | The default selected option key |
+| options | _array_ | By this object you will pass the options of select. This is how nested object should look like <br>  _key_ (identifier of option), _value_ (text which will be shown), any other parameter will be avalivable in `values` object |
