@@ -188,8 +188,8 @@ Fields is the components which is returning simple html elements already connect
 All Fields have all three actions described below.
 
 __onChange__ <br />
-Fires every time when user changes the field value <br />
-As a attribute you can get one object which is keeping following data 
+It fires every time when the user changes the value of the field <br />
+As an attribute you can get one object which keeps the following data 
 | Key | Description |
 | --- | --- |
 | e | The default event which is taken from actual HTML |
@@ -198,8 +198,8 @@ As a attribute you can get one object which is keeping following data
 | value | The last value which user have changed |
 
 __onBlur__ <br />
-Fires every time when user click outside of the field <br />
-As a attribute you can get one object which is keeping following data 
+It fires every time when the user clicks outside of the field <br />
+As an attribute you can get one object which keeps the following data 
 | Key | Description |
 | --- | --- |
 | e | The default event which is taken from actual HTML |
@@ -208,8 +208,8 @@ As a attribute you can get one object which is keeping following data
 | value | The last value which user have changed |
 
 __onClick__ <br />
-Fires every time when user click in the field <br />
-As a attribute you can get one object which is keeping following data 
+It fires every time when the user clicks on the field <br />
+As an attribute you can get one object which keeps the following data 
 | Key | Description |
 | --- | --- |
 | e | The default event which is taken from actual HTML |
@@ -219,13 +219,49 @@ As a attribute you can get one object which is keeping following data
 
 > Every other attribute will be given to actual HTML input
 
-### Input
+### input
 
 | Key | Type | Description | 
 | --- | --- | --- |
 | id | _string_ or _number_ | The Field Identifier |
-| type | enum ( _text_, _number_, _password_, _phone_, _email_ ) | The HTML input type. All of them should be text input. This for identify inputted text type |
+| type | enum ( _text_, _number_, _password_, _phone_, _email_ ) | The HTML input type. All of them should be text input. This is for identifying inputted text type |
 | initial |  _string_ | The default value |
+
+__validation__
+| Key | Type | Description | 
+| --- | --- | --- |
+| required | _object_ | _msg_ : The message which will appear in the `errors` object |
+| min | _object_ | _msg_ : The message which will appear in the `errors` object <br /> _type_ : The `type` can be `length`, `char` or `word` <br /> _value_ : The qunatity of the type |
+| max | _object_ | _msg_ : The message which will appear in the `errors` object <br /> _type_ : The `type` can be `length`, `char` or `word` <br /> _value_ : The qunatity of the type |
+| email | _object_ | _msg_ : The message which will appear in the `errors` object |
+| phone | _object_ | _msg_ : The message which will appear in the `errors` object |
+| url | _object_ | _msg_ : The message which will appear in the `errors` object |
+
+Example:
+```jsx
+  <Input
+        id='1'
+        type='text'
+        placeholder='example@mail.com'
+        initial='test'
+        validation={{
+          required: { msg: 'This Field is Required' },
+          min: {
+            msg: "Text can't be less than 2 chars",
+            value: 2,
+            type: 'char'
+          },
+          max: {
+            msg: 'Text should be more than 5 words',
+            value: 5,
+            type: 'word'
+          },
+          email: {
+            msg: 'The text type should be email'
+          }
+        }}
+      />
+```
 
 ### textarea
 
@@ -234,11 +270,63 @@ As a attribute you can get one object which is keeping following data
 | id | _string_ or _number_ | The Field Identifier |
 | initial |  _string_ | The default value |
 
+__validation__
+| Key | Type | Description | 
+| --- | --- | --- |
+| required | _object_ | _msg_ : The message which will appear in the `errors` object |
+| min | _object_ | _msg_ : The message which will appear in the `errors` object <br /> _type_ : The `type` can be `length`, `char` or `word` <br /> _value_ : The qunatity of the type |
+| max | _object_ | _msg_ : The message which will appear in the `errors` object <br /> _type_ : The `type` can be `length`, `char` or `word` <br /> _value_ : The qunatity of the type |
+| email | _object_ | _msg_ : The message which will appear in the `errors` object |
+| phone | _object_ | _msg_ : The message which will appear in the `errors` object |
+| url | _object_ | _msg_ : The message which will appear in the `errors` object |
+
+
+Example:
+```jsx
+  <Textarea
+    id='2'
+    placeholder='http://'
+    initial='http://'
+    validation={{
+      required: { msg: 'This Field is Required' },
+      min: {
+        msg: "Text can't be less than 2 chars",
+        value: 2,
+        type: 'char'
+      },
+      max: {
+        msg: 'Text should be more than 5 words',
+        value: 5,
+        type: 'word'
+      },
+      url: {
+        msg: 'The text type should be url'
+      }
+    }}
+  />
+```
+
 ### file
 
 | Key | Type | Description | 
 | --- | --- | --- |
 | id | _string_ or _number_ | The Field Identifier |
+
+__validation__
+| Key | Type | Description | 
+| --- | --- | --- |
+| required | _object_ | _msg_ : The message which will appear in the `errors` object |
+
+Example:
+```jsx
+  <File
+    id='3'
+    validation={{
+      required: { msg: 'File Upload is required' }
+    }}
+  />
+```
+
 
 ### checkbox
 
@@ -249,6 +337,24 @@ As a attribute you can get one object which is keeping following data
 | name | _string_ or _number_ | By this parameter you can group checkboxes |
 | value | _any_ | The value of this parameter you can get in `values` object |
 
+__validation__
+| Key | Type | Description | 
+| --- | --- | --- |
+| required | _object_ | _msg_ : The message which will appear in the `errors` object |
+
+Example:
+```jsx
+  <Checkbox
+    id='4.yes'
+    name='yes_or_no'
+    value='Yes'
+    validation={{
+      required: { msg: 'barev' }
+    }}
+  />
+  <Checkbox id='4.no' name='yes_or_no' value='No' />
+```
+
 ### radio
 
 | Key | Type | Description | 
@@ -258,6 +364,24 @@ As a attribute you can get one object which is keeping following data
 | name | _string_ or _number_ | By this parameter you can group radios |
 | value | _any_ | The value of this parameter you can get in `values` object |
 
+__validation__
+| Key | Type | Description | 
+| --- | --- | --- |
+| required | _object_ | _msg_ : The message which will appear in the `errors` object |
+
+Example:
+```jsx
+  <Radio
+    id='5.yes'
+    name='yes_or_no'
+    value='Yes'
+    validation={{
+      required: { msg: 'barev' }
+    }}
+  />
+  <Radio id='5.no' name='yes_or_no' value='No' />
+```
+
 ### options
 
 | Key | Type | Description | 
@@ -265,3 +389,22 @@ As a attribute you can get one object which is keeping following data
 | id | _string_ or _number_ | The Field Identifier |
 | initial |  _boolean_ | The default selected option key |
 | options | _array_ | By this object you will pass the options of select. This is how nested object should look like <br>  _key_ (identifier of option), _value_ (text which will be shown), any other parameter will be avalivable in `values` object |
+
+__validation__
+| Key | Type | Description | 
+| --- | --- | --- |
+| required | _object_ | _msg_ : The message which will appear in the `errors` object |
+
+Example:
+```jsx
+  <Select
+      id='6'
+      initial='1'
+      options={[
+        { key: 'placeholder', value: ' -- Choice One -- ' }
+        { key: '1', value: 'Today' },
+        { key: '2', value: 'Tomorrow' },
+        { key: '3', value: 'Next Week' }
+      ]}
+    />
+```
