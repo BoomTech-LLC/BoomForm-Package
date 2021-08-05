@@ -2,6 +2,7 @@ import React from 'react'
 import Store from './Store'
 
 import Context from './Store/Context'
+import Form from './Form/Form'
 import Input from './Fields/Input/Input'
 import Textarea from './Fields/Textarea/Textarea'
 import File from './Fields/File/File'
@@ -13,4 +14,14 @@ const BoomForm = ({ children }) => {
   return <Store>{children}</Store>
 }
 
-export { Context, BoomForm, Input, Textarea, File, Checkbox, Select, Radio }
+export {
+  Context,
+  BoomForm,
+  Form,
+  Input,
+  Textarea,
+  File,
+  Checkbox,
+  Select,
+  Radio
+}
