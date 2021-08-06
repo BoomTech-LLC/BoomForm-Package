@@ -15,7 +15,7 @@ const App = () => {
     <BoomForm>
       Simple Input:
       <Input
-        id='1'
+        id='3.a'
         type='text'
         initial='test'
         validation={{ required: { msg: 'test' } }}
