@@ -8,8 +8,11 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
   const { values } = state
 
   useEffect(() => {
-    const actualInitial =
-      initial === undefined ? { checked: false, value: checkboxValue } : initial
+    const actualInitial = {
+      checked: initial === undefined ? false : initial,
+      value: checkboxValue
+    }
+
     declareField({
       id,
       initial: actualInitial,
