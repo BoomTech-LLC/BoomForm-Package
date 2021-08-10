@@ -1,5 +1,9 @@
 import { DECLARE_FIELD, EDIT_FIELD } from './Types'
-import { setNestedValue, handleRadioEdit } from './../Helpers/global'
+import {
+  setNestedValue,
+  handleRadioEdit,
+  checkIdStructure
+} from './../Helpers/global'
 import {
   validate,
   handleValidateCheckbox,
@@ -18,7 +22,12 @@ export const reduser = (state, action) => {
       const touched = { ...state.touched }
       const errors = { ...state.errors }
 
-      console.log(field)
+      try {
+        checkIdStructure(id, fields)
+      } catch (error) {
+        console.error(error)
+        return state
+      }
 
       const { validation, type, name, value } = field
 

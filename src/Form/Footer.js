@@ -1,9 +1,10 @@
 import React from 'react'
+import SubmitButton from './Fields/SubmitButton/SubmitButton'
 
-const Footer = ({ button }) => {
+const Footer = ({ onSubmit, button }) => {
   return (
     <div>
-      <button>{button}</button>
+      <SubmitButton onSubmit={onSubmit} button={button} />
     </div>
   )
 }

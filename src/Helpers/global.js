@@ -45,3 +45,26 @@ export const getNestedValue = (values, index) => {
     return acc[index]
   }, values)
 }
+
+export const checkIdStructure = (id, fields) => {
+  const [sameId] = fields.filter((field) => field.id == id)
+  if (sameId) throw new Error('`Field` id is not unique')
+  for (let i = 0; i < fields.length; i++) {
+    const { id: prevId } = fields[i]
+    const splitedPrevId = prevId.toString().split('.')
+    const splitedId = id.toString().split('.')
+    if (splitedId.length > splitedPrevId.length) {
+      if (
+        JSON.stringify(splitedId.splice(0, splitedPrevId.length)) ==
+        JSON.stringify(splitedPrevId)
+      )
+        throw new Error('Invalid `object` structure')
+    } else {
+      if (
+        JSON.stringify(splitedPrevId.splice(0, splitedId.length)) ==
+        JSON.stringify(splitedId)
+      )
+        throw new Error('Invalid `object` structure')
+    }
+  }
+}
