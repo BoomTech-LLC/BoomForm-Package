@@ -4,13 +4,13 @@ import Footer from './Footer'
 import Fields from './Fields'
 
 const Form = ({ global, fields }) => {
-  const { name, description, button } = global
+  const { name, description, button, onSubmit } = global
 
   return (
     <form className='boomForm' noValidate>
       <Header name={name} description={description} />
       <Fields fields={fields} />
-      <Footer button={button} />
+      <Footer onSubmit={onSubmit} button={button} />
     </form>
   )
 }
