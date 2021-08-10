@@ -19,6 +19,23 @@ const App = () => {
           {
             id: 2,
             type: 'address'
+          },
+          {
+            id: 3,
+            type: 'multipleChoice',
+            options: [
+              {
+                key: 1,
+                label: 'Yes',
+                value: true,
+                checked: true
+              },
+              {
+                key: 2,
+                label: 'No',
+                value: false
+              }
+            ]
           }
         ]}
       />

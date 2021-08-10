@@ -3,6 +3,7 @@ import React from 'react'
 // Secondary
 import Name from './Fields/Name/Name'
 import Address from './Fields/Address/Address'
+import MultipleChoice from './Fields/MultipleChoice/MultipleChoice'
 
 const Field = ({ type, ...props }) => {
   switch (type) {
@@ -10,6 +11,8 @@ const Field = ({ type, ...props }) => {
       return <Name {...props} />
     case 'address':
       return <Address {...props} />
+    case 'multipleChoice':
+      return <MultipleChoice {...props} />
     default:
       return null
   }
