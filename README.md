@@ -44,15 +44,15 @@ export default App
 Result: <br/>
 ![image](https://user-images.githubusercontent.com/81797642/128043746-3f738a57-47a4-4974-8f08-136313b837ce.png)
 
-If you have done everything as it is described above, everything should be fine. So that’s it. You have created your first form with BoomForm. Congratulations !. Keep going and read more in the next sections. and you will learn how to create more complicated forms as easy as this one
+If you have done everything as it is described above, all should be fine. So that’s it. You have created your first form with BoomForm. Congratulations !. Keep going and read more in the next sections. in order to create more complicated forms as easily as this one.
 
-## Principals
+## Principles
 Please read this section carefully and try to understand. If you will understand everything written below, you will discover the most awesome and easiest way of working with forms
 
 ### Data Usage
-So here is the most interesting part and the main reason why use BoomForm. Just follow the steps described below and you will get the whole state.
+So here is the most interesting part and the main reason of using BoomForm. Just follow the steps described below and you will get the whole state.
 
-1. First of all, for more readable code let's create one more component and call him `Store`
+1. First of all, for more readable code let's create one more component and call it `Store`
 1. In the `Store` component import `useContext` from react 
 1. In the `Store` component import `Context` from `boomform` 
 1. Declare a new variable named `state` which is equal to `useContext`
@@ -107,7 +107,7 @@ All your data is stored in the `state`
 | --- | --- |
 | fields | fields is an array where fields are kept as structured nested objects. There you can see what fields you have, what parameters you have given to your fields, etc... |
 | values | The `values` is the main object where all data, filled by your user or from initial values, is stored. (More about `values` object structure ID & splitting section) |
-| touched | in the `touched` object you can find which field is touched. The object keys are the id-s of your fields and they are all false by default, So the first time when your user changes the field, the value of the changed field will be true.  |
+| touched | in the `touched` object you can find which field is touched. The object keys are the id-s of your fields and they are all false by default. So the first time when your user changes the field, the value of the changed field will be true.  |
 | errors | in errors you can find the fields which haven’t passed the validation rules. you have also the messages which you have set in validation rules (More about errors read in Fields section) |
 
 
@@ -181,11 +181,11 @@ values: {
 
 ## Fields
 
-Fields is the components which is returning simple html elements already connected with store.
+Fields is a components which is returning simple html elements already connected with the store.
 
 ### Actions
 
-All Fields have all three actions described below.
+All Fields have all the three actions described below.
 
 __onChange__ <br />
 It fires every time when the user changes the value of the field <br />
