@@ -1,8 +1,8 @@
 import React from 'react'
 import classNames from 'classnames/bind'
-import Checkbox from '../../../Fields/Checkbox/Checkbox'
+import Radio from '../../../Fields/Radio/Radio'
 
-const MultipleChoice = ({ id, label, options, classnameprefix, ...props }) => {
+const SingleChoice = ({ id, label, options, classnameprefix, ...props }) => {
   return (
     <div
       className={classNames('boomForm-field__content', {
@@ -19,20 +19,20 @@ const MultipleChoice = ({ id, label, options, classnameprefix, ...props }) => {
         </label>
       )}
       <div
-        className={classNames('boomForm-checkbox__content', {
-          [`${classnameprefix}-checkbox__content`]: classnameprefix
+        className={classNames('boomForm-singleChoice__content', {
+          [`${classnameprefix}-singleChoice__content`]: classnameprefix
         })}
       >
         {options.map(({ key, label, value, checked }) => {
           return (
             <label
-              className={classNames('boomForm-multipleChoice__item', {
-                [`${classnameprefix}-multipleChoice__item`]: classnameprefix
+              className={classNames('boomForm-singleChoice__item', {
+                [`${classnameprefix}-singleChoice__item`]: classnameprefix
               })}
               key={`${id}.${key}`}
             >
               <span>{label}</span>
-              <Checkbox
+              <Radio
                 {...props}
                 id={`${id}.${key}`}
                 name={id}
@@ -47,4 +47,4 @@ const MultipleChoice = ({ id, label, options, classnameprefix, ...props }) => {
   )
 }
 
-export default MultipleChoice
+export default SingleChoice
