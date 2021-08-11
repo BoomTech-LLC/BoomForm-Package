@@ -14,26 +14,18 @@ const App = () => {
         fields={[
           {
             id: 1,
-            type: 'name'
-          },
-          {
-            id: 2,
-            type: 'address'
-          },
-          {
-            id: 3,
-            type: 'multipleChoice',
+            type: 'singleChoice',
             options: [
               {
                 key: 1,
-                label: 'Yes',
-                value: true,
-                checked: true
+                value: 'Yes',
+                label: 'Yes'
               },
               {
                 key: 2,
+                value: 'No',
                 label: 'No',
-                value: false
+                checked: true
               }
             ]
           }
