@@ -17,7 +17,7 @@ const Input = ({ id, type, initial, ...props }) => {
   if (value === undefined) return null
 
   return (
-    <Memoizeable value={value}>
+    <Memoizeable field={{ id, type, initial, value, ...props }}>
       <input
         {...props}
         type={type}

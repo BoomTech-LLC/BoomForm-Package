@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
 
-const Memoizeable = ({ children, value }) => {
+const Memoizeable = ({ children, field }) => {
   return useMemo(() => {
     return children
-  }, [value])
+  }, [field])
 }
 
 export default Memoizeable
