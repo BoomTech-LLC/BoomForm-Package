@@ -28,6 +28,10 @@ const App = () => {
                 checked: true
               }
             ]
+          },
+          {
+            id: 2,
+            type: 'text'
           }
         ]}
       />
