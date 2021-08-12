@@ -6,6 +6,11 @@ import Address from './Fields/Address/Address'
 import MultipleChoice from './Fields/MultipleChoice/MultipleChoice'
 import SingleChoice from './Fields/SingleChoice/SingleChoice'
 import Text from './Fields/Text/Text'
+import Email from './Fields/Email/Email'
+import Url from './Fields/Url/Url'
+import Phone from './Fields/Phone/Phone'
+import Password from './Fields/Password/Password'
+import Number from './Fields/Number/Number'
 
 const Field = ({ type, ...props }) => {
   switch (type) {
@@ -19,6 +24,16 @@ const Field = ({ type, ...props }) => {
       return <SingleChoice {...props} />
     case 'text':
       return <Text {...props} />
+    case 'email':
+      return <Email {...props} />
+    case 'url':
+      return <Url {...props} />
+    case 'phone':
+      return <Phone {...props} />
+    case 'password':
+      return <Password {...props} />
+    case 'number':
+      return <Number {...props} />
     default:
       return null
   }
