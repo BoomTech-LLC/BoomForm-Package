@@ -31,7 +31,8 @@ const App = () => {
           },
           {
             id: 2,
-            type: 'text'
+            type: 'number',
+            initial: 'barev'
           }
         ]}
       />
