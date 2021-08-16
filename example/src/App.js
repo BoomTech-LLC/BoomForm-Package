@@ -31,8 +31,17 @@ const App = () => {
           },
           {
             id: 2,
-            type: 'number',
-            initial: 'barev'
+            type: 'select',
+            options: [
+              {
+                key: 1,
+                value: 'barev 1'
+              },
+              {
+                key: 2,
+                value: 'barev 2'
+              }
+            ]
           }
         ]}
       />

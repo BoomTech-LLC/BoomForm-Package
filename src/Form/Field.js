@@ -11,6 +11,7 @@ import Url from './Fields/Url/Url'
 import Phone from './Fields/Phone/Phone'
 import Password from './Fields/Password/Password'
 import Number from './Fields/Number/Number'
+import Select from './Fields/Select/Select'
 
 const Field = ({ type, ...props }) => {
   switch (type) {
@@ -34,6 +35,8 @@ const Field = ({ type, ...props }) => {
       return <Password {...props} />
     case 'number':
       return <Number {...props} />
+    case 'select':
+      return <Select {...props} />
     default:
       return null
   }
