@@ -11,6 +11,7 @@ import Url from './Fields/Url/Url'
 import Phone from './Fields/Phone/Phone'
 import Password from './Fields/Password/Password'
 import Number from './Fields/Number/Number'
+import Custom from './Fields/Custom/Custom'
 import Select from './Fields/Select/Select'
 import Price from './Fields/Price/Price'
 import File from './Fields/File/File'
@@ -38,6 +39,8 @@ const Field = ({ type, ...props }) => {
       return <Password {...props} />
     case 'number':
       return <Number {...props} />
+    case 'custom':
+      return <Custom {...props} />
     case 'select':
       return <Select {...props} />
     case 'price':
