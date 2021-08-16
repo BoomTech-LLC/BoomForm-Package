@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { BoomForm, Form, Context, Custom } from 'boomform'
+import React from 'react'
+import { BoomForm, Form, Custom } from 'boomform'
 import State from './State'
 
 const CustomComponent = ({ id, ...props }) => {
