@@ -31,7 +31,7 @@ const App = () => {
           },
           {
             id: 2,
-            type: 'price'
+            type: 'file'
           }
         ]}
       />
