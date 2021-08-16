@@ -25,8 +25,9 @@ const Radio = ({ id, initial, name, value: radioValue, ...props }) => {
   if (value === undefined) return null
 
   return (
-    <Memoizeable value={value.checked}>
+    <Memoizeable field={{ id, initial, name, value: value.checked, ...props }}>
       <input
+        {...props}
         type='radio'
         name={name}
         checked={value.checked}

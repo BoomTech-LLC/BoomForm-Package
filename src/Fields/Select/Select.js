@@ -40,7 +40,7 @@ const Select = ({ id, initial, options, ...props }) => {
   }
 
   return (
-    <Memoizeable value={value}>
+    <Memoizeable value={{ id, initial, options, value, ...props }}>
       <select
         value={selectedKey}
         onChange={(e) => {

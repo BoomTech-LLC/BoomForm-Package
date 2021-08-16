@@ -25,7 +25,7 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
   if (value === undefined) return null
 
   return (
-    <Memoizeable value={value}>
+    <Memoizeable value={{ id, initial, value, ...props }}>
       <input
         {...props}
         type='checkbox'
