@@ -33,16 +33,15 @@ const Select = ({ id, initial, options, ...props }) => {
 
   if (value === undefined) return null
 
-  let selectedKey = options[0].key
-  if (value.hasOwnProperty('key')) {
-    const { key: actualSelectedKey } = value
-    selectedKey = actualSelectedKey
-  }
+  // let selectedKey = options[0].key
+  // if (value.hasOwnProperty('key')) {
+  //   const { key: actualSelectedKey } = value
+  //   selectedKey = actualSelectedKey
+  // }
 
   return (
     <Memoizeable value={{ id, initial, options, value, ...props }}>
       <select
-        value={selectedKey}
         onChange={(e) => {
           const [newValue] = options.filter(
             (item) => e.target.value == item.key
