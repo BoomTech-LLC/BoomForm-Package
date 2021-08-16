@@ -9,6 +9,7 @@ import File from './Fields/File/File'
 import Checkbox from './Fields/Checkbox/Checkbox'
 import Select from './Fields/Select/Select'
 import Radio from './Fields/Radio/Radio'
+import Custom from './Fields/Custom/Custom'
 
 const BoomForm = ({ children }) => {
   return <Store>{children}</Store>
@@ -23,5 +24,6 @@ export {
   File,
   Checkbox,
   Select,
-  Radio
+  Radio,
+  Custom
 }
