@@ -83,8 +83,7 @@ const App = () => {
           },
           {
             id: 2,
-            type: 'number',
-            initial: 'barev'
+            type: 'price'
           }
         ]}
       />

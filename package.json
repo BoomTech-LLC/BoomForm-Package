@@ -1,10 +1,19 @@
 {
   "name": "boomform",
-  "version": "1.1.4",
+  "version": "1.1.7",
   "description": "Advanced Form Builder",
   "author": "Boomtech LLC",
   "license": "MIT",
   "repository": "https://github.com/BoomTech-LLC/BoomForm-Package",
+  "keywords": [
+    "boomform",
+    "forms",
+    "form",
+    "form builder",
+    "react",
+    "react-dom",
+    "hooks"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
   "source": "src/index.js",
