@@ -1,4 +1,4 @@
-import { DECLARE_FIELD, EDIT_FIELD } from './Types'
+import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM } from './Types'
 import {
   setNestedValue,
   handleRadioEdit,
@@ -182,6 +182,21 @@ export const reduser = (state, action) => {
         values,
         touched,
         errors
+      }
+    }
+    case RESET_FORM: {
+      const { fields } = state
+      let { values } = state
+      fields.map((field) => {
+        const { id, initial } = field
+        if (id.toString().includes('.'))
+          values = setNestedValue(id, initial, values)
+        else values[id] = initial
+      })
+
+      return {
+        ...state,
+        values: values
       }
     }
 

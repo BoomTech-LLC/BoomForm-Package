@@ -56,7 +56,11 @@ const App = () => {
         global={{
           name: 'Form Name',
           description: 'Form Description',
-          button: 'Submit Button'
+          button: 'Submit Button',
+          onSubmit: ({ state, actions }) => {
+            const { handleReset } = actions
+            handleReset()
+          }
         }}
         fields={[
           {
