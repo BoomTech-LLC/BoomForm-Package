@@ -64,13 +64,18 @@ const App = () => {
         }}
         fields={[
           {
+            id: '7',
+            type: 'name',
+            validations: { first: { required: { msg: 'hello' } } }
+          },
+          {
             id: '4.5',
             type: 'custom',
             component: ({ ...props }) => <CustomComponent {...props} />
           },
           {
-            id: 1,
-            type: 'singleChoice',
+            id: 'aa.5',
+            type: 'select',
             options: [
               {
                 key: 1,

@@ -11,9 +11,10 @@ import {
   handleValidateRadio
 } from '../Helpers/validate'
 
+let defaultErros = {}
+
 export const reduser = (state, action) => {
   const { type, payload } = action
-
   switch (type) {
     case DECLARE_FIELD: {
       const { id, initial, field } = payload
@@ -21,6 +22,7 @@ export const reduser = (state, action) => {
       let values = { ...state.values }
       const touched = { ...state.touched }
       const errors = { ...state.errors }
+      const isTouched = initial === null || initial === undefined ? false : true
 
       try {
         checkIdStructure(id, fields)
@@ -42,7 +44,7 @@ export const reduser = (state, action) => {
           if (value === undefined)
             throw new Error('`Radio` should have a value attribute')
 
-          touched[name] = false
+          touched[name] = isTouched
 
           const [radioInitial] = fields
             .filter((field) => field.name === name)
@@ -65,7 +67,7 @@ export const reduser = (state, action) => {
           if (value === undefined)
             throw new Error('`Checkbox` should have a value attribute')
 
-          touched[name] = false
+          touched[name] = isTouched
 
           const [checkBoxInitial] = fields
             .filter((field) => field.name === name)
@@ -83,7 +85,7 @@ export const reduser = (state, action) => {
 
           break
         case 'select':
-          touched[id] = false
+          touched[id] = isTouched
           const selectError = handleValidateSelect({
             value: initial,
             validation: validation
@@ -92,7 +94,7 @@ export const reduser = (state, action) => {
           else delete errors[id]
           break
         default:
-          touched[id] = false
+          touched[id] = isTouched
           const defaultValidate = validate({ value: initial, validation })
           if (defaultValidate) errors[id] = defaultValidate
       }
@@ -100,6 +102,8 @@ export const reduser = (state, action) => {
       if (id.toString().includes('.'))
         values = setNestedValue(id, initial, values)
       else values[id] = initial
+
+      defaultErros = { ...errors }
 
       return {
         ...state,
@@ -186,17 +190,23 @@ export const reduser = (state, action) => {
     }
     case RESET_FORM: {
       const { fields } = state
-      let { values } = state
+      let { values, touched } = state
       fields.map((field) => {
-        const { id, initial } = field
+        const { id, initial, type, name } = field
+        const isTouched =
+          initial === null || initial === undefined ? false : true
         if (id.toString().includes('.'))
           values = setNestedValue(id, initial, values)
         else values[id] = initial
+        if (type === 'radio' || type === 'checkbox') touched[name] = isTouched
+        else touched[id] = isTouched
       })
 
       return {
         ...state,
-        values: values
+        values: values,
+        touched: touched,
+        errors: defaultErros
       }
     }
 

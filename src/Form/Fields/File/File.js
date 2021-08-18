@@ -29,7 +29,7 @@ const File = ({
     declareField({
       id,
       initial: actualInitial,
-      field: { type: 'textarea', ...props }
+      field: { type: 'file', ...props }
     })
   }, [id, initial])
 
