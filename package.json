@@ -60,8 +60,6 @@
     "dist"
   ],
   "dependencies": {
-    "boom-file-upload": "^1.0.7",
-    "classnames": "^2.3.1",
-    "react-signature-canvas": "^1.0.3"
+    "classnames": "^2.3.1"
   }
 }
