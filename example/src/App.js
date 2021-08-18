@@ -5,6 +5,7 @@ import State from './State'
 const App = () => {
   return (
     <BoomForm>
+      {/* <Input type='text' id='1' /> */}
       <Form
         global={{
           name: 'Form Name',
@@ -17,30 +18,8 @@ const App = () => {
         }}
         fields={[
           {
-            id: '7',
-            type: 'name',
-            validations: { first: { required: { msg: 'hello' } } }
-          },
-          {
-            id: 'aa.5',
-            type: 'select',
-            options: [
-              {
-                key: 1,
-                value: 'Yes',
-                label: 'Yes'
-              },
-              {
-                key: 2,
-                value: 'No',
-                label: 'No',
-                checked: true
-              }
-            ]
-          },
-          {
-            id: 2,
-            type: 'file'
+            id: '1.1',
+            type: 'text'
           }
         ]}
       />
@@ -50,3 +29,24 @@ const App = () => {
 }
 
 export default App
+// {
+//   id: 'aa.5',
+//   type: 'select',
+//   options: [
+//     {
+//       key: 1,
+//       value: 'Yes',
+//       label: 'Yes'
+//     },
+//     {
+//       key: 2,
+//       value: 'No',
+//       label: 'No',
+//       checked: true
+//     }
+//   ]
+// },
+// {
+//   id: 2,
+//   type: 'file'
+// }

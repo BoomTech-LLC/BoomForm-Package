@@ -2,7 +2,8 @@ import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM } from './Types'
 import {
   setNestedValue,
   handleRadioEdit,
-  checkIdStructure
+  checkIdStructure,
+  deepCopy
 } from './../Helpers/global'
 import {
   validate,
@@ -11,15 +12,19 @@ import {
   handleValidateRadio
 } from '../Helpers/validate'
 
-let defaultErros = {}
+let defaultValues = {},
+  defaultTouched = {},
+  defaultErros = {}
 
 export const reduser = (state, action) => {
   const { type, payload } = action
+
   switch (type) {
     case DECLARE_FIELD: {
       const { id, initial, field } = payload
       let fields = [...state.fields]
-      let values = { ...state.values }
+      let { values } = state
+      values = deepCopy(values)
       const touched = { ...state.touched }
       const errors = { ...state.errors }
       const isTouched = initial === null || initial === undefined ? false : true
@@ -103,6 +108,8 @@ export const reduser = (state, action) => {
         values = setNestedValue(id, initial, values)
       else values[id] = initial
 
+      defaultValues = { ...values }
+      defaultTouched = { ...touched }
       defaultErros = { ...errors }
 
       return {
@@ -117,7 +124,8 @@ export const reduser = (state, action) => {
     case EDIT_FIELD: {
       const { id, value, type, name, validation } = payload
       const { fields } = state
-      let values = { ...state.values }
+      let { values } = state
+      values = deepCopy(values)
       const touched = { ...state.touched }
       const errors = { ...state.errors }
 
@@ -189,23 +197,10 @@ export const reduser = (state, action) => {
       }
     }
     case RESET_FORM: {
-      const { fields } = state
-      let { values, touched } = state
-      fields.map((field) => {
-        const { id, initial, type, name } = field
-        const isTouched =
-          initial === null || initial === undefined ? false : true
-        if (id.toString().includes('.'))
-          values = setNestedValue(id, initial, values)
-        else values[id] = initial
-        if (type === 'radio' || type === 'checkbox') touched[name] = isTouched
-        else touched[id] = isTouched
-      })
-
       return {
         ...state,
-        values: values,
-        touched: touched,
+        values: defaultValues,
+        touched: defaultTouched,
         errors: defaultErros
       }
     }
