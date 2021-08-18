@@ -14,8 +14,7 @@ import Number from './Fields/Number/Number'
 import Custom from './Fields/Custom/Custom'
 import Select from './Fields/Select/Select'
 import Price from './Fields/Price/Price'
-import File from './Fields/File/File'
-import Signature from './Fields/Signature/Signature'
+import Time from './Fields/Time/Time'
 
 const Field = ({ type, ...props }) => {
   switch (type) {
@@ -45,10 +44,8 @@ const Field = ({ type, ...props }) => {
       return <Select {...props} />
     case 'price':
       return <Price {...props} />
-    case 'file':
-      return <File {...props} />
-    case 'signature':
-      return <Signature {...props} />
+    case 'time':
+      return <Time {...props} />
     default:
       return null
   }
