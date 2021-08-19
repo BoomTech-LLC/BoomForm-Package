@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { memo } from 'react'
 import Field from './Field'
 
-const Fields = ({ fields }) => {
+const Fields = ({ fields, paginationIds }) => {
+  console.log('paginationIds', paginationIds)
+
   return (
     <div>
       {fields.map((field) => {
@@ -12,4 +14,4 @@ const Fields = ({ fields }) => {
   )
 }
 
-export default Fields
+export default memo(Fields)
