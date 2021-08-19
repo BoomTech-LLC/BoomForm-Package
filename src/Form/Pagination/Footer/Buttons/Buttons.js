@@ -8,7 +8,10 @@ const Buttons = ({
   button,
   pagesLength,
   onSubmit,
-  setCurrentPage
+  setCurrentPage,
+  isLogicOn,
+  logic,
+  setLogicIds
 }) => {
   const handleNext = () => setCurrentPage((prev) => prev + 1)
   const handlePrev = () => setCurrentPage((prev) => prev - 1)
@@ -24,7 +27,13 @@ const Buttons = ({
           {prevText}
         </button>
       ) : null}
-      <SubmitButton onSubmit={onSubmit} button={button} />
+      <SubmitButton
+        button={button}
+        isLogicOn={isLogicOn}
+        logic={logic}
+        setLogicIds={setLogicIds}
+        onSubmit={onSubmit}
+      />
       {currentPage !== pagesLength - 1 ? (
         <button
           type='button'

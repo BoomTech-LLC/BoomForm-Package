@@ -27,11 +27,13 @@ const Form = ({ global, fields, pagination, logic }) => {
   const [currentPage, setCurrentPage] = useState(
     isPaginationOn ? current : null
   )
-  const [logicIds, setLogicIds] = useState(isLogicOn ? [] : null)
+  const [logicIds, setLogicIds] = useState(null)
 
   useEffect(() => {
     setPaginationIds(pages[currentPage])
   }, [currentPage])
+
+  console.log(logicIds)
 
   return (
     <form className='boomForm' noValidate>
@@ -44,11 +46,20 @@ const Form = ({ global, fields, pagination, logic }) => {
           nextText={nextText}
           prevText={prevText}
           pagesLength={pages.length}
+          isLogicOn={isLogicOn}
+          logic={logic}
           onSubmit={onSubmit}
           setCurrentPage={setCurrentPage}
+          setLogicIds={setLogicIds}
         />
       ) : (
-        <StandardFooter onSubmit={onSubmit} button={button} />
+        <StandardFooter
+          onSubmit={onSubmit}
+          button={button}
+          isLogicOn={isLogicOn}
+          logic={logic}
+          setLogicIds={setLogicIds}
+        />
       )}
     </form>
   )
