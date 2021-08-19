@@ -1,10 +1,16 @@
 import React from 'react'
 import SubmitButton from './Fields/SubmitButton/SubmitButton'
 
-const Footer = ({ onSubmit, button }) => {
+const Footer = ({ onSubmit, button, isLogicOn, logic, setLogicIds }) => {
   return (
     <div>
-      <SubmitButton onSubmit={onSubmit} button={button} />
+      <SubmitButton
+        button={button}
+        isLogicOn={isLogicOn}
+        logic={logic}
+        setLogicIds={setLogicIds}
+        onSubmit={onSubmit}
+      />
     </div>
   )
 }

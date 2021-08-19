@@ -21,7 +21,7 @@ const Textarea = ({ id, initial, ...props }) => {
   if (value === undefined) return null
 
   return (
-    <Memoizeable value={{ id, initial, value, ...props }}>
+    <Memoizeable field={{ id, initial, value, ...props }}>
       <textarea
         {...props}
         value={value || ''}
