@@ -23,12 +23,12 @@ const Form = ({ global, fields, pagination, logic }) => {
   } = pagination
 
   const [paginationIds, setPaginationIds] = useState(
-    isPaginationOn ? pages[current] : null
+    isPaginationOn ? pages[current] : []
   )
   const [currentPage, setCurrentPage] = useState(
     isPaginationOn ? current : null
   )
-  const [logicIds, setLogicIds] = useState(isLogicOn ? [] : null)
+  const [logicIds, setLogicIds] = useState([])
 
   useEffect(() => {
     setPaginationIds(pages[currentPage])
@@ -43,20 +43,34 @@ const Form = ({ global, fields, pagination, logic }) => {
         currentPage={currentPage}
         isPaginationOn={isPaginationOn}
       />
-      <Fields fields={fields} paginationIds={paginationIds} />
+      <Fields
+        fields={fields}
+        paginationIds={paginationIds}
+        logicIds={logicIds}
+      />
       {isPaginationOn ? (
         <PaginationFooter
           currentPage={currentPage}
           button={button}
+          navigation={navigation}
           nextText={nextText}
           prevText={prevText}
-          pages={pages}
+          pagesLength={pages.length}
+          isLogicOn={isLogicOn}
+          logic={logic}
           onSubmit={onSubmit}
           setCurrentPage={setCurrentPage}
-          navigation={navigation}
+          setLogicIds={setLogicIds}
+          pages={pages}
         />
       ) : (
-        <StandardFooter onSubmit={onSubmit} button={button} />
+        <StandardFooter
+          onSubmit={onSubmit}
+          button={button}
+          isLogicOn={isLogicOn}
+          logic={logic}
+          setLogicIds={setLogicIds}
+        />
       )}
     </form>
   )

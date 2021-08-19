@@ -8,16 +8,16 @@ const App = () => {
       <Form
         global={{
           name: 'Barev',
-          pagination: true
+          pagination: true,
+          logic: true
         }}
         fields={[
           {
-            id: '1.2',
-            type: 'text',
-            initial: 1
+            id: 1,
+            type: 'text'
           },
           {
-            id: '1.1',
+            id: 2,
             type: 'text',
             initial: 2
           },
@@ -46,11 +46,26 @@ const App = () => {
           current: 0,
           navigation: 'numbers',
           pages: [
-            ['1.1', '1.2'],
+            [1, 2],
             [3, 4],
             [5, 6]
           ]
         }}
+        logic={[
+          {
+            id: 2,
+            action: 'show',
+            operator: 'or',
+            conditions: [
+              {
+                id: 1,
+                value: 'no',
+                rule: 'is',
+                item: ''
+              }
+            ]
+          }
+        ]}
       />
       <State />
     </BoomForm>

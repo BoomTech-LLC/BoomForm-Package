@@ -1,12 +1,20 @@
 import React from 'react'
 import SubmitButton from './../../../Fields/SubmitButton/SubmitButton'
 
-const Numbers = ({ currentPage, button, pages, onSubmit, setCurrentPage }) => {
+const Numbers = ({
+  currentPage,
+  button,
+  pages,
+  onSubmit,
+  setCurrentPage,
+  isLogicOn,
+  logic,
+  setLogicIds
+}) => {
   const handleSetPage = (index) => {
     setCurrentPage(index)
   }
 
-  console.log(currentPage, pages.length)
   return (
     <div className='boomForm-paginationNumbers__content'>
       {pages.map((page, index) => {
@@ -21,9 +29,14 @@ const Numbers = ({ currentPage, button, pages, onSubmit, setCurrentPage }) => {
           </button>
         )
       })}
-      {currentPage === pages.length - 1 ? (
-        <SubmitButton onSubmit={onSubmit} button={button} />
-      ) : null}
+      <SubmitButton
+        onSubmit={onSubmit}
+        button={button}
+        hide={currentPage === pages.length - 1}
+        isLogicOn={isLogicOn}
+        logic={logic}
+        setLogicIds={setLogicIds}
+      />
     </div>
   )
 }

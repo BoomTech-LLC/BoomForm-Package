@@ -2,8 +2,9 @@ import React, { memo } from 'react'
 import Field from './Field'
 import { getPrintableFields } from './../Helpers/global'
 
-const Fields = ({ fields, paginationIds }) => {
-  const printableFields = getPrintableFields(fields, [], paginationIds)
+const Fields = ({ fields, paginationIds, logicIds }) => {
+  console.log(logicIds)
+  const printableFields = getPrintableFields(fields, logicIds, paginationIds)
 
   return (
     <div>

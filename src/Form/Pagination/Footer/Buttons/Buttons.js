@@ -8,7 +8,10 @@ const Buttons = ({
   button,
   pages,
   onSubmit,
-  setCurrentPage
+  setCurrentPage,
+  isLogicOn,
+  logic,
+  setLogicIds
 }) => {
   const handleNext = () => setCurrentPage((prev) => prev + 1)
   const handlePrev = () => setCurrentPage((prev) => prev - 1)
@@ -24,10 +27,16 @@ const Buttons = ({
           {prevText}
         </button>
       ) : null}
-      {currentPage === pages.length ? (
-        <SubmitButton onSubmit={onSubmit} button={button} />
-      ) : null}
-      {currentPage !== pages.length - 1 ? (
+      <SubmitButton
+        button={button}
+        isLogicOn={isLogicOn}
+        logic={logic}
+        setLogicIds={setLogicIds}
+        onSubmit={onSubmit}
+        hide={currentPage === pages.length - 1}
+      />
+
+      {currentPage !== pagesLength - 1 ? (
         <button
           type='button'
           className='boomForm-paginationButton'
