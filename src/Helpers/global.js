@@ -68,3 +68,13 @@ export const checkIdStructure = (id, fields) => {
     }
   }
 }
+
+export const getPrintableFields = (fields, logic = [], pagination = []) => {
+  const printableFields = fields.flatMap(({ id }) =>
+    !logic.includes(id) ? id : []
+  )
+  return [printableFields, pagination].reduce((a, c) => {
+    if (!c.length) return a
+    return a.filter((i) => c.includes(i))
+  })
+}

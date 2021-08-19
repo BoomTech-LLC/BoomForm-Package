@@ -22,6 +22,9 @@ export const reduser = (state, action) => {
       const touched = { ...state.touched }
       const errors = { ...state.errors }
 
+      for (let i = 0; i < fields.length; i++)
+        if (fields[i].id === id) return state
+
       try {
         checkIdStructure(id, fields)
       } catch (error) {

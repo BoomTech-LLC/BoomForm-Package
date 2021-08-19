@@ -1,11 +1,10 @@
 import React from 'react'
 
-const ProgressBar = ({ pagination }) => {
-  const { pages } = pagination
-  let { currentPage } = pagination
-
+const ProgressBar = ({ pagesLength, currentPage }) => {
   return (
-    <div className='boomForm-paginationProgressBar__content'>{`Page ${currentPage} of ${pages.length}`}</div>
+    <div className='boomForm-paginationProgressBar__content'>{`Page ${
+      currentPage + 1
+    } of ${pagesLength}`}</div>
   )
 }
 

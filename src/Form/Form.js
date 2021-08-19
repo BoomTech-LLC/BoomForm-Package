@@ -18,7 +18,8 @@ const Form = ({ global, fields, pagination, logic }) => {
     pages,
     current = 0,
     nextText = 'Next',
-    prevText = 'Previous'
+    prevText = 'Previous',
+    navigation = 'buttons'
   } = pagination
 
   const [paginationIds, setPaginationIds] = useState(
@@ -35,7 +36,13 @@ const Form = ({ global, fields, pagination, logic }) => {
 
   return (
     <form className='boomForm' noValidate>
-      <Header name={name} description={description} />
+      <Header
+        name={name}
+        description={description}
+        pagesLength={pages.length}
+        currentPage={currentPage}
+        isPaginationOn={isPaginationOn}
+      />
       <Fields fields={fields} paginationIds={paginationIds} />
       {isPaginationOn ? (
         <PaginationFooter
@@ -43,9 +50,10 @@ const Form = ({ global, fields, pagination, logic }) => {
           button={button}
           nextText={nextText}
           prevText={prevText}
-          pagesLength={pages.length}
+          pages={pages}
           onSubmit={onSubmit}
           setCurrentPage={setCurrentPage}
+          navigation={navigation}
         />
       ) : (
         <StandardFooter onSubmit={onSubmit} button={button} />

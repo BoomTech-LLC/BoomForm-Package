@@ -6,7 +6,7 @@ const Buttons = ({
   prevText,
   currentPage,
   button,
-  pagesLength,
+  pages,
   onSubmit,
   setCurrentPage
 }) => {
@@ -24,8 +24,10 @@ const Buttons = ({
           {prevText}
         </button>
       ) : null}
-      <SubmitButton onSubmit={onSubmit} button={button} />
-      {currentPage !== pagesLength - 1 ? (
+      {currentPage === pages.length ? (
+        <SubmitButton onSubmit={onSubmit} button={button} />
+      ) : null}
+      {currentPage !== pages.length - 1 ? (
         <button
           type='button'
           className='boomForm-paginationButton'

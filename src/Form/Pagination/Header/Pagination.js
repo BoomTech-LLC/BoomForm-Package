@@ -1,9 +1,10 @@
 import React from 'react'
+import ProgressBar from './ProgressBar'
 
-const Pagination = ({ isPaginationOn }) => {
+const Pagination = ({ isPaginationOn, ...props }) => {
   if (isPaginationOn !== true) return null
 
-  return 'Header Pagination'
+  return <ProgressBar {...props} />
 }
 
 export default Pagination

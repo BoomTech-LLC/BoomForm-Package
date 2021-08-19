@@ -12,34 +12,41 @@ const App = () => {
         }}
         fields={[
           {
-            id: 1,
-            type: 'name'
+            id: '1.2',
+            type: 'text',
+            initial: 1
           },
           {
-            id: 2,
-            type: 'name'
+            id: '1.1',
+            type: 'text',
+            initial: 2
           },
           {
             id: 3,
-            type: 'name'
+            type: 'text',
+            initial: 3
           },
           {
             id: 4,
-            type: 'name'
+            type: 'text',
+            initial: 4
           },
           {
             id: 5,
-            type: 'name'
+            type: 'text',
+            initial: 5
           },
           {
             id: 6,
-            type: 'name'
+            type: 'text',
+            initial: 6
           }
         ]}
         pagination={{
           current: 0,
+          navigation: 'numbers',
           pages: [
-            [1, 2],
+            ['1.1', '1.2'],
             [3, 4],
             [5, 6]
           ]
