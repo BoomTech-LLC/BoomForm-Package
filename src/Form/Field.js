@@ -15,6 +15,8 @@ import Custom from './Fields/Custom/Custom'
 import Select from './Fields/Select/Select'
 import Price from './Fields/Price/Price'
 import Time from './Fields/Time/Time'
+import StarRating from './Fields/StarRating/StarRating'
+import ScaleRating from './Fields/ScaleRating/ScaleRating'
 
 const Field = ({ type, ...props }) => {
   switch (type) {
@@ -46,6 +48,10 @@ const Field = ({ type, ...props }) => {
       return <Price {...props} />
     case 'time':
       return <Time {...props} />
+    case 'starRating':
+      return <StarRating {...props} />
+    case 'scaleRating':
+      return <ScaleRating {...props} />
     default:
       return null
   }

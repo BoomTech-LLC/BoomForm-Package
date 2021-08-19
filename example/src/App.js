@@ -8,18 +8,17 @@ const App = () => {
       <Form
         global={{
           name: 'Barev',
-          pagination: true,
-          logic: true
+          pagination: false,
+          logic: false
         }}
         fields={[
           {
             id: 1,
-            type: 'text'
+            type: 'starRating'
           },
           {
             id: 2,
-            type: 'text',
-            initial: 2
+            type: 'scaleRating'
           },
           {
             id: 3,
