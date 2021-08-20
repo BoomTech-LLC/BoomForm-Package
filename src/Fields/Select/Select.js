@@ -42,6 +42,7 @@ const Select = ({ id, initial, options, ...props }) => {
   return (
     <Memoizeable field={{ id, initial, options, value, selectedKey, ...props }}>
       <select
+        value={selectedKey}
         onChange={(e) => {
           const [newValue] = options.filter(
             (item) => e.target.value == item.key

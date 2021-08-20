@@ -1,8 +1,9 @@
-import { DECLARE_FIELD, EDIT_FIELD } from './Types'
+import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM } from './Types'
 import {
   setNestedValue,
   handleRadioEdit,
-  checkIdStructure
+  checkIdStructure,
+  deepCopy
 } from './../Helpers/global'
 import {
   validate,
@@ -11,6 +12,10 @@ import {
   handleValidateRadio
 } from '../Helpers/validate'
 
+let defaultValues = {},
+  defaultTouched = {},
+  defaultErros = {}
+
 export const reduser = (state, action) => {
   const { type, payload } = action
 
@@ -18,9 +23,11 @@ export const reduser = (state, action) => {
     case DECLARE_FIELD: {
       const { id, initial, field } = payload
       let fields = [...state.fields]
-      let values = { ...state.values }
+      let { values } = state
+      values = deepCopy(values)
       const touched = { ...state.touched }
       const errors = { ...state.errors }
+      const isTouched = initial === null || initial === undefined ? false : true
 
       for (let i = 0; i < fields.length; i++)
         if (fields[i].id === id) return state
@@ -45,7 +52,7 @@ export const reduser = (state, action) => {
           if (value === undefined)
             throw new Error('`Radio` should have a value attribute')
 
-          touched[name] = false
+          touched[name] = isTouched
 
           const [radioInitial] = fields
             .filter((field) => field.name === name)
@@ -68,7 +75,7 @@ export const reduser = (state, action) => {
           if (value === undefined)
             throw new Error('`Checkbox` should have a value attribute')
 
-          touched[name] = false
+          touched[name] = isTouched
 
           const [checkBoxInitial] = fields
             .filter((field) => field.name === name)
@@ -86,7 +93,7 @@ export const reduser = (state, action) => {
 
           break
         case 'select':
-          touched[id] = false
+          touched[id] = isTouched
           const selectError = handleValidateSelect({
             value: initial,
             validation: validation
@@ -95,7 +102,7 @@ export const reduser = (state, action) => {
           else delete errors[id]
           break
         default:
-          touched[id] = false
+          touched[id] = isTouched
           const defaultValidate = validate({ value: initial, validation })
           if (defaultValidate) errors[id] = defaultValidate
       }
@@ -103,6 +110,10 @@ export const reduser = (state, action) => {
       if (id.toString().includes('.'))
         values = setNestedValue(id, initial, values)
       else values[id] = initial
+
+      defaultValues = { ...values }
+      defaultTouched = { ...touched }
+      defaultErros = { ...errors }
 
       return {
         ...state,
@@ -116,7 +127,8 @@ export const reduser = (state, action) => {
     case EDIT_FIELD: {
       const { id, value, type, name, validation } = payload
       const { fields } = state
-      let values = { ...state.values }
+      let { values } = state
+      values = deepCopy(values)
       const touched = { ...state.touched }
       const errors = { ...state.errors }
 
@@ -185,6 +197,14 @@ export const reduser = (state, action) => {
         values,
         touched,
         errors
+      }
+    }
+    case RESET_FORM: {
+      return {
+        ...state,
+        values: defaultValues,
+        touched: defaultTouched,
+        errors: defaultErros
       }
     }
 

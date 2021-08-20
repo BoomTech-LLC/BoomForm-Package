@@ -4,7 +4,6 @@ import State from './State'
 
 const App = () => {
   return (
-    <BoomForm>
       <Form
         global={{
           name: 'Barev',
@@ -72,3 +71,24 @@ const App = () => {
 }
 
 export default App
+// {
+//   id: 'aa.5',
+//   type: 'select',
+//   options: [
+//     {
+//       key: 1,
+//       value: 'Yes',
+//       label: 'Yes'
+//     },
+//     {
+//       key: 2,
+//       value: 'No',
+//       label: 'No',
+//       checked: true
+//     }
+//   ]
+// },
+// {
+//   id: 2,
+//   type: 'file'
+// }

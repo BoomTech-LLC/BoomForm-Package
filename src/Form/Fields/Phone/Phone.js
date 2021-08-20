@@ -19,7 +19,7 @@ const Phone = ({ label, classnameprefix, ...props }) => {
         </label>
       )}
       <div
-        className={classNames('boomForm-email__content', {
+        className={classNames('boomForm-phone__content', {
           [`${classnameprefix}-email__content`]: classnameprefix
         })}
       >
