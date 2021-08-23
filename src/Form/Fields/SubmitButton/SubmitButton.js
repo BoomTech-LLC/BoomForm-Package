@@ -25,8 +25,10 @@ const SubmitButton = ({
   }
 
   return (
-    <div>
-      <button onClick={handleClick}>{button}</button>
+    <div className={'boomForm-button__content'}>
+      <button onClick={handleClick}>
+        <span>{button}</span>
+      </button>
     </div>
   )
 }

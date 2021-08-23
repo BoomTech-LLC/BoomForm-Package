@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import Context from './Context'
 import { reduser } from './Reducer'
-import { DECLARE_FIELD, SET_PAGE, EDIT_FIELD, RESET_FORM } from './Types'
+import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM } from './Types'
 
 const Store = ({ children, ...props }) => {
   const [state, dispatch] = useReducer(reduser, {
