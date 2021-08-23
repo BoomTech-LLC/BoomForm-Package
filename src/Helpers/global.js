@@ -69,8 +69,19 @@ export const checkIdStructure = (id, fields) => {
   }
 }
 
+
+export const deepCopy = (object) => {
+  let newObject = object
+  if (object && typeof object === 'object') {
+    newObject = {}
+    for (var i in object) {
+      newObject[i] = deepCopy(object[i])
+    }
+  }
+  return newObject
+}
+  
 export const getPrintableFields = (fields, logic = [], pagination = []) => {
-  console.log(logic)
   const printableFields = fields.flatMap(({ id }) =>
     !logic.includes(id) ? id : []
   )

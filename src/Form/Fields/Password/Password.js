@@ -19,7 +19,7 @@ const Password = ({ label, classnameprefix, ...props }) => {
         </label>
       )}
       <div
-        className={classNames('boomForm-email__content', {
+        className={classNames('boomForm-password__content', {
           [`${classnameprefix}-email__content`]: classnameprefix
         })}
       >
