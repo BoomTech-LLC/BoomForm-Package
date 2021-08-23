@@ -69,7 +69,6 @@ export const checkIdStructure = (id, fields) => {
   }
 }
 
-
 export const deepCopy = (object) => {
   let newObject = object
   if (object && typeof object === 'object') {
@@ -80,12 +79,11 @@ export const deepCopy = (object) => {
   }
   return newObject
 }
-  
+
 export const getPrintableFields = (fields, logic = [], pagination = []) => {
   const printableFields = fields.flatMap(({ id }) =>
     !logic.includes(id) ? id : []
   )
-  console.log(printableFields)
   return [printableFields, pagination].reduce((a, c) => {
     if (!c.length) return a
     return a.filter((i) => c.includes(i))

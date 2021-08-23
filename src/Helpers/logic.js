@@ -81,7 +81,6 @@ const conditionalLogic = ({ fieldValue, value, item, rule }) => {
 }
 
 export const getHiddenIds = ({ logic, values }) => {
-  console.log(333)
   let hiddenFields = []
   logic.map((option) => {
     const { action, conditions, operator = 'and', id } = option

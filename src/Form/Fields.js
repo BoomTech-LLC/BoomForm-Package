@@ -3,7 +3,6 @@ import Field from './Field'
 import { getPrintableFields } from './../Helpers/global'
 
 const Fields = ({ fields, paginationIds, logicIds }) => {
-  console.log(logicIds)
   const printableFields = getPrintableFields(fields, logicIds, paginationIds)
 
   return (

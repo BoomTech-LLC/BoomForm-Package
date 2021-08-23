@@ -4,7 +4,7 @@ import StandardFooter from './Footer'
 import PaginationFooter from './Pagination/Footer/Footer'
 import Fields from './Fields'
 
-const Form = ({ global, fields, pagination, logic }) => {
+const Form = ({ global, fields, pagination = {}, logic }) => {
   const {
     name,
     description,
@@ -31,7 +31,7 @@ const Form = ({ global, fields, pagination, logic }) => {
   const [logicIds, setLogicIds] = useState([])
 
   useEffect(() => {
-    setPaginationIds(pages[currentPage])
+    if (isPaginationOn) setPaginationIds(pages[currentPage])
   }, [currentPage])
 
   return (
@@ -39,7 +39,7 @@ const Form = ({ global, fields, pagination, logic }) => {
       <Header
         name={name}
         description={description}
-        pagesLength={pages.length}
+        pagesLength={pages?.length}
         currentPage={currentPage}
         isPaginationOn={isPaginationOn}
       />

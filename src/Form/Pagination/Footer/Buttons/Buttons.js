@@ -33,10 +33,10 @@ const Buttons = ({
         logic={logic}
         setLogicIds={setLogicIds}
         onSubmit={onSubmit}
-        hide={currentPage === pages.length - 1}
+        hide={currentPage !== pages.length - 1}
       />
 
-      {currentPage !== pagesLength - 1 ? (
+      {currentPage !== pages.length - 1 ? (
         <button
           type='button'
           className='boomForm-paginationButton'
