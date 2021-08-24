@@ -1,4 +1,5 @@
 export const validate = ({ value, validation }) => {
+  if (value === null) value = ''
   if (!validation) return false
   for (let item in validation) {
     const { type, msg, value: parameter } = validation[item]

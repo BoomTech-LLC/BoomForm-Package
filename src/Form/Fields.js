@@ -6,7 +6,7 @@ const Fields = ({ fields, paginationIds, logicIds }) => {
   const printableFields = getPrintableFields(fields, logicIds, paginationIds)
 
   return (
-    <>
+    <div className='boomForm-fields'>
       {fields.map((field) => {
         const { id } = field
 
@@ -14,7 +14,7 @@ const Fields = ({ fields, paginationIds, logicIds }) => {
 
         return <Field key={id} {...field} />
       })}
-    </>
+    </div>
   )
 }
 
