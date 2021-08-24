@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames/bind'
 
 // Secondary
 import Name from './Fields/Name/Name'
@@ -18,7 +19,7 @@ import Time from './Fields/Time/Time'
 import StarRating from './Fields/StarRating/StarRating'
 import ScaleRating from './Fields/ScaleRating/ScaleRating'
 
-const Field = ({ type, ...props }) => {
+const FieldByType = ({ type, ...props }) => {
   switch (type) {
     case 'name':
       return <Name {...props} />
@@ -55,6 +56,40 @@ const Field = ({ type, ...props }) => {
     default:
       return null
   }
+}
+
+const Field = ({ id, type, classnameprefix, label, ...props }) => {
+  return (
+    <div
+      id={`field-${id}`}
+      className={classNames('boomForm-field__content', {
+        [`${classnameprefix}-field__content`]: classnameprefix
+      })}
+    >
+      {label !== undefined && (
+        <label
+          className={classNames('boomForm-field__label', {
+            [`${classnameprefix}__label`]: classnameprefix
+          })}
+        >
+          {label}
+        </label>
+      )}
+      <div
+        className={classNames(`boomForm-${type}__content`, {
+          [`${classnameprefix}-${type}__content`]: classnameprefix
+        })}
+      >
+        <FieldByType
+          id={id}
+          type={type}
+          classnameprefix={classnameprefix}
+          label={label}
+          {...props}
+        />
+      </div>
+    </div>
+  )
 }
 
 export default Field

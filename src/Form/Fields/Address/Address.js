@@ -1,5 +1,4 @@
-import React from 'react'
-import classNames from 'classnames/bind'
+import React, { Fragment } from 'react'
 import Input from './../../../Fields/Input/Input'
 import Select from './../../../Fields/Select/Select'
 import {
@@ -22,51 +21,32 @@ const Address = ({
   const fields = getAddressFields()
 
   return (
-    <div
-      className={classNames('boomForm-field__content', {
-        [`${classnameprefix}-field__content`]: classnameprefix
-      })}
-    >
-      {label !== undefined && (
-        <label
-          className={classNames('boomForm-field__label', {
-            [`${classnameprefix}__label`]: classnameprefix
-          })}
-        >
-          {label}
-        </label>
-      )}
-      <div
-        className={classNames('boomForm-address__content', {
-          [`${classnameprefix}-address__content`]: classnameprefix
-        })}
-      >
-        {fields.map((item) => {
-          if (hide?.includes(item)) return null
-          if (item === 'country') {
-            return (
-              <Select
-                {...props}
-                key={`${id}.${item}`}
-                id={`${id}.${item}`}
-                options={countryList}
-              />
-            )
-          }
+    <>
+      {fields.map((item) => {
+        if (hide?.includes(item)) return null
+        if (item === 'country') {
           return (
-            <Input
+            <Select
               {...props}
               key={`${id}.${item}`}
               id={`${id}.${item}`}
-              type='text'
-              placeholder={getPlaceholder(placeholders, item)}
-              initial={getInitial(initials, item)}
-              validation={getValidation(validations, item)}
+              options={countryList}
             />
           )
-        })}
-      </div>
-    </div>
+        }
+        return (
+          <Input
+            {...props}
+            key={`${id}.${item}`}
+            id={`${id}.${item}`}
+            type='text'
+            placeholder={getPlaceholder(placeholders, item)}
+            initial={getInitial(initials, item)}
+            validation={getValidation(validations, item)}
+          />
+        )
+      })}
+    </>
   )
 }
 
