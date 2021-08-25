@@ -4,11 +4,10 @@ import StandardFooter from './Footer'
 import PaginationFooter from './Pagination/Footer/Footer'
 import Fields from './Fields'
 
-const Form = ({ global, fields, pagination = {}, logic }) => {
+const Form = ({ global, fields, button, pagination = {}, logic }) => {
   const {
     name,
     description,
-    button,
     onSubmit,
     pagination: isPaginationOn = false,
     logic: isLogicOn = false

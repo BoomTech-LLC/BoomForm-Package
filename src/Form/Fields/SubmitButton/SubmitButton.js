@@ -12,6 +12,9 @@ const SubmitButton = ({
 }) => {
   const { state, actions } = useContext(context)
   const { values } = state
+
+  const { text, prefix, suffix } = button || { text: 'Submit' }
+
   useEffect(() => {
     setLogicIds(isLogicOn ? getHiddenIds({ logic, values }) : [])
   }, [logic, isLogicOn, values])
@@ -26,9 +29,11 @@ const SubmitButton = ({
 
   return (
     <div className={'boomForm-button__content'}>
+      {suffix}
       <button onClick={handleClick}>
-        <span>{button}</span>
+        <span>{text}</span>
       </button>
+      {prefix}
     </div>
   )
 }

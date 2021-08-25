@@ -24,6 +24,7 @@ const App = () => {
             type: 'name'
           }
         ]}
+        button={{ prefix: <div></div> }}
       />
       <State />
     </BoomForm>
