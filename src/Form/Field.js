@@ -91,8 +91,8 @@ const Field = ({ id, type, classnameprefix, label, instruction, ...props }) => {
       </div>
       {instruction !== undefined ? (
         <div
-          className={classNames(`boomForm-${type}__instruction`, {
-            [`${classnameprefix}-${type}__instruction`]: classnameprefix
+          className={classNames(`boomForm-field__instruction`, {
+            [`${classnameprefix}-field__instruction`]: classnameprefix
           })}
         >
           {instruction}
