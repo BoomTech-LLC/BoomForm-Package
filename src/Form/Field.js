@@ -58,7 +58,7 @@ const FieldByType = ({ type, ...props }) => {
   }
 }
 
-const Field = ({ id, type, classnameprefix, label, ...props }) => {
+const Field = ({ id, type, classnameprefix, label, instruction, ...props }) => {
   return (
     <div
       id={`field-${id}`}
@@ -85,9 +85,19 @@ const Field = ({ id, type, classnameprefix, label, ...props }) => {
           type={type}
           classnameprefix={classnameprefix}
           label={label}
+          instruction={instruction}
           {...props}
         />
       </div>
+      {instruction !== undefined ? (
+        <div
+          className={classNames(`boomForm-${type}__instruction`, {
+            [`${classnameprefix}-${type}__instruction`]: classnameprefix
+          })}
+        >
+          {instruction}
+        </div>
+      ) : null}
     </div>
   )
 }

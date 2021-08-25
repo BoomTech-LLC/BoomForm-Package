@@ -12,7 +12,8 @@ const App = () => {
         fields={[
           {
             id: 1,
-            type: 'name'
+            type: 'name',
+            instruction: 'hello'
           },
           {
             id: 2,
