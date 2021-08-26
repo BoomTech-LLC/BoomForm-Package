@@ -62,7 +62,7 @@ export const handleValidateCheckbox = ({ value, validation }) => {
   if (!validation) return false
   for (let item in validation) {
     const { msg } = validation[item]
-    if (item === 'required' && !value.checked) return msg
+    if (item === 'required' && !value) return msg
   }
 }
 export const handleValidateSelect = ({ value, validation }) => {
@@ -76,6 +76,6 @@ export const handleValidateRadio = ({ value, validation }) => {
   if (!validation) return false
   for (let item in validation) {
     const { msg } = validation[item]
-    if (item === 'required' && !value.checked) return msg
+    if (item === 'required' && !value) return msg
   }
 }

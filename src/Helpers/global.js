@@ -89,3 +89,12 @@ export const getPrintableFields = (fields, logic = [], pagination = []) => {
     return a.filter((i) => c.includes(i))
   })
 }
+
+export const getIdsByName = (name, fields) => {
+  const ids = []
+  fields.map((field) => {
+    if (field.name === name) ids.push(field.id)
+  })
+
+  return ids
+}

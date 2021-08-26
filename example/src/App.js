@@ -12,19 +12,27 @@ const App = () => {
         fields={[
           {
             id: 1,
-            type: 'name',
-            instruction: 'hello'
-          },
-          {
-            id: 2,
-            type: 'name'
-          },
-          {
-            id: 3,
-            type: 'name'
+            type: 'select',
+            validation: { required: { msg: 'Sxala' } },
+            options: [
+              {
+                key: 'placeholder',
+                value: 'barev',
+                label: 'barev'
+              },
+              {
+                key: 2,
+                value: 'barev1',
+                label: 'barev1'
+              },
+              {
+                key: 3,
+                value: 'barev2',
+                label: 'barev2'
+              }
+            ]
           }
         ]}
-        button={{ prefix: <div></div> }}
       />
       <State />
     </BoomForm>

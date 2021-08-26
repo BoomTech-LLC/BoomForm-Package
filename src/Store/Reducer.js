@@ -3,7 +3,9 @@ import {
   setNestedValue,
   handleRadioEdit,
   checkIdStructure,
-  deepCopy
+  deepCopy,
+  getIdsByName,
+  getNestedValue
 } from './../Helpers/global'
 import {
   validate,
@@ -52,11 +54,11 @@ export const reduser = (state, action) => {
           if (value === undefined)
             throw new Error('`Radio` should have a value attribute')
 
-          touched[name] = isTouched
+          if (!touched[name]) touched[name] = initial.checked
 
           const [radioInitial] = fields
             .filter((field) => field.name === name)
-            .filter((box) => box.initial)
+            .filter((box) => box.initial?.checked)
           const [radioValidation] = fields
             .filter((field) => field.name === name)
             .filter((box) => box?.validation)
@@ -75,11 +77,11 @@ export const reduser = (state, action) => {
           if (value === undefined)
             throw new Error('`Checkbox` should have a value attribute')
 
-          touched[name] = isTouched
+          if (!touched[name]) touched[name] = initial.checked
 
           const [checkBoxInitial] = fields
             .filter((field) => field.name === name)
-            .filter((box) => box.initial)
+            .filter((box) => box.initial.checked)
           const [checkBoxValidation] = fields
             .filter((field) => field.name === name)
             .filter((box) => box.validation)
@@ -88,12 +90,13 @@ export const reduser = (state, action) => {
             value: checkBoxInitial?.initial,
             validation: checkBoxValidation?.validation
           })
-          if (checkBoxError) errors[name || id] = checkBoxError
-          else delete errors[name || id]
+
+          if (checkBoxError) errors[name] = checkBoxError
+          else delete errors[name]
 
           break
         case 'select':
-          touched[id] = isTouched
+          touched[id] = initial.key !== 'placeholder' ? true : false
           const selectError = handleValidateSelect({
             value: initial,
             validation: validation
@@ -143,10 +146,7 @@ export const reduser = (state, action) => {
           )
           touched[name] = true
           values = { ...values_ }
-
-          const radioError = handleValidateRadio({ value, validation })
-          if (radioError) errors[name] = radioError
-          else delete errors[name]
+          delete errors[name]
 
           break
 
@@ -156,13 +156,27 @@ export const reduser = (state, action) => {
           else values[id] = value
 
           touched[name] = true
+
+          const groupedIds = getIdsByName(name, fields)
+          let isSomeChecked = false
+          groupedIds.map((checkboxId) => {
+            let currentValue = null
+            if (checkboxId.toString().includes('.'))
+              currentValue = getNestedValue(values, checkboxId)
+            else currentValue = values[checkboxId]
+
+            if (currentValue.checked) isSomeChecked = true
+          })
+
           const [checkboxValidation] = fields
             .filter((field) => field.name === name)
             .filter((box) => box.validation)
+
           const checkBoxError = handleValidateCheckbox({
-            value,
+            value: isSomeChecked,
             validation: checkboxValidation?.validation
           })
+
           if (checkBoxError) errors[name] = checkBoxError
           else delete errors[name]
 

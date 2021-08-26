@@ -1,7 +1,7 @@
 import React from 'react'
 import classNames from 'classnames/bind'
+import Error from './Error'
 
-// Secondary
 import Name from './Fields/Name/Name'
 import Address from './Fields/Address/Address'
 import MultipleChoice from './Fields/MultipleChoice/MultipleChoice'
@@ -89,6 +89,7 @@ const Field = ({ id, type, classnameprefix, label, instruction, ...props }) => {
           {...props}
         />
       </div>
+      <Error classnameprefix={classnameprefix} id={id} type={type} />
       {instruction !== undefined ? (
         <div
           className={classNames(`boomForm-field__instruction`, {
