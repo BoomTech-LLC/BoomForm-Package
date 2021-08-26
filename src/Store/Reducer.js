@@ -1,4 +1,4 @@
-import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM } from './Types'
+import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOCUED } from './Types'
 import {
   setNestedValue,
   handleRadioEdit,
@@ -132,7 +132,6 @@ export const reduser = (state, action) => {
       const { fields } = state
       let { values } = state
       values = deepCopy(values)
-      const touched = { ...state.touched }
       const errors = { ...state.errors }
 
       switch (type) {
@@ -144,7 +143,6 @@ export const reduser = (state, action) => {
             id,
             value
           )
-          touched[name] = true
           values = { ...values_ }
           delete errors[name]
 
@@ -154,8 +152,6 @@ export const reduser = (state, action) => {
           if (id.toString().includes('.'))
             values = setNestedValue(id, value, values)
           else values[id] = value
-
-          touched[name] = true
 
           const groupedIds = getIdsByName(name, fields)
           let isSomeChecked = false
@@ -192,7 +188,6 @@ export const reduser = (state, action) => {
           if (selectError) errors[id] = selectError
           else delete errors[id]
 
-          touched[id] = true
           break
         default:
           if (id.toString().includes('.'))
@@ -202,23 +197,40 @@ export const reduser = (state, action) => {
           const error = validate({ value, validation })
           if (error) errors[id] = error
           else delete errors[id]
-
-          touched[id] = true
       }
 
       return {
         ...state,
         values,
-        touched,
         errors
       }
     }
+
     case RESET_FORM: {
       return {
         ...state,
         values: defaultValues,
         touched: defaultTouched,
         errors: defaultErros
+      }
+    }
+
+    case SET_TOCUED: {
+      const { id, type, name } = payload
+      const touched = { ...state.touched }
+
+      switch (type) {
+        case 'radio':
+        case 'checkbox':
+          touched[name] = true
+          break
+        default:
+          touched[id] = true
+      }
+
+      return {
+        ...state,
+        touched
       }
     }
 
