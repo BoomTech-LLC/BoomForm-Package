@@ -12,25 +12,8 @@ const App = () => {
         fields={[
           {
             id: 1,
-            type: 'select',
-            validation: { required: { msg: 'Sxala' } },
-            options: [
-              {
-                key: 'placeholder',
-                value: 'barev',
-                label: 'barev'
-              },
-              {
-                key: 2,
-                value: 'barev1',
-                label: 'barev1'
-              },
-              {
-                key: 3,
-                value: 'barev2',
-                label: 'barev2'
-              }
-            ]
+            type: 'address',
+            validation: { required: { msg: 'Sxala' } }
           }
         ]}
       />
