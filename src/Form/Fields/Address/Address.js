@@ -70,7 +70,7 @@ const Address = ({
         )}
       </div>
       <div>
-        {hide?.includes('city') ? null : (
+        {hide?.includes('zip') ? null : (
           <Input
             {...props}
             key={`${id}.zip`}
