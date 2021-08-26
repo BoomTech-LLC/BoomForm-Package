@@ -12,8 +12,11 @@ const App = () => {
         fields={[
           {
             id: 1,
-            type: 'address',
-            validation: { required: { msg: 'Sxala' } }
+            type: 'time',
+            validations: {
+              hour: { required: { msg: 'Sxala' } },
+              minute: { required: { msg: 'Sxala' } }
+            }
           }
         ]}
       />
