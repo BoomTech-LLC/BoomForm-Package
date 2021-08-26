@@ -16,6 +16,7 @@ const Address = ({
   placeholders,
   initials,
   validations,
+  defaultCountry,
   ...props
 }) => {
   const fields = getAddressFields()
@@ -31,6 +32,7 @@ const Address = ({
               key={`${id}.${item}`}
               id={`${id}.${item}`}
               options={countryList}
+              initial={defaultCountry}
             />
           )
         }
