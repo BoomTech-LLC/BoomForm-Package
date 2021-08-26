@@ -2,8 +2,17 @@ import React, { Fragment } from 'react'
 import Input from './../../../Fields/Input/Input'
 import Select from './../../../Fields/Select/Select'
 import { getTimeFields } from './../../Helpers/time'
+import { getValidation } from './../../Helpers/global'
 
-const Time = ({ id, initial, label, format, classnamepreFix, ...props }) => {
+const Time = ({
+  id,
+  initial,
+  label,
+  format,
+  classnamepreFix,
+  validations,
+  ...props
+}) => {
   return (
     <>
       {getTimeFields(format).map((item) => {
@@ -17,6 +26,7 @@ const Time = ({ id, initial, label, format, classnamepreFix, ...props }) => {
                 type='text'
                 maxLength='2'
                 placeholder={placeholder}
+                validation={getValidation(validations, key)}
               />
             )}
 
