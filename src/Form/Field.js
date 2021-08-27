@@ -18,6 +18,7 @@ import Price from './Fields/Price/Price'
 import Time from './Fields/Time/Time'
 import StarRating from './Fields/StarRating/StarRating'
 import ScaleRating from './Fields/ScaleRating/ScaleRating'
+import Textarea from './Fields/Textarea/Textarea'
 
 const FieldByType = ({ type, ...props }) => {
   switch (type) {
@@ -31,6 +32,8 @@ const FieldByType = ({ type, ...props }) => {
       return <SingleChoice {...props} />
     case 'text':
       return <Text {...props} />
+    case 'textarea':
+      return <Textarea {...props} />
     case 'email':
       return <Email {...props} />
     case 'url':

@@ -16,8 +16,11 @@ const App = () => {
         fields={[
           {
             id: 1,
-            type: 'custom',
-            component: Cust
+            type: 'textarea',
+            validation: {
+              required: { msg: 'Barev Aper' },
+              min: { msg: 'Vazgen', value: 3, type: 'char' }
+            }
           }
         ]}
       />
