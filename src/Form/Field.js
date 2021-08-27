@@ -12,7 +12,7 @@ import Url from './Fields/Url/Url'
 import Phone from './Fields/Phone/Phone'
 import Password from './Fields/Password/Password'
 import Number from './Fields/Number/Number'
-import Custom from './Fields/Custom/Custom'
+import Routine from './Fields/Routine/Routine'
 import Select from './Fields/Select/Select'
 import Price from './Fields/Price/Price'
 import Time from './Fields/Time/Time'
@@ -42,7 +42,7 @@ const FieldByType = ({ type, ...props }) => {
     case 'number':
       return <Number {...props} />
     case 'custom':
-      return <Custom {...props} />
+      return <Routine {...props} />
     case 'select':
       return <Select {...props} />
     case 'price':

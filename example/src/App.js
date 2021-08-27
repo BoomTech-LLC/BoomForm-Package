@@ -2,6 +2,10 @@ import React from 'react'
 import { BoomForm, Form } from 'boomform'
 import State from './State'
 
+const Cust = (props) => {
+  return <div>Custom Component Bitxh</div>
+}
+
 const App = () => {
   return (
     <BoomForm>
@@ -12,11 +16,8 @@ const App = () => {
         fields={[
           {
             id: 1,
-            type: 'time',
-            validations: {
-              hour: { required: { msg: 'Sxala' } },
-              minute: { required: { msg: 'Sxala' } }
-            }
+            type: 'custom',
+            component: Cust
           }
         ]}
       />
