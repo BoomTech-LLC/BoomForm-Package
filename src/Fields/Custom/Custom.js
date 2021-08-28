@@ -6,7 +6,7 @@ import Memoizeable from '../../Memoizeable'
 const Custom = ({ id, initial, children, ...props }) => {
   const { state, actions } = useContext(context)
   const { handleChange, handleBlur, handleClick, declareField } = actions
-  const { values, errors } = state
+  const { values, errors, fields, touched } = state
 
   useEffect(() => {
     const actualInitial = initial === undefined ? null : initial
@@ -21,8 +21,30 @@ const Custom = ({ id, initial, children, ...props }) => {
   if (value === undefined) return null
 
   return (
-    <Memoizeable field={{ id, initial, children, value, ...props }}>
-      {children({ id, handleChange, handleBlur, handleClick, value, errors })}
+    <Memoizeable
+      field={{
+        id,
+        initial,
+        children,
+        value,
+        values,
+        errors,
+        fields,
+        touched,
+        ...props
+      }}
+    >
+      {children({
+        id,
+        handleChange,
+        handleBlur,
+        handleClick,
+        value,
+        values,
+        errors,
+        fields,
+        touched
+      })}
     </Memoizeable>
   )
 }
