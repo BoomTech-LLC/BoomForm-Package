@@ -1,6 +1,7 @@
 export const validate = ({ value, validation }) => {
   if (value === null) value = ''
   if (!validation) return false
+
   for (let item in validation) {
     const { type, msg, value: parameter } = validation[item]
     switch (item) {
@@ -13,12 +14,11 @@ export const validate = ({ value, validation }) => {
           case 'length':
             if (value.length > parameter) return msg
             break
-          case 'char':
-            if (value.length - (value.trim().split(' ').length - 1) > parameter)
-              return msg
-            break
           case 'word':
             if (value.trim().split(' ').length > parameter) return msg
+            break
+          case 'number':
+            if (value > parameter) return msg
             break
         }
         break
@@ -28,12 +28,11 @@ export const validate = ({ value, validation }) => {
           case 'length':
             if (value.length < parameter) return msg
             break
-          case 'char':
-            if (value.length - (value.trim().split(' ').length - 1) < parameter)
-              return msg
-            break
           case 'word':
-            if (value.trim().split(' ').length < parametr) return msg
+            if (value.trim().split(' ').length < parameter) return msg
+            break
+          case 'number':
+            if (value < parameter) return msg
             break
         }
         break
