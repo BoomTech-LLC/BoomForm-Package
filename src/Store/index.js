@@ -12,8 +12,6 @@ const Store = ({ children, ...props }) => {
     ...props
   })
 
-  console.log(state.errors)
-
   const declareField = ({ id, initial, field }) => {
     dispatch({
       type: DECLARE_FIELD,
