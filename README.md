@@ -14,9 +14,12 @@ Using Boomform you don’t need to take care of data structure, fields re render
 
 
 ## Made in BoomTech 
+
+![This is an image](https://cdn.boomte.ch/images/boomtechdeveloper/logo.svg)
+
 ### By
 
-|||
-| ------------- | ------------- |
-| ![This is an image](https://cdn.boomte.ch/images/TikoN.png?x=1)  | ![This is an image](https://cdn.boomte.ch/images/TikoP.png?x=1)  |
-| Tigran Nazaryan  | Tigran Paployan  |
+||||
+| ------------- | ------------- | ------------- |
+| ![This is an image](https://cdn.boomte.ch/images/TikoN.png?x=1)  | ![This is an image](https://cdn.boomte.ch/images/TikoP.png?x=1)  | ![This is an image](https://cdn.boomte.ch/images/SahakS.png?x=2)  |
+| Tigran Nazaryan  | Tigran Paployan  | Sahak Sahakyan |
