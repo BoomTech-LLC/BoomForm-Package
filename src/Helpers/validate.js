@@ -18,7 +18,8 @@ export const validate = ({ value, validation }) => {
             if (value.trim().split(' ').length > parameter) return msg
             break
           case 'number':
-            if (value > parameter) return msg
+            if (parseInt(value) > parseInt(parameter) || isNaN(parseInt(value)))
+              return msg
             break
         }
         break
@@ -32,7 +33,8 @@ export const validate = ({ value, validation }) => {
             if (value.trim().split(' ').length < parameter) return msg
             break
           case 'number':
-            if (value < parameter) return msg
+            if (parseInt(value) < parseInt(parameter) || isNaN(parseInt(value)))
+              return msg
             break
         }
         break

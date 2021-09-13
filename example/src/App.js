@@ -5,7 +5,11 @@ import State from './State'
 const App = () => {
   return (
     <BoomForm>
-      <Input id='1' type='text' />
+      <Input
+        id='1'
+        type='text'
+        validation={{ max: { msg: 'barev', value: 5, type: 'number' } }}
+      />
       <Error id='1' />
       <State />
     </BoomForm>
