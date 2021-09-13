@@ -38,8 +38,7 @@ Hey and welcome. You have started the development with the most advanced and eas
 
 🚀Boomform will do it for you. You just need to tell the program where your fields should be located and Boomform will automatically create a state for them and follow your fields lifecycle.
 
-## Read documentation here https://form.boomform.com/
-
+[Full documentation here](https://form.boomform.com/)
 
 ## Made in BoomTech 
 
