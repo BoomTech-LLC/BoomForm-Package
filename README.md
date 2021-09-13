@@ -42,11 +42,7 @@ Hey and welcome. You have started the development with the most advanced and eas
 
 ## Made in BoomTech 
 
-<img src="https://cdn.boomte.ch/images/boomtechdeveloper/logo.svg" height="100">
-
-### By
-
 ||||
-| ------------- | ------------- | ------------- |
+| <img src="https://cdn.boomte.ch/images/boomtechdeveloper/logo.svg" height="100"> |
 | ![This is an image](https://cdn.boomte.ch/images/TikoN.png?x=1)  | ![This is an image](https://cdn.boomte.ch/images/TikoP.png?x=1)  | ![This is an image](https://cdn.boomte.ch/images/SahakS.png?x=2)  |
 | Tigran Nazaryan  | Tigran Paployan  | Sahak Sahakyan |
