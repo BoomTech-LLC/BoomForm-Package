@@ -4,6 +4,32 @@
 
 [![NPM](https://img.shields.io/npm/v/boomform.svg)](https://www.npmjs.com/package/boomform)
 
+<!-- PROJECT LOGO -->
+<br />
+<p align="center">
+  <a href="https://form.boomform.com/">
+    <img src="https://cdn.boomte.ch/form/images/logo.png" alt="Logo" width="80" height="80">
+  </a>
+
+  <h3 align="center">BoomForm</h3>
+
+  <p align="center">
+    Formik with state management and full FREEDOM!
+    <br />
+    <a href="https://form.boomform.com/"><strong>Explore the docs »</strong></a>
+    <br />
+    <br />
+    <a href="https://github.com/BoomTech-LLC/BoomForm-Package">View Demo</a>
+    ·
+    <a href="https://github.com/BoomTech-LLC/BoomForm-Package/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/BoomTech-LLC/BoomForm-Package/issues">Request Feature</a>
+  </p>
+</p>
+
+
+
+
 ## Getting Started
 Hey and welcome. You have started the development with the most advanced and easy form Builder
 
