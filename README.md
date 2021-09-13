@@ -14,7 +14,7 @@
   <h3 align="center">BoomForm</h3>
 
   <p align="center">
-    Formik with state management and full FREEDOM!
+    Imagine Formik with state management and full FREEDOM!
     <br />
     <a href="https://form.boomform.com/"><strong>Explore the docs »</strong></a>
     <br />
