@@ -42,7 +42,7 @@ Hey and welcome. You have started the development with the most advanced and eas
 
 ## Made in BoomTech 
 
-![This is an image](https://cdn.boomte.ch/images/boomtechdeveloper/logo.svg)
+<img src="(https://cdn.boomte.ch/images/boomtechdeveloper/logo.svg" height="100">
 
 ### By
 
