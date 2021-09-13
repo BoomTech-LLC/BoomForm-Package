@@ -34,7 +34,9 @@
 Hey and welcome. You have started the development with the most advanced and easy form Builder
 
 ### Why BoomForm ?
-Using Boomform you don’t need to take care of data structure, fields re rendering etc… Boomform will do it for you. You just need to tell the program where your fields should be located and Boomform will automatically create a state for them and follow your fields lifecycle.
+😎 Using Boomform you don’t need to take care of data structure, fields re rendering etc… 
+
+🚀Boomform will do it for you. You just need to tell the program where your fields should be located and Boomform will automatically create a state for them and follow your fields lifecycle.
 
 ## Read documentation here https://form.boomform.com/
 
