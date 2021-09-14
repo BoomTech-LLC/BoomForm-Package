@@ -7,7 +7,7 @@
 <br />
 <p align="center">
   <a href="https://form.boomform.com/">
-    <img src="https://cdn.boomte.ch/form/images/logo.png" alt="Logo" width="80" height="80">
+    <img src="https://cdn.boomte.ch/images/BoomForm.svg" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">BoomForm</h3>
@@ -18,7 +18,7 @@
     <a href="https://form.boomform.com/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/BoomTech-LLC/BoomForm-Package">View Demo</a>
+    <a href="https://codesandbox.io/s/objective-tharp-irrv2">View Demo</a>
     ·
     <a href="https://github.com/BoomTech-LLC/BoomForm-Package/issues">Report Bug</a>
     ·
