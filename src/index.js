@@ -10,6 +10,7 @@ import Select from './Fields/Select/Select'
 import Radio from './Fields/Radio/Radio'
 import Custom from './Fields/Custom/Custom'
 
+import Viewer from './Fields/Viewer/Viewer'
 import Error from './Additional/Error/Error'
 
 const BoomForm = ({ children }) => {
@@ -26,5 +27,6 @@ export {
   Select,
   Radio,
   Custom,
+  Viewer,
   Error
 }
