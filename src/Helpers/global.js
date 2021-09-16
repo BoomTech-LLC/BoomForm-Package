@@ -18,12 +18,17 @@ export const handleRadioEdit = (values, fields, name, id, value) => {
         values = setNestedValue(
           fields[i].id,
           fields[i].id === id
-            ? { checked: true, value: fields[i].value }
+            ? { checked: true, value: value?.value || fields[i].value }
             : { checked: false, value: fields[i].value },
           values
         )
-      else if (fields[i].id === id) values[fields[i].id].checked = true
-      else values[fields[i].id].checked = false
+      else if (fields[i].id === id) {
+        values[fields[i].id].checked = true
+        values[fields[i].id].value = value?.value || fields[i].value
+      } else {
+        values[fields[i].id].checked = false
+        values[fields[i].id].value = fields[i].value
+      }
   }
 
   return { values }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { BoomForm, Custom, Input, Viewer } from 'boomform'
+import { BoomForm, Custom, Input, Viewer, Radio } from 'boomform'
 import State from './State'
 
 const App = () => {
@@ -15,10 +15,31 @@ const App = () => {
   return (
     <BoomForm>
       <Input type='text' id='3' />
+      <Radio id='551.4' name='55' value='option 1' />
+      <Radio id='552.5' name='55' value='option 2' />
       <Custom id='1'>
         {({ handleChange, values, id, value }) => {
           return (
             <div className='button-group'>
+              <input
+                type='text'
+                placeholder='33'
+                onChange={(e) => {
+                  handleChange({
+                    id: `552.5`,
+                    value: {
+                      checked: true,
+                      value: e.target.value
+                    },
+                    e: null,
+                    field: {
+                      id: `552.5`,
+                      type: 'radio',
+                      name: '55'
+                    }
+                  })
+                }}
+              />
               <button
                 onClick={(e) => handleButtonClick(handleChange, e, id, 0)}
               >
