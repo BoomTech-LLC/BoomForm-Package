@@ -1,3 +1,5 @@
+import { rules } from 'eslint-config-prettier'
+
 export const validate = ({ value, validation }) => {
   if (value === null) value = ''
   if (!validation) return false
@@ -55,6 +57,8 @@ export const validate = ({ value, validation }) => {
         )
           return msg
         break
+      case 'custom':
+        return validation[item](value)
     }
   }
 }

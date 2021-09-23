@@ -1,7 +1,7 @@
 import React, { useReducer } from 'react'
 import Context from './Context'
 import { reduser } from './Reducer'
-import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOCUED } from './Types'
+import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOUCHED } from './Types'
 
 const Store = ({ children, ...props }) => {
   const [state, dispatch] = useReducer(reduser, {
@@ -60,7 +60,7 @@ const Store = ({ children, ...props }) => {
 
     const { type, name } = field
     dispatch({
-      type: SET_TOCUED,
+      type: SET_TOUCHED,
       payload: { id, type, name }
     })
   }
