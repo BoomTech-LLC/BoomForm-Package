@@ -5,7 +5,7 @@ export const validate = ({ value, validation }) => {
   if (!validation) return false
 
   for (let item in validation) {
-    const { type, msg, value: parameter, condition } = validation[item]
+    const { type, msg, value: parameter } = validation[item]
     switch (item) {
       case 'required':
         if (!value) return msg
@@ -58,7 +58,7 @@ export const validate = ({ value, validation }) => {
           return msg
         break
       case 'custom':
-        return condition(value)
+        return validation[item](value)
     }
   }
 }

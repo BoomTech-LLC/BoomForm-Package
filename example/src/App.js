@@ -18,10 +18,8 @@ const App = () => {
         type='date'
         id='3'
         validation={{
-          custom: {
-            condition: (value) => {
-              if (value > '2021-09-18') return 'Invalid Date'
-            }
+          custom: (value) => {
+            if (value > '2021-09-18') return 'Invalid Date'
           }
         }}
       />
