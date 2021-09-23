@@ -1,9 +1,11 @@
+import { rules } from 'eslint-config-prettier'
+
 export const validate = ({ value, validation }) => {
   if (value === null) value = ''
   if (!validation) return false
 
   for (let item in validation) {
-    const { type, msg, value: parameter } = validation[item]
+    const { type, msg, value: parameter, condition } = validation[item]
     switch (item) {
       case 'required':
         if (!value) return msg
@@ -55,6 +57,8 @@ export const validate = ({ value, validation }) => {
         )
           return msg
         break
+      case 'custom':
+        return condition(value)
     }
   }
 }
