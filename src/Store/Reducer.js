@@ -1,4 +1,4 @@
-import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOCUED } from './Types'
+import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOUCHED } from './Types'
 import {
   setNestedValue,
   handleRadioEdit,
@@ -215,7 +215,7 @@ export const reduser = (state, action) => {
       }
     }
 
-    case SET_TOCUED: {
+    case SET_TOUCHED: {
       const { id, type, name } = payload
       const touched = { ...state.touched }
 
