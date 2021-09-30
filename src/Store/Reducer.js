@@ -5,7 +5,8 @@ import {
   checkIdStructure,
   deepCopy,
   getIdsByName,
-  getNestedValue
+  getNestedValue,
+  changeFieldInitial
 } from './../Helpers/global'
 import {
   validate,
@@ -32,7 +33,17 @@ export const reduser = (state, action) => {
       const isTouched = initial === null || initial === undefined ? false : true
 
       for (let i = 0; i < fields.length; i++)
-        if (fields[i].id === id) return state
+        if (fields[i].id === id) {
+          if (fields[i].initial !== initial) {
+            fields[i].initial = initial
+            values = {
+              ...values,
+              ...changeFieldInitial({ id, initial, values })
+            }
+            return { ...state, values }
+          }
+          return state
+        }
 
       try {
         checkIdStructure(id, fields)

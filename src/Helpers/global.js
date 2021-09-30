@@ -93,3 +93,8 @@ export const getIdsByName = (name, fields) => {
 
   return ids
 }
+export const changeFieldInitial = ({ id, initial, values }) => {
+  if (id.toString().includes('.')) values = setNestedValue(id, initial, values)
+  else values[id] = initial
+  return values
+}
