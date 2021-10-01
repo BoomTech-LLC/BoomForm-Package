@@ -2,6 +2,12 @@
 
 
 [![NPM](https://img.shields.io/npm/v/boomform.svg)](https://www.npmjs.com/package/boomform)
+[![github](https://badgen.net/npm/dependents/boomform)](https://www.npmjs.com/package/chalk?activeTab=dependents)
+[![github](https://badgen.net/github/stars/BoomTech-LLC/BoomForm-Package)](https://github.com/BoomTech-LLC/BoomForm-Package)
+[![github](https://badgen.net/github/issues/BoomTech-LLC/BoomForm-Package)](https://github.com/BoomTech-LLC/BoomForm-Package)
+[![github](https://badgen.net/github/last-commit/BoomTech-LLC/BoomForm-Package/main)](https://github.com/BoomTech-LLC/BoomForm-Package)
+[![NPM](https://badgen.net/npm/v/boomform)](https://www.npmjs.com/package/boomform)
+[![NPM](https://badgen.net/npm/dt/boomform)](https://www.npmjs.com/package/boomform)
 
 <!-- PROJECT LOGO -->
 <br />
