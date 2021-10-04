@@ -65,6 +65,39 @@ export default App
 ```
 There you go as easy as that. Now BoomForm is keeping all your state and following the input component lifecycle.
 
+## Data Usage Example
+We handle and keep all needed data in store so all you need is to easily import it from store and use wherever you need
+
+For getting store you just need to import `useContext` hook from react and `Context` from `boomform` and simply declare an variable which is equal to `useContext` with `Context` attribute
+
+```jsx
+import React, { useContext } from 'react'
+import { BoomForm, Input, Context } from 'boomform'
+
+const State = () => {
+  const store= useContext(Context)
+ 
+  console.log(store)
+ 
+  return null
+}
+
+const App = () => {
+  return (
+    <BoomForm>
+      Simple Input:
+      <Input id='1' type='text' />
+      <State />
+    </BoomForm>
+  )
+}
+ 
+export default App
+```
+Store contains all essential attributes like fields, values, touched, errors. You can read more about it [here](https://form.boomform.com/start#data-usage)
+
+Also You can check the [example](https://codesandbox.io/s/boomform-forked-l54j1) for more clarity
+
 ## Made in BoomTech 
 
 <img src="https://cdn.boomte.ch/images/boomtechdeveloper/logo.svg" height="100">
