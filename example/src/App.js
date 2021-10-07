@@ -1,5 +1,5 @@
 import React from 'react'
-import { BoomForm, Custom, Input, Viewer, Radio } from 'boomform'
+import { BoomForm, Custom, Input, Select, Viewer, Radio } from 'boomform'
 import State from './State'
 
 const App = () => {
@@ -14,14 +14,14 @@ const App = () => {
 
   return (
     <BoomForm>
-      <Input
-        type='date'
+      <Select
         id='3'
-        validation={{
-          custom: (value) => {
-            if (value > '2021-09-18') return 'Invalid Date'
-          }
-        }}
+        options={[
+          { key: 'placeholder', value: ' -- Choice One -- ' },
+          { key: '1', value: 'today', label: 'Today' },
+          { key: '2', value: 'tomorrow' },
+          { key: '3', value: 'next week' }
+        ]}
       />
       <State />
     </BoomForm>

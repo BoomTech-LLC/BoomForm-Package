@@ -78,10 +78,10 @@ const Select = ({ id, initial, options, ...props }) => {
         }}
       >
         {options.map((option, index) => {
-          const { value: optionValue, key: optionKey } = option
+          const { value: optionValue, label, key: optionKey } = option
           return (
             <option key={index} value={optionKey} name={optionValue}>
-              {optionValue}
+              {label || optionValue}
             </option>
           )
         })}
