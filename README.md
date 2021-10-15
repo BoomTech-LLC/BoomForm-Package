@@ -105,3 +105,7 @@ Also You can check the [example](https://codesandbox.io/s/boomform-forked-l54j1)
 ![This is an image](https://cdn.boomte.ch/images/TikoN.png?x=2) | ![This is an image](https://cdn.boomte.ch/images/TikoP.png?x=1) | ![This is an image](https://cdn.boomte.ch/images/SahakS.png?x=2) 
 -- | -- | -- 
 Tigran Nazaryan | Tigran Paployan | Sahak Sahakyan
+
+--- 
+
+[Apache 2.0 License.](https://github.com/BoomTech-LLC/BoomForm-Package/blob/main/LICENSE)
