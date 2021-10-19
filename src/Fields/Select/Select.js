@@ -49,9 +49,7 @@ const Select = ({ id, initial, options, ...props }) => {
           )
           handleChange({
             id,
-            value: newValue,
-            e,
-            field: { id, initial, options, type: 'select', ...props }
+            value: newValue
           })
         }}
         onBlur={(e) => {
@@ -59,10 +57,7 @@ const Select = ({ id, initial, options, ...props }) => {
             (item) => e.target.value == item.key
           )
           handleBlur({
-            id,
-            value: newValue,
-            e,
-            field: { id, initial, options, type: 'select', ...props }
+            id
           })
         }}
         onClick={(e) => {

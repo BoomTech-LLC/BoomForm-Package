@@ -36,32 +36,12 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
             value: {
               checked: e.target.checked,
               value: checkboxValue
-            },
-            e,
-            field: {
-              id,
-              initial,
-              value: checkboxValue,
-              type: 'checkbox',
-              ...props
             }
           })
         }}
         onBlur={(e) =>
           handleBlur({
-            id,
-            value: {
-              checked: e.target.checked,
-              value: checkboxValue
-            },
-            e,
-            field: {
-              id,
-              initial,
-              value: checkboxValue,
-              type: 'checkbox',
-              ...props
-            }
+            id
           })
         }
         onClick={(e) =>

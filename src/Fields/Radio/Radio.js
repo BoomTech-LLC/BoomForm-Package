@@ -37,34 +37,12 @@ const Radio = ({ id, initial, name, value: radioValue, ...props }) => {
             value: {
               checked: true,
               value: radioValue
-            },
-            e,
-            field: {
-              id,
-              initial,
-              name,
-              value: radioValue,
-              type: 'radio',
-              ...props
             }
           })
         }}
         onBlur={(e) =>
           handleBlur({
-            id,
-            value: {
-              checked: true,
-              value: radioValue
-            },
-            e,
-            field: {
-              id,
-              initial,
-              name,
-              value: radioValue,
-              type: 'radio',
-              ...props
-            }
+            id
           })
         }
         onClick={(e) =>

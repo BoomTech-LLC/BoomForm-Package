@@ -28,17 +28,12 @@ const Textarea = ({ id, initial, ...props }) => {
         onChange={(e) => {
           handleChange({
             id,
-            value: e.target.value,
-            e,
-            field: { id, initial, type: 'textarea', ...props }
+            value: e.target.value
           })
         }}
         onBlur={(e) =>
           handleBlur({
-            id,
-            value: e.target.value,
-            e,
-            field: { id, initial, type: 'textarea', ...props }
+            id
           })
         }
         onClick={(e) =>

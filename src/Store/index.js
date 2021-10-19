@@ -23,45 +23,21 @@ const Store = ({ children, ...props }) => {
     })
   }
 
-  const handleReset = () => {
-    dispatch({
-      type: RESET_FORM
-    })
-  }
-
-  const handleChange = ({ id, value, e, field }) => {
-    if (field && field.hasOwnProperty('onChange'))
-      field.onChange({
-        id,
-        value,
-        e,
-        field,
-        handleChange: handleChange
-      })
-
+  const handleChange = ({ id, value }) => {
     dispatch({
       type: EDIT_FIELD,
       payload: {
-        ...field,
-        value
+        id,
+        value,
+        handleChange
       }
     })
   }
 
-  const handleBlur = ({ id, value, e, field }) => {
-    if (field && field.hasOwnProperty('onBlur'))
-      field.onBlur({
-        id,
-        value,
-        e,
-        field,
-        handleChange: handleChange
-      })
-
-    const { type, name } = field
+  const handleBlur = ({ id }) => {
     dispatch({
       type: SET_TOUCHED,
-      payload: { id, type, name }
+      payload: { id, handleBlur }
     })
   }
 
@@ -74,6 +50,12 @@ const Store = ({ children, ...props }) => {
         field,
         handleChange: handleChange
       })
+  }
+
+  const handleReset = () => {
+    dispatch({
+      type: RESET_FORM
+    })
   }
 
   return (

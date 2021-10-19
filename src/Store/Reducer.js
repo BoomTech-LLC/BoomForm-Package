@@ -139,11 +139,21 @@ export const reduser = (state, action) => {
     }
 
     case EDIT_FIELD: {
-      const { id, value, type, name, validation } = payload
+      const { id, value, handleChange } = payload
       const { fields } = state
+      const [field] = fields.filter((field) => field.id === id)
+      const { type, name, validation } = field
       let { values } = state
       values = deepCopy(values)
       const errors = { ...state.errors }
+
+      if (field.hasOwnProperty('onChange'))
+        field.onChange({
+          id,
+          value,
+          field,
+          handleChange
+        })
 
       switch (type) {
         case 'radio':
@@ -227,8 +237,18 @@ export const reduser = (state, action) => {
     }
 
     case SET_TOUCHED: {
-      const { id, type, name } = payload
+      const { id, handleBlur } = payload
+      const { fields } = state
+      const [field] = fields.filter((field) => field.id === id)
+      const { type, name } = field
       const touched = { ...state.touched }
+
+      if (field && field.hasOwnProperty('onBlur'))
+        field.onBlur({
+          id,
+          field,
+          handleBlur
+        })
 
       switch (type) {
         case 'radio':

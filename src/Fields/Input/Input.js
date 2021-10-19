@@ -25,17 +25,12 @@ const Input = ({ id, type, initial, ...props }) => {
         onChange={(e) => {
           handleChange({
             id,
-            value: e.target.value,
-            e,
-            field: { id, initial, type, ...props }
+            value: e.target.value
           })
         }}
         onBlur={(e) =>
           handleBlur({
-            id,
-            value: e.target.value,
-            e,
-            field: { id, initial, type, ...props }
+            id
           })
         }
         onClick={(e) =>

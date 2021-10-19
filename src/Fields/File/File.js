@@ -29,17 +29,12 @@ const File = ({ id, initial, ...props }) => {
         onChange={(e) => {
           handleChange({
             id,
-            value: e.target.files,
-            e,
-            field: { id, initial, type: 'file', ...props }
+            value: e.target.files
           })
         }}
         onBlur={(e) =>
           handleBlur({
-            id,
-            value: e.target.files,
-            e,
-            field: { id, initial, type: 'file', ...props }
+            id
           })
         }
         onClick={(e) =>
