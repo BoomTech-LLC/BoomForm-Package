@@ -14,13 +14,31 @@ export const validate = ({ value, validation }) => {
       case 'max':
         switch (type) {
           case 'length':
-            if (value.length > parameter) return msg
+            if (
+              value !== null &&
+              value !== undefined &&
+              value !== '' &&
+              value.length > parameter
+            )
+              return msg
             break
           case 'word':
-            if (value.trim().split(' ').length > parameter) return msg
+            if (
+              value !== null &&
+              value !== undefined &&
+              value !== '' &&
+              value.trim().split(' ').length > parameter
+            )
+              return msg
             break
           case 'number':
-            if (parseInt(value) > parseInt(parameter) || isNaN(parseInt(value)))
+            if (
+              parseInt(value) > parseInt(parameter) ||
+              (isNaN(parseInt(value)) &&
+                value !== null &&
+                value !== undefined &&
+                value !== '')
+            )
               return msg
             break
         }
@@ -29,31 +47,51 @@ export const validate = ({ value, validation }) => {
       case 'min':
         switch (type) {
           case 'length':
-            if (value.length < parameter) return msg
+            if (
+              value !== null &&
+              value !== undefined &&
+              value !== '' &&
+              value.length < parameter
+            )
+              return msg
             break
           case 'word':
-            if (value.trim().split(' ').length < parameter) return msg
+            if (
+              value !== null &&
+              value !== undefined &&
+              value !== '' &&
+              value.trim().split(' ').length < parameter
+            )
+              return msg
             break
           case 'number':
-            if (parseInt(value) < parseInt(parameter) || isNaN(parseInt(value)))
+            if (
+              parseInt(value) < parseInt(parameter) ||
+              (isNaN(parseInt(value)) &&
+                value !== null &&
+                value !== undefined &&
+                value !== '')
+            )
               return msg
             break
         }
         break
 
       case 'email':
-        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) return msg
+        if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) && value)
+          return msg
         break
 
       case 'phone':
-        if (!/^[0-9- ^*()+]{6,}$/i.test(value)) return msg
+        if (!/^[0-9- ^*()+]{6,}$/i.test(value) && value) return msg
         break
 
       case 'url':
         if (
           !/^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,5}[\.]{0,1}(.*))$/i.test(
             value
-          )
+          ) &&
+          value
         )
           return msg
         break
