@@ -1,5 +1,3 @@
-import { rules } from 'eslint-config-prettier'
-
 export const validate = ({ value, validation }) => {
   if (value === null) value = ''
   if (!validation) return false
