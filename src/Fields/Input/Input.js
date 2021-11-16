@@ -1,13 +1,18 @@
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useEffect, useContext } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
+import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
+import { patterns } from '../../Constants/patterns'
 
 const Input = ({ id, type, initial, ...props }) => {
   const { state, actions } = useContext(context)
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values } = state
-  const [validationMessageIsShown, setValidationMessageIsShown] = useState(false)
+  const handleShowNativeValidationMessage = useNativeValidationMessage()
+
+  console.log("State:", state)
+  console.log("Field", state.fields.find(field => field.id === id))
 
   useEffect(() => {
     const actualInitial = initial === undefined ? null : initial
@@ -24,30 +29,17 @@ const Input = ({ id, type, initial, ...props }) => {
         type={type}
         value={value || ''}
         onChange={(e) => {
-          handleChange({
-            id,
-            value: e.target.value
-          })
+          handleChange({ id, value: e.target.value })
         }}
         onBlur={(e) => {
-          if (!validationMessageIsShown) {
-            e.target.reportValidity()
-          }
-
-          setValidationMessageIsShown(validationMessageIsShown => !validationMessageIsShown)
+          handleShowNativeValidationMessage(e.target)
 
           handleBlur({ id })
         }
         }
         onClick={(e) =>
-          handleClick({
-            id,
-            value: e.target.value,
-            e,
-            field: { id, initial, type, ...props }
-          })
+          handleClick({ id, value: e.target.value, e, field: { id, initial, type, ...props } })
         }
-        required
       />
     </Memoizeable>
   )

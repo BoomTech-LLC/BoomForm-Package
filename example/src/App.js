@@ -6,7 +6,7 @@ const App = () => {
   return (
     <BoomForm>
       <Input
-        id='1'
+        id='11'
         type='text'
         onChange={({ handleChange }) => {
           handleChange({
@@ -14,8 +14,10 @@ const App = () => {
             value: 123
           })
         }}
+        validation={{ required: { msg: "This field is required" } }}
+        placeholder="Required field"
       />
-      <Input id='2' type='text' />
+      <Input id='2' type='text' validation={{ email: { msg: "Incorrect e-mail" } }} placeholder="email" />
       <State />
     </BoomForm>
   )
