@@ -1,11 +1,13 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
+
 const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
   const { state, actions } = useContext(context)
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values } = state
+  const [validationMessageIsShown, setValidationMessageIsShown] = useState(false)
 
   useEffect(() => {
     const actualInitial = {
@@ -39,10 +41,15 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
             }
           })
         }}
-        onBlur={(e) =>
-          handleBlur({
-            id
-          })
+        onBlur={(e) => {
+          if (!validationMessageIsShown) {
+            e.target.reportValidity()
+          }
+
+          setValidationMessageIsShown(validationMessageIsShown => !validationMessageIsShown)
+
+          handleBlur({ id })
+        }
         }
         onClick={(e) =>
           handleClick({

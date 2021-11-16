@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useState } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
@@ -7,6 +7,7 @@ const Select = ({ id, initial, options, ...props }) => {
   const { state, actions } = useContext(context)
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values } = state
+  const [validationMessageIsShown, setValidationMessageIsShown] = useState(false)
 
   const getValueByKey = (neededKey) => {
     const [selectedValue] = options.filter((item) => item.key === neededKey)
@@ -56,9 +57,14 @@ const Select = ({ id, initial, options, ...props }) => {
           const [newValue] = options.filter(
             (item) => e.target.value == item.key
           )
-          handleBlur({
-            id
-          })
+
+          if (!validationMessageIsShown) {
+            e.target.reportValidity()
+          }
+
+          setValidationMessageIsShown(validationMessageIsShown => !validationMessageIsShown)
+
+          handleBlur({ id })
         }}
         onClick={(e) => {
           const [newValue] = options.filter(
