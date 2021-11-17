@@ -38,8 +38,7 @@ const File = ({ id, initial, ...props }) => {
           handleShowNativeValidationMessage(e.target)
 
           handleBlur({ id })
-        }
-        }
+        }}
         onClick={(e) =>
           handleClick({
             id,

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useRef } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
@@ -7,8 +7,10 @@ import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessa
 const Select = ({ id, initial, options, ...props }) => {
   const { state, actions } = useContext(context)
   const { handleChange, handleBlur, handleClick, declareField } = actions
-  const { values } = state
+  const { values, errors } = state
   const handleShowNativeValidationMessage = useNativeValidationMessage()
+  const ref = useRef()
+  const possibleError = errors[id]
 
   const getValueByKey = (neededKey) => {
     const [selectedValue] = options.filter((item) => item.key === neededKey)
@@ -31,7 +33,23 @@ const Select = ({ id, initial, options, ...props }) => {
     })
   }, [id, initial])
 
+  console.log('SELECT:', state)
+
+  useEffect(() => {
+    if (possibleError) {
+      ref.current.setCustomValidity(possibleError)
+    }
+  }, [possibleError])
+
   const value = getFieldValue(values, id)
+
+  const blurHandler = (e) => {
+    const [newValue] = options.filter((item) => e.target.value == item.key)
+
+    handleShowNativeValidationMessage(e.target)
+
+    handleBlur({ id })
+  }
 
   if (value === undefined) return null
 
@@ -45,24 +63,18 @@ const Select = ({ id, initial, options, ...props }) => {
     <Memoizeable field={{ id, initial, options, value, selectedKey, ...props }}>
       <select
         value={selectedKey}
+        ref={ref}
         onChange={(e) => {
           const [newValue] = options.filter(
             (item) => e.target.value == item.key
           )
+          if (possibleError) handleShowNativeValidationMessage(e.target)
           handleChange({
             id,
             value: newValue
           })
         }}
-        onBlur={(e) => {
-          const [newValue] = options.filter(
-            (item) => e.target.value == item.key
-          )
-
-          handleShowNativeValidationMessage(e.target)
-
-          handleBlur({ id })
-        }}
+        onBlur={blurHandler}
         onClick={(e) => {
           const [newValue] = options.filter(
             (item) => e.target.value == item.key
@@ -74,6 +86,7 @@ const Select = ({ id, initial, options, ...props }) => {
             field: { id, initial, options, type: 'select', ...props }
           })
         }}
+        required={possibleError === undefined ? false : true} // with condition
       >
         {options.map((option, index) => {
           const { value: optionValue, label, key: optionKey } = option

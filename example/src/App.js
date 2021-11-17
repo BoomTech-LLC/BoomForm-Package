@@ -1,23 +1,46 @@
 import React from 'react'
-import { BoomForm, Input } from 'boomform'
+import { BoomForm, Input, Textarea, Select, Checkbox } from 'boomform'
 import State from './State'
 
 const App = () => {
   return (
     <BoomForm>
-      <Input
+      {/* <Input
         id='11'
         type='text'
-        onChange={({ handleChange }) => {
-          handleChange({
-            id: 2,
-            value: 123
-          })
+        validation={{
+          required: { msg: 'Req field' },
+          email: { msg: 'Incorrrrrect email' }
         }}
-        validation={{ required: { msg: "This field is required" } }}
-        placeholder="Required field"
+        placeholder='Required field'
       />
-      <Input id='2' type='text' validation={{ email: { msg: "Incorrect e-mail" } }} placeholder="email" />
+      <Textarea
+        id='23'
+        validation={{
+          required: { msg: 'Req field' },
+          email: { msg: 'Inorrrrect email' }
+        }}
+        placeholder='Required field'
+      />
+      <Select
+        id='1'
+        initial='1'
+        options={[
+          { key: 'placeholder', value: ' -- Choice One -- ' },
+          { key: '1', value: 'Today' },
+          { key: '2', value: 'Tomorrow' },
+          { key: '3', value: 'Next Week' }
+        ]}
+        validation={{ required: { msg: 'Requiredd' } }}
+      /> */}
+      <Checkbox
+        id='1'
+        name='1'
+        validation={{ required: { msg: 'Barev' } }}
+        value='barev 1'
+      />
+      <Checkbox id='2' name='1' value='barev 2' />
+      <Checkbox id='3' name='1' value='barev 3' />
       <State />
     </BoomForm>
   )

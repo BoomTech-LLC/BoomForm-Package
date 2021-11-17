@@ -7,7 +7,7 @@ import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessa
 const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
   const { state, actions } = useContext(context)
   const { handleChange, handleBlur, handleClick, declareField } = actions
-  const { values } = state
+  const { values, errors } = state
   const handleShowNativeValidationMessage = useNativeValidationMessage()
 
   useEffect(() => {
@@ -46,8 +46,8 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
           handleShowNativeValidationMessage(e.target)
 
           handleBlur({ id })
-        }
-        }
+        }}
+        required={Boolean(errors[props.name])}
         onClick={(e) =>
           handleClick({
             id,
