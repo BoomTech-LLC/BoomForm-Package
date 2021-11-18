@@ -9,11 +9,9 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const ref = useRef()
-  const { handleChange, handleBlur, handleClick, declareField } = actions
+  const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
   const possibleError = errors[props.name]
-  const hasValidation = checkFieldValidationExisting(state, id);
-  const isRequired = hasValidation === true && possibleError !== undefined ? true : false
 
   useEffect(() => {
     const actualInitial = {
@@ -30,18 +28,15 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
 
   useEffect(() => {
     if (ref.current) {
-      if (possibleError === undefined && hasValidation !== true) {
-        ref.current.setCustomValidity("")
-      } else {
-        ref.current.setCustomValidity(possibleError)
-      }
+      if (possibleError === undefined) ref.current.setCustomValidity('')
+      else ref.current.setCustomValidity(possibleError)
     }
   }, [possibleError])
 
   const value = getFieldValue(values, id)
 
-  const blurHandler = (e) => {
-    handleShowNativeValidationMessage(e.target)
+  const onBlur = (e) => {
+    if (possibleError) handleShowNativeValidationMessage(e.target)
     handleBlur({ id })
   }
 
@@ -63,25 +58,7 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
             }
           })
         }}
-        onBlur={blurHandler}
-        required={isRequired}
-        onClick={(e) =>
-          handleClick({
-            id,
-            value: {
-              checked: e.target.checked,
-              value: checkboxValue
-            },
-            e,
-            field: {
-              id,
-              initial,
-              value: checkboxValue,
-              type: 'checkbox',
-              ...props
-            }
-          })
-        }
+        onBlur={onBlur}
       />
     </Memoizeable>
   )

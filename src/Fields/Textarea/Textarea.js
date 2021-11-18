@@ -4,13 +4,13 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Textarea = ({ id, initial, ...props }) => {
+const Textarea = ({ id, initial, validation, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values, errors } = state
   const possibleError = errors[id]
-  const minLength = possibleError === undefined ? possibleError : 2147483647
+  const { HTMLValidate } = validation
   const ref = useRef()
 
   useEffect(() => {
@@ -18,26 +18,23 @@ const Textarea = ({ id, initial, ...props }) => {
     declareField({
       id,
       initial: actualInitial,
-      field: { type: 'textarea', ...props }
+      field: { type: 'textarea', validation, ...props }
     })
   }, [id, initial])
 
   useEffect(() => {
-    if (ref.current) {
-      if (possibleError === undefined) {
-        ref.current.setCustomValidity("")
-      } else {
-        ref.current.setCustomValidity(possibleError)
-      }
-    }
-  }, [possibleError])
+    if (ref.current && HTMLValidate === true)
+      if (possibleError === undefined) ref.current.setCustomValidity("")
+      else ref.current.setCustomValidity(possibleError)
+  }, [possibleError, HTMLValidate])
 
   const value = getFieldValue(values, id)
   if (value === undefined) return null
 
-  const blurHandler = (e) => {
-    handleShowNativeValidationMessage(e.target)
+  const onChange = (e) => handleChange({ id, value: e.target.value })
 
+  const onBlur = (e) => {
+    if(possibleError && HTMLValidate === true) handleShowNativeValidationMessage(e.target)
     handleBlur({ id })
   }
 
@@ -47,22 +44,8 @@ const Textarea = ({ id, initial, ...props }) => {
         {...props}
         value={value || ''}
         ref={ref}
-        onChange={(e) => {
-          handleChange({
-            id,
-            value: e.target.value
-          })
-        }}
-        onBlur={blurHandler}
-        onClick={(e) =>
-          handleClick({
-            id,
-            value: e.target.value,
-            e,
-            field: { id, initial, type: 'textarea', ...props }
-          })
-        }
-        minLength={minLength}
+        onChange={onChange}
+        onBlur={onBlur}
       />
     </Memoizeable>
   )

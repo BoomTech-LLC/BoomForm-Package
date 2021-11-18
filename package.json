@@ -58,8 +58,5 @@
   },
   "files": [
     "dist"
-  ],
-  "dependencies": {
-    "md5": "^2.3.0"
-  }
+  ]
 }

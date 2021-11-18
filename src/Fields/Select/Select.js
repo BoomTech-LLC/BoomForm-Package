@@ -4,21 +4,21 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Select = ({ id, initial, options, ...props }) => {
+const Select = ({ id, initial, options, validation, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const ref = useRef()
-  const { handleChange, handleBlur, handleClick, declareField } = actions
+  const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
+  const { HTMLValidate } = validation
   const possibleError = errors[id]
-  const isRequired = possibleError === undefined ? false : true
+
+  if (!options) throw new Error('select should have a options attribute')
 
   const getValueByKey = (neededKey) => {
     const [selectedValue] = options.filter((item) => item.key === neededKey)
     return selectedValue
   }
-
-  if (!options) throw new Error('select should have a options attribute')
 
   useEffect(() => {
     const actualInitial =
@@ -28,6 +28,7 @@ const Select = ({ id, initial, options, ...props }) => {
       initial: actualInitial,
       field: {
         options,
+        validation,
         type: 'select',
         ...props
       }
@@ -35,25 +36,27 @@ const Select = ({ id, initial, options, ...props }) => {
   }, [id, initial])
 
   useEffect(() => {
-    if (ref.current) {
-      if (possibleError === undefined) {
-        ref.current.setCustomValidity("")
-      } else {
-        ref.current.setCustomValidity(possibleError)
-      }
+    if (ref.current && HTMLValidate === true) {
+      if (possibleError === undefined) ref.current.setCustomValidity('')
+      else ref.current.setCustomValidity(possibleError)
     }
-  }, [possibleError])
+  }, [possibleError, HTMLValidate])
 
-  const value = getFieldValue(values, id)
-
-  const blurHandler = (e) => {
+  const onChange = (e) => {
     const [newValue] = options.filter((item) => e.target.value == item.key)
+    handleChange({
+      id,
+      value: newValue
+    })
+  }
 
-    handleShowNativeValidationMessage(e.target)
-
+  const onBlur = (e) => {
+    if (possibleError && HTMLValidate === true)
+      handleShowNativeValidationMessage(e.target)
     handleBlur({ id })
   }
 
+  const value = getFieldValue(values, id)
   if (value === undefined) return null
 
   let selectedKey = options[0].key
@@ -64,33 +67,7 @@ const Select = ({ id, initial, options, ...props }) => {
 
   return (
     <Memoizeable field={{ id, initial, options, value, selectedKey, ...props }}>
-      <select
-        value={selectedKey}
-        ref={ref}
-        onChange={(e) => {
-          const [newValue] = options.filter(
-            (item) => e.target.value == item.key
-          )
-          if (possibleError) handleShowNativeValidationMessage(e.target)
-          handleChange({
-            id,
-            value: newValue
-          })
-        }}
-        onBlur={blurHandler}
-        onClick={(e) => {
-          const [newValue] = options.filter(
-            (item) => e.target.value == item.key
-          )
-          handleClick({
-            id,
-            value: newValue,
-            e,
-            field: { id, initial, options, type: 'select', ...props }
-          })
-        }}
-        required={isRequired}
-      >
+      <select value={selectedKey} ref={ref} onChange={onChange} onBlur={onBlur}>
         {options.map((option, index) => {
           const { value: optionValue, label, key: optionKey } = option
 
