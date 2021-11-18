@@ -34,17 +34,17 @@ const App = () => {
         validation={{ required: { msg: 'Requiredd' } }}
       /> */}
       {/* <File id="42" validation={{ required: { mdg: "Required fieldd" } }} /> */}
-      {/* <Checkbox
+      <Checkbox
         id='1'
         name='1'
         validation={{ required: { msg: 'Barev' } }}
         value='barev 1'
-      /> */}
-      {/* <Checkbox id='2' name='1' value='barev 2' /> */}
-      {/* <Checkbox id='3' name='1' value='barev 3' /> */}
-      <Radio id="1" name="a" value="a" />
-      <Radio id="2" name="a" value="S" validation={{ required: { mdg: "Required fieldd" } }} />
-      <Radio id="3" name="a" value="d" />
+      />
+      <Checkbox id='2' name='1' value='barev 2' />
+      <Checkbox id='3' name='1' value='barev 3' />
+      {/* <Radio id="1" name="a" value="a" /> */}
+      {/* <Radio id="2" name="a" value="S" validation={{ required: { mdg: "Required fieldd" } }} /> */}
+      {/* <Radio id="3" name="a" value="d" /> */}
       <State />
     </BoomForm>
   )

@@ -3,6 +3,7 @@ import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
+import { checkFieldValidationExisting } from '../../Helpers/checkFieldValidationExisting'
 
 const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
   const { state, actions } = useContext(context)
@@ -11,7 +12,8 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values, errors } = state
   const possibleError = errors[props.name]
-  const isRequired = possibleError === undefined ? false : true
+  const hasValidation = checkFieldValidationExisting(state, id);
+  const isRequired = hasValidation === true && possibleError !== undefined ? true : false
 
   useEffect(() => {
     const actualInitial = {
@@ -28,7 +30,7 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
 
   useEffect(() => {
     if (ref.current) {
-      if (possibleError === undefined) {
+      if (possibleError === undefined && hasValidation !== true) {
         ref.current.setCustomValidity("")
       } else {
         ref.current.setCustomValidity(possibleError)
