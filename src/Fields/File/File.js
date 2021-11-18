@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useRef } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
@@ -6,9 +6,12 @@ import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessa
 
 const File = ({ id, initial, ...props }) => {
   const { state, actions } = useContext(context)
-  const { handleChange, handleBlur, handleClick, declareField } = actions
-  const { values } = state
   const handleShowNativeValidationMessage = useNativeValidationMessage()
+  const ref = useRef()
+  const { handleChange, handleBlur, handleClick, declareField } = actions
+  const { values, errors } = state
+  const possibleError = errors[id]
+  const isRequired = possibleError === undefined ? false : true
 
   useEffect(() => {
     const actualInitial = initial === undefined ? null : initial
@@ -19,6 +22,16 @@ const File = ({ id, initial, ...props }) => {
     })
   }, [id, initial])
 
+  useEffect(() => {
+    if (ref.current) {
+      if (possibleError === undefined) {
+        ref.current.setCustomValidity("")
+      } else {
+        ref.current.setCustomValidity(possibleError)
+      }
+    }
+  }, [possibleError])
+
   const value = getFieldValue(values, id)
 
   if (value === undefined) return null
@@ -27,6 +40,7 @@ const File = ({ id, initial, ...props }) => {
     <Memoizeable field={{ id, initial, value, ...props }}>
       <input
         {...props}
+        ref={ref}
         type='file'
         onChange={(e) => {
           handleChange({

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect, useContext, useRef } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
@@ -6,9 +6,14 @@ import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessa
 
 const Radio = ({ id, initial, name, value: radioValue, ...props }) => {
   const { state, actions } = useContext(context)
-  const { handleChange, handleBlur, handleClick, declareField } = actions
-  const { values } = state
   const handleShowNativeValidationMessage = useNativeValidationMessage()
+  const ref = useRef()
+  const { handleChange, handleBlur, handleClick, declareField } = actions
+  const { values, errors } = state
+  const possibleError = errors[props.name]
+  const isRequired = possibleError === undefined ? false : true
+
+  console.log("STATE:", state)
 
   useEffect(() => {
     const actualInitial = {
@@ -22,7 +27,22 @@ const Radio = ({ id, initial, name, value: radioValue, ...props }) => {
     })
   }, [id, initial])
 
+  useEffect(() => {
+    if (ref.current) {
+      if (possibleError === undefined) {
+        ref.current.setCustomValidity("")
+      } else {
+        ref.current.setCustomValidity(possibleError)
+      }
+    }
+  }, [possibleError])
+
   const value = getFieldValue(values, id)
+
+  const blurHandler = (e) => {
+    handleShowNativeValidationMessage(e.target)
+    handleBlur({ id })
+  }
 
   if (value === undefined) return null
 
@@ -30,6 +50,7 @@ const Radio = ({ id, initial, name, value: radioValue, ...props }) => {
     <Memoizeable field={{ id, initial, name, value: value.checked, ...props }}>
       <input
         {...props}
+        ref={ref}
         type='radio'
         name={name}
         checked={value.checked}
@@ -42,12 +63,8 @@ const Radio = ({ id, initial, name, value: radioValue, ...props }) => {
             }
           })
         }}
-        onBlur={(e) => {
-          handleShowNativeValidationMessage(e.target)
-
-          handleBlur({ id })
-        }
-        }
+        required={isRequired}
+        onBlur={blurHandler}
         onClick={(e) =>
           handleClick({
             id,

@@ -3,14 +3,14 @@ import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
-import md5 from 'md5'
 
 const Textarea = ({ id, initial, ...props }) => {
   const { state, actions } = useContext(context)
+  const handleShowNativeValidationMessage = useNativeValidationMessage()
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values, errors } = state
-  const handleShowNativeValidationMessage = useNativeValidationMessage()
   const possibleError = errors[id]
+  const minLength = possibleError === undefined ? possibleError : 2147483647
   const ref = useRef()
 
   useEffect(() => {
@@ -23,10 +23,14 @@ const Textarea = ({ id, initial, ...props }) => {
   }, [id, initial])
 
   useEffect(() => {
-    if (possibleError) {
-      ref.current.setCustomValidity(possibleError)
+    if (ref.current) {
+      if (possibleError === undefined) {
+        ref.current.setCustomValidity("")
+      } else {
+        ref.current.setCustomValidity(possibleError)
+      }
     }
-  }, [possibleError, ref])
+  }, [possibleError])
 
   const value = getFieldValue(values, id)
   if (value === undefined) return null
@@ -58,7 +62,7 @@ const Textarea = ({ id, initial, ...props }) => {
             field: { id, initial, type: 'textarea', ...props }
           })
         }
-        // required={Boolean(possibleError)}
+        minLength={minLength}
       />
     </Memoizeable>
   )

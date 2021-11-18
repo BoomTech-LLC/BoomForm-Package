@@ -6,11 +6,12 @@ import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessa
 
 const Select = ({ id, initial, options, ...props }) => {
   const { state, actions } = useContext(context)
-  const { handleChange, handleBlur, handleClick, declareField } = actions
-  const { values, errors } = state
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const ref = useRef()
+  const { handleChange, handleBlur, handleClick, declareField } = actions
+  const { values, errors } = state
   const possibleError = errors[id]
+  const isRequired = possibleError === undefined ? false : true
 
   const getValueByKey = (neededKey) => {
     const [selectedValue] = options.filter((item) => item.key === neededKey)
@@ -33,11 +34,13 @@ const Select = ({ id, initial, options, ...props }) => {
     })
   }, [id, initial])
 
-  console.log('SELECT:', state)
-
   useEffect(() => {
-    if (possibleError) {
-      ref.current.setCustomValidity(possibleError)
+    if (ref.current) {
+      if (possibleError === undefined) {
+        ref.current.setCustomValidity("")
+      } else {
+        ref.current.setCustomValidity(possibleError)
+      }
     }
   }, [possibleError])
 
@@ -86,10 +89,11 @@ const Select = ({ id, initial, options, ...props }) => {
             field: { id, initial, options, type: 'select', ...props }
           })
         }}
-        required={possibleError === undefined ? false : true} // with condition
+        required={isRequired}
       >
         {options.map((option, index) => {
           const { value: optionValue, label, key: optionKey } = option
+
           return (
             <option key={index} value={optionKey} name={optionValue}>
               {label || optionValue}

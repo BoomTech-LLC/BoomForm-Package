@@ -7,11 +7,12 @@ import md5 from 'md5'
 
 const Input = ({ id, type, initial, ...props }) => {
   const { state, actions } = useContext(context)
-  const { handleChange, handleBlur, handleClick, declareField } = actions
-  const { values, errors } = state
   const ref = useRef()
   const handleShowNativeValidationMessage = useNativeValidationMessage()
+  const { handleChange, handleBlur, handleClick, declareField } = actions
+  const { values, errors } = state
   const possibleError = errors[id]
+  const pattern = possibleError === undefined ? possibleError : md5(values[id] || '')
 
   useEffect(() => {
     const actualInitial = initial === undefined ? null : initial
@@ -19,8 +20,12 @@ const Input = ({ id, type, initial, ...props }) => {
   }, [id, initial])
 
   useEffect(() => {
-    if (possibleError) {
-      ref.current.setCustomValidity(possibleError)
+    if (ref.current) {
+      if (possibleError === undefined) {
+        ref.current.setCustomValidity("")
+      } else {
+        ref.current.setCustomValidity(possibleError)
+      }
     }
   }, [possibleError])
 
@@ -54,7 +59,7 @@ const Input = ({ id, type, initial, ...props }) => {
             field: { id, initial, type, ...props }
           })
         }
-        pattern={possibleError ? md5(values[id] || '') : undefined}
+        pattern={pattern}
       />
     </Memoizeable>
   )
