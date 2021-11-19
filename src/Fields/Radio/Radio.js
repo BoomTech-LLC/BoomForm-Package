@@ -4,14 +4,14 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Radio = ({ id, initial, name, value: radioValue, validation = {}, ...props }) => {
+const Radio = ({ id, initial, name, value: radioValue, validation, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values, errors } = state
   const possibleError = errors[props.name]
-  const { HTMLValidate = false } = validation
+  const { HTMLValidate } = validation
 
   useEffect(() => {
     const actualInitial = {

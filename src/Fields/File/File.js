@@ -4,14 +4,14 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const File = ({ id, initial, validation = {}, ...props }) => {
+const File = ({ id, initial, validation, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values, errors } = state
   const possibleError = errors[id]
-  const { HTMLValidate = false } = validation
+  const { HTMLValidate } = validation
 
   useEffect(() => {
     const actualInitial = initial === undefined ? null : initial

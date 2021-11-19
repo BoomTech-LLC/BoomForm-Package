@@ -4,16 +4,14 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Checkbox = ({ id, initial, value: checkboxValue, validation = {}, ...props }) => {
+const Checkbox = ({ id, initial, value: checkboxValue, validation, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
   const possibleError = errors[id]
-  const { HTMLValidate = false } = validation
-
-  console.log("STATE", state)
+  const { HTMLValidate } = validation
 
   useEffect(() => {
     const actualInitial = {

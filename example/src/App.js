@@ -74,7 +74,7 @@ const App = () => {
               required: { msg: 'Checkbox Field Is Required' }
             }}
           />
-          <Checkbox id='6' name='x' value='No' />
+          <Checkbox id='6' name='x' value='No' validation={{ HTMLValidate: false }} />
         </div>
         <button type="submit">Submit</button>
       </form>
