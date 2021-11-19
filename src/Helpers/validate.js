@@ -1,6 +1,7 @@
-export const validate = ({ value, validation }) => {
-  if (value === null) value = ''
+export const validate = ({ value, validation, type }) => {
   if (!validation) return false
+  if (type === "checkbox") return handleValidateCheckbox({ value, validation })
+  if (value === null) value = ''
 
   for (let item in validation) {
     const { type, msg, value: parameter } = validation[item]
@@ -99,12 +100,12 @@ export const validate = ({ value, validation }) => {
   }
 }
 
-export const handleValidateCheckbox = ({ value, validation }) => {
-  if (!validation) return false
-  for (let item in validation) {
-    const { msg } = validation[item]
-    if (item === 'required' && !value) return msg
+const handleValidateCheckbox = ({ value: { checked }, validation }) => {
+  for (let [key, { msg }] of Object.entries(validation)) {
+    if (key === "required" && checked === false) return msg
   }
+
+  return false
 }
 export const handleValidateSelect = ({ value, validation }) => {
   if (!validation) return false
