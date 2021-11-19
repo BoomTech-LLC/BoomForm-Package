@@ -4,13 +4,13 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Textarea = ({ id, initial, validation, ...props }) => {
+const Textarea = ({ id, initial, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values, errors } = state
   const possibleError = errors[id]
-  const { HTMLValidate } = validation
+  const { HTMLValidate = false } = validation
   const ref = useRef()
 
   useEffect(() => {
@@ -34,7 +34,7 @@ const Textarea = ({ id, initial, validation, ...props }) => {
   const onChange = (e) => handleChange({ id, value: e.target.value })
 
   const onBlur = (e) => {
-    if(possibleError && HTMLValidate === true) handleShowNativeValidationMessage(e.target)
+    if (possibleError && HTMLValidate === true) handleShowNativeValidationMessage(e.target)
     handleBlur({ id })
   }
 

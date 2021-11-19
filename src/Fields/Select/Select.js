@@ -4,13 +4,13 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Select = ({ id, initial, options, validation, ...props }) => {
+const Select = ({ id, initial, options, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
-  const { HTMLValidate } = validation
+  const { HTMLValidate = false } = validation
   const possibleError = errors[id]
 
   if (!options) throw new Error('select should have a options attribute')

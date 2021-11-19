@@ -14,7 +14,7 @@ const App = () => {
   return (
     <BoomForm>
       <form>
-        <div>
+        {/* <div>
           <Input
             id='1'
             type='text'
@@ -25,8 +25,8 @@ const App = () => {
             }}
             placeholder='Required field'
           />
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <Input
             id='2'
             type='text'
@@ -37,8 +37,8 @@ const App = () => {
             }}
             placeholder='Required field'
           />
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <Textarea
             id='3'
             validation={{
@@ -48,8 +48,8 @@ const App = () => {
             }}
             placeholder='Required field'
           />
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <Select
             id='4'
             options={[
@@ -63,19 +63,20 @@ const App = () => {
               required: { msg: 'Select Is Required' }
             }}
           />
-        </div>
+        </div> */}
         <div>
           <Checkbox
             id='5'
             name='x'
             value='Yes'
             validation={{
+              HTMLValidate: true,
               required: { msg: 'Checkbox Field Is Required' }
             }}
           />
           <Checkbox id='6' name='x' value='No' />
         </div>
-        <button>Submit</button>
+        <button type="submit">Submit</button>
       </form>
 
       {/* <Select

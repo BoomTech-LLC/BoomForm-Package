@@ -83,18 +83,16 @@ export const reduser = (state, action) => {
           else delete errors[name]
           break
         case 'checkbox':
-          if (name === undefined)
-            throw new Error('`Checkbox` should have a name attribute')
-          if (value === undefined)
-            throw new Error('`Checkbox` should have a value attribute')
+          if (name === undefined) throw new Error('`Checkbox` should have a name attribute')
+          if (value === undefined) throw new Error('`Checkbox` should have a value attribute')
 
-          if (!touched[name]) touched[name] = initial.checked
+          if (!touched[id]) touched[id] = initial.checked
 
           const [checkBoxInitial] = fields
-            .filter((field) => field.name === name)
+            .filter((field) => field.id === id)
             .filter((box) => box.initial.checked)
           const [checkBoxValidation] = fields
-            .filter((field) => field.name === name)
+            .filter((field) => field.id === id)
             .filter((box) => box.validation)
 
           const checkBoxError = handleValidateCheckbox({
@@ -102,8 +100,8 @@ export const reduser = (state, action) => {
             validation: checkBoxValidation?.validation
           })
 
-          if (checkBoxError) errors[name] = checkBoxError
-          else delete errors[name]
+          if (checkBoxError) errors[id] = checkBoxError
+          else delete errors[id]
 
           break
         case 'select':
@@ -121,8 +119,7 @@ export const reduser = (state, action) => {
           if (defaultValidate) errors[id] = defaultValidate
       }
 
-      if (id.toString().includes('.'))
-        values = setNestedValue(id, initial, values)
+      if (id.toString().includes('.')) values = setNestedValue(id, initial, values)
       else values[id] = initial
 
       defaultValues = { ...values }
@@ -170,23 +167,22 @@ export const reduser = (state, action) => {
           break
 
         case 'checkbox':
-          if (id.toString().includes('.'))
-            values = setNestedValue(id, value, values)
+          if (id.toString().includes('.')) values = setNestedValue(id, value, values)
           else values[id] = value
 
           const groupedIds = getIdsByName(name, fields)
           let isSomeChecked = false
+
           groupedIds.map((checkboxId) => {
             let currentValue = null
-            if (checkboxId.toString().includes('.'))
-              currentValue = getNestedValue(values, checkboxId)
+            if (checkboxId.toString().includes('.')) currentValue = getNestedValue(values, checkboxId)
             else currentValue = values[checkboxId]
 
             if (currentValue.checked) isSomeChecked = true
           })
 
           const [checkboxValidation] = fields
-            .filter((field) => field.name === name)
+            .filter((field) => field.id === id)
             .filter((box) => box.validation)
 
           const checkBoxError = handleValidateCheckbox({
@@ -194,8 +190,8 @@ export const reduser = (state, action) => {
             validation: checkboxValidation?.validation
           })
 
-          if (checkBoxError) errors[name] = checkBoxError
-          else delete errors[name]
+          if (checkBoxError) errors[id] = checkBoxError
+          else delete errors[id]
 
           break
         case 'select':
