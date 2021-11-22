@@ -1,6 +1,14 @@
 export const validate = ({ value, validation, type }) => {
+  // Sxal Check Chisht Cheka Petq
   if (!validation) return false
-  if (type === "checkbox") return handleValidateCheckbox({ value, validation })
+  
+  //Petqa Sirun Grvi
+  if (type === "checkbox" && value === false) {
+    if(validation['required']){
+      validation['required'].msg
+    }
+  }
+
   if (value === null) value = ''
 
   for (let item in validation) {
@@ -100,13 +108,6 @@ export const validate = ({ value, validation, type }) => {
   }
 }
 
-const handleValidateCheckbox = ({ value: { checked }, validation }) => {
-  for (let [key, { msg }] of Object.entries(validation)) {
-    if (key === "required" && checked === false) return msg
-  }
-
-  return false
-}
 export const handleValidateSelect = ({ value, validation }) => {
   if (!validation) return false
   for (let item in validation) {

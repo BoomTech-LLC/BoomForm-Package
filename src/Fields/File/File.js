@@ -4,13 +4,12 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const File = ({ id, initial, validation, ...props }) => {
+const File = ({ id, initial, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
-  const handleShowNativeValidationMessage = useNativeValidationMessage()
+  const { handleValidationChange , handleValidationBlur } = useNativeValidationMessage()
   const ref = useRef()
-  const { handleChange, handleBlur, handleClick, declareField } = actions
+  const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
-  const possibleError = errors[id]
   const { HTMLValidate } = validation
 
   useEffect(() => {
@@ -23,19 +22,31 @@ const File = ({ id, initial, validation, ...props }) => {
   }, [id, initial])
 
   useEffect(() => {
-    if (ref.current && HTMLValidate === true) {
-      if (possibleError === undefined) ref.current.setCustomValidity("")
-      else ref.current.setCustomValidity(possibleError)
+    if(HTMLValidate === true)
+    {
+      if(ref.current && errors[id] !== undefined)
+        ref.current.setCustomValidity(errors[id])
+      else if(ref.current)
+        ref.current.setCustomValidity('')
     }
-  }, [possibleError, HTMLValidate])
+  }, [ref.current, errors])
 
   const value = getFieldValue(values, id)
 
+  const onChange = (e) => {
+    if (HTMLValidate === true)
+      handleValidationChange({ e, possibleError: errors[id] });
+    
+    handleChange({ id, value: e.target.files })
+  }
+
   const onBlur = (e) => {
-    handleShowNativeValidationMessage(e.target)
+    if (HTMLValidate === true)
+      handleValidationBlur({ e, possibleError: errors[id] });
 
     handleBlur({ id })
   }
+
 
   if (value === undefined) return null
 
@@ -45,21 +56,8 @@ const File = ({ id, initial, validation, ...props }) => {
         {...props}
         ref={ref}
         type='file'
-        onChange={(e) => {
-          handleChange({
-            id,
-            value: e.target.files
-          })
-        }}
+        onChange={onChange}
         onBlur={onBlur}
-        onClick={(e) =>
-          handleClick({
-            id,
-            value: e.target.files,
-            e,
-            field: { id, initial, type: 'file', ...props }
-          })
-        }
       />
     </Memoizeable>
   )

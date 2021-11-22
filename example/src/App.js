@@ -5,6 +5,8 @@ import {
   Textarea,
   Select,
   Checkbox,
+  File,
+  Radio
 } from 'boomform'
 import State from './State'
 
@@ -18,7 +20,14 @@ const App = () => {
               type='text'
               validation={{
                 HTMLValidate: true,
-                required: { msg: 'Req field' }
+                required: { msg: 'Req field' },
+                min: {msg: "Shat Grio Ara", value: 5, type: "length"},
+                custom: (value) => {
+                  if(value === "Arman")
+                    return null;
+                  else
+                    return "Armanna Ara"
+                }
               }}
               placeholder='Required field'
             />
@@ -31,7 +40,6 @@ const App = () => {
                 HTMLValidate: true,
                 required: { msg: 'Req field' },
                 phone: { msg: 'Incorrrrrect phone' },
-                max: { msg: 'Max Mi Xuina', value: 5,  type: "length"}
               }}
               placeholder='Required field'
             />
@@ -43,7 +51,7 @@ const App = () => {
               validation={{
                 HTMLValidate: true,
                 required: { msg: 'Req field' },
-                phone: { msg: 'Incorrrrrect email' }
+                email: { msg: 'Incorrrrrect email' }
               }}
               placeholder='Required field'
             />
@@ -87,59 +95,31 @@ const App = () => {
             />
           </div>
           <div>
-            <Textarea
-              id='6'
+            <File
+              id='file1'
               validation={{
                 HTMLValidate: true,
-                custom: (value) => {
-                  if(value === "Hrach")
-                    return null;
-                  
-                  return "Hrach ara"
-                }
+                required: { msg: 'File Upload is required' }
               }}
-              placeholder='Required field'
             />
           </div>
-
-        {/* <div>
-          <Checkbox
-            id='5'
-            name='x'
-            value='Yes'
-            validation={{
-              HTMLValidate: true,
-              required: { msg: 'Checkbox Field Is Required' }
-            }}
-          />
-          <Checkbox id='6' name='x' value='No' />
-        </div> */}
+          <div>
+            <Radio
+              id='12.yes'
+              name='yes_or_no2'
+              value='Yes'
+              validation={{
+                HTMLValidate: true,
+                required: { msg: 'Radio Field Is Required' }
+              }}
+            />
+            <Radio id='13.no' name='yes_or_no2' value='No' />
+            <Radio id='14.no' name='yes_or_no2' value='No' />
+            <Radio id='15.no' name='yes_or_no2' value='No' />
+            <Radio id='16.no' name='yes_or_no2' value='No' />
+          </div>  
         <button>Submit</button>
       </form>
-
-      {/* <Select
-        id='1'
-        initial='1'
-        options={[
-          { key: 'placeholder', value: '' },
-          { key: '1', value: 'Today' },
-          { key: '2', value: 'Tomorrow' },
-          { key: '3', value: 'Next Week' }
-        ]}
-        validation={{ required: { msg: 'Requiredd' } }}
-      /> */}
-      {/* <File id="42" validation={{ required: { mdg: "Required fieldd" } }} /> */}
-      {/* <Checkbox
-        id='1'
-        name='1'
-        validation={{ required: { msg: 'Barev' } }}
-        value='barev 1'
-      />
-      <Checkbox id='2' name='1' value='barev 2' />
-      <Checkbox id='3' name='1' value='barev 3' /> */}
-      {/* <Radio id="1" name="a" value="a" /> */}
-      {/* <Radio id="2" name="a" value="S" validation={{ required: { mdg: "Required fieldd" } }} /> */}
-      {/* <Radio id="3" name="a" value="d" /> */}
       <State />
     </BoomForm>
   )
