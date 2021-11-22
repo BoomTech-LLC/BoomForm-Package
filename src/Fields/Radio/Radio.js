@@ -4,16 +4,14 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Radio = ({ id, initial, name, value: radioValue, ...props }) => {
+const Radio = ({ id, initial, name, value: radioValue, validation, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values, errors } = state
   const possibleError = errors[props.name]
-  const isRequired = possibleError === undefined ? false : true
-
-  console.log("STATE:", state)
+  const { HTMLValidate } = validation
 
   useEffect(() => {
     const actualInitial = {
@@ -23,19 +21,16 @@ const Radio = ({ id, initial, name, value: radioValue, ...props }) => {
     declareField({
       id,
       initial: actualInitial,
-      field: { name, type: 'radio', value: radioValue, ...props }
+      field: { name, type: 'radio', value: radioValue, validation, ...props }
     })
   }, [id, initial])
 
   useEffect(() => {
-    if (ref.current) {
-      if (possibleError === undefined) {
-        ref.current.setCustomValidity("")
-      } else {
-        ref.current.setCustomValidity(possibleError)
-      }
+    if (ref.current && HTMLValidate === true) {
+      if (possibleError === undefined) ref.current.setCustomValidity("")
+      else ref.current.setCustomValidity(possibleError)
     }
-  }, [possibleError])
+  }, [possibleError, HTMLValidate])
 
   const value = getFieldValue(values, id)
 
@@ -63,7 +58,6 @@ const Radio = ({ id, initial, name, value: radioValue, ...props }) => {
             }
           })
         }}
-        required={isRequired}
         onBlur={blurHandler}
         onClick={(e) =>
           handleClick({

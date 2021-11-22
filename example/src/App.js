@@ -108,6 +108,7 @@ const App = () => {
             name='x'
             value='Yes'
             validation={{
+              HTMLValidate: true,
               required: { msg: 'Checkbox Field Is Required' }
             }}
           />

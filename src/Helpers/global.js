@@ -45,12 +45,6 @@ export const getFieldValue = (values, id) => {
   })
 }
 
-export const getNestedValue = (values, index) => {
-  return index.split('.').reduce((acc, index) => {
-    return acc[index]
-  }, values)
-}
-
 export const checkIdStructure = (id, fields) => {
   const [sameId] = fields.filter((field) => field.id == id)
   if (sameId) throw new Error('`Field` id is not unique')
@@ -85,14 +79,6 @@ export const deepCopy = (object) => {
   return newObject
 }
 
-export const getIdsByName = (name, fields) => {
-  const ids = []
-  fields.map((field) => {
-    if (field.name === name) ids.push(field.id)
-  })
-
-  return ids
-}
 export const changeFieldInitial = ({ id, initial, values }) => {
   if (id.toString().includes('.')) values = setNestedValue(id, initial, values)
   else values[id] = initial

@@ -3,15 +3,15 @@ import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
-import { checkFieldValidationExisting } from '../../Helpers/checkFieldValidationExisting'
 
-const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
+const Checkbox = ({ id, initial, value: checkboxValue, validation, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
-  const possibleError = errors[props.name]
+  const possibleError = errors[id]
+  const { HTMLValidate } = validation
 
   useEffect(() => {
     const actualInitial = {
@@ -22,21 +22,21 @@ const Checkbox = ({ id, initial, value: checkboxValue, ...props }) => {
     declareField({
       id,
       initial: actualInitial,
-      field: { type: 'checkbox', value: checkboxValue, ...props }
+      field: { type: 'checkbox', value: checkboxValue, validation, ...props }
     })
   }, [id, initial])
 
   useEffect(() => {
-    if (ref.current) {
+    if (ref.current && HTMLValidate === true) {
       if (possibleError === undefined) ref.current.setCustomValidity('')
       else ref.current.setCustomValidity(possibleError)
     }
-  }, [possibleError])
+  }, [possibleError, HTMLValidate])
 
   const value = getFieldValue(values, id)
 
   const onBlur = (e) => {
-    if (possibleError) handleShowNativeValidationMessage(e.target)
+    handleShowNativeValidationMessage(e.target)
     handleBlur({ id })
   }
 

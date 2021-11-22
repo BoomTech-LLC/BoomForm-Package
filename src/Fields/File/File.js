@@ -4,35 +4,38 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const File = ({ id, initial, ...props }) => {
+const File = ({ id, initial, validation, ...props }) => {
   const { state, actions } = useContext(context)
   const handleShowNativeValidationMessage = useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values, errors } = state
   const possibleError = errors[id]
-  const isRequired = possibleError === undefined ? false : true
+  const { HTMLValidate } = validation
 
   useEffect(() => {
     const actualInitial = initial === undefined ? null : initial
     declareField({
       id,
       initial: actualInitial,
-      field: { type: 'file', ...props }
+      field: { type: 'file', validation, ...props }
     })
   }, [id, initial])
 
   useEffect(() => {
-    if (ref.current) {
-      if (possibleError === undefined) {
-        ref.current.setCustomValidity("")
-      } else {
-        ref.current.setCustomValidity(possibleError)
-      }
+    if (ref.current && HTMLValidate === true) {
+      if (possibleError === undefined) ref.current.setCustomValidity("")
+      else ref.current.setCustomValidity(possibleError)
     }
-  }, [possibleError])
+  }, [possibleError, HTMLValidate])
 
   const value = getFieldValue(values, id)
+
+  const onBlur = (e) => {
+    handleShowNativeValidationMessage(e.target)
+
+    handleBlur({ id })
+  }
 
   if (value === undefined) return null
 
@@ -48,11 +51,7 @@ const File = ({ id, initial, ...props }) => {
             value: e.target.files
           })
         }}
-        onBlur={(e) => {
-          handleShowNativeValidationMessage(e.target)
-          
-          handleBlur({ id })
-        }}
+        onBlur={onBlur}
         onClick={(e) =>
           handleClick({
             id,
