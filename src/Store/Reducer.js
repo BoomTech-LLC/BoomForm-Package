@@ -77,7 +77,6 @@ export const reduser = (state, action) => {
           })
 
           if (radioError) errors[name] = radioError
-          else delete errors[name]
           break
         case 'select':
           touched[id] = initial.key !== 'placeholder' ? true : false

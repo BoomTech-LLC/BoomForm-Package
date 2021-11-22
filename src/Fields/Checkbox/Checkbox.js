@@ -4,39 +4,46 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Checkbox = ({ id, initial, value: checkboxValue, validation, ...props }) => {
+const Checkbox = ({ id, initial, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
-  const handleShowNativeValidationMessage = useNativeValidationMessage()
+  const { handleValidationChange , handleValidationBlur } = useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
-  const possibleError = errors[id]
   const { HTMLValidate } = validation
 
   useEffect(() => {
-    const actualInitial = {
-      checked: initial === undefined ? false : initial,
-      value: checkboxValue
-    }
-
     declareField({
       id,
-      initial: actualInitial,
-      field: { type: 'checkbox', value: checkboxValue, validation, ...props }
+      initial: initial === undefined ? false : initial,
+      field: { type: 'checkbox', validation, ...props }
     })
   }, [id, initial])
 
   useEffect(() => {
-    if (ref.current && HTMLValidate === true) {
-      if (possibleError === undefined) ref.current.setCustomValidity('')
-      else ref.current.setCustomValidity(possibleError)
+    if(HTMLValidate === true)
+    {
+      if(ref.current && errors[id] !== undefined)
+        ref.current.setCustomValidity(errors[id])
+      else if(ref.current)
+        ref.current.setCustomValidity('')
     }
-  }, [possibleError, HTMLValidate])
+  }, [ref.current, errors])
 
+  
   const value = getFieldValue(values, id)
 
+  const onChange = (e) => {
+    if (HTMLValidate === true)
+      handleValidationChange({ e, possibleError: errors[id] });
+    
+    handleChange({ id, value: e.target.checked })
+  }
+
   const onBlur = (e) => {
-    handleShowNativeValidationMessage(e.target)
+    if (HTMLValidate === true)
+      handleValidationBlur({ e, possibleError: errors[id] });
+
     handleBlur({ id })
   }
 
@@ -48,16 +55,8 @@ const Checkbox = ({ id, initial, value: checkboxValue, validation, ...props }) =
         {...props}
         ref={ref}
         type='checkbox'
-        checked={value.checked}
-        onChange={(e) => {
-          handleChange({
-            id,
-            value: {
-              checked: e.target.checked,
-              value: checkboxValue
-            }
-          })
-        }}
+        checked={value}
+        onChange={onChange}
         onBlur={onBlur}
       />
     </Memoizeable>

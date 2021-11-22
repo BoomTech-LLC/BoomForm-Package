@@ -4,13 +4,12 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Input = ({ id, type, initial, validation, ...props }) => {
+const Input = ({ id, type, initial, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
   const ref = useRef()
-  const handleShowNativeValidationMessage = useNativeValidationMessage()
+  const { handleValidationChange , handleValidationBlur } = useNativeValidationMessage()
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
-  const possibleError = errors[id]
   const { HTMLValidate } = validation
 
   useEffect(() => {
@@ -23,18 +22,25 @@ const Input = ({ id, type, initial, validation, ...props }) => {
   }, [id, initial])
 
   useEffect(() => {
-    if (ref.current && HTMLValidate === true) {
-      if (possibleError === undefined) ref.current.setCustomValidity('')
-      else ref.current.setCustomValidity(possibleError)
+    if(HTMLValidate === true){
+      if(ref.current && errors[id] !== undefined)
+        ref.current.setCustomValidity(errors[id])
+      else if(ref.current)
+        ref.current.setCustomValidity('')
     }
-  }, [possibleError, HTMLValidate])
+  }, [ref.current, errors])
 
-  const onChange = (e) => handleChange({ id, value: e.target.value })
+  const onChange = (e) => {
+    if (HTMLValidate === true)
+      handleValidationChange({ e, possibleError: errors[id] });
+    
+    handleChange({ id, value: e.target.value })
+  }
 
   const onBlur = (e) => {
-    if (possibleError && HTMLValidate === true) {
-      handleShowNativeValidationMessage(e.target)
-    }
+    if (HTMLValidate === true)
+      handleValidationBlur({ e, possibleError: errors[id] });
+
     handleBlur({ id })
   }
 

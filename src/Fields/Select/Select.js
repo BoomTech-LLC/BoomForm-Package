@@ -4,14 +4,13 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Select = ({ id, initial, options, validation, ...props }) => {
+const Select = ({ id, initial, options, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
-  const handleShowNativeValidationMessage = useNativeValidationMessage()
+  const { handleValidationChange , handleValidationBlur } = useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
   const { HTMLValidate } = validation
-  const possibleError = errors[id]
 
   if (!options) throw new Error('select should have a options attribute')
 
@@ -36,23 +35,29 @@ const Select = ({ id, initial, options, validation, ...props }) => {
   }, [id, initial])
 
   useEffect(() => {
-    if (ref.current && HTMLValidate === true) {
-      if (possibleError === undefined) ref.current.setCustomValidity('')
-      else ref.current.setCustomValidity(possibleError)
+    if(HTMLValidate === true){
+      if(ref.current && errors[id] !== undefined)
+        ref.current.setCustomValidity(errors[id])
+      else if(ref.current)
+        ref.current.setCustomValidity('')
     }
-  }, [possibleError, HTMLValidate])
+  }, [ref.current, errors])
 
   const onChange = (e) => {
-    const [newValue] = options.filter((item) => e.target.value == item.key)
-    handleChange({
-      id,
-      value: newValue
-    })
+    if (HTMLValidate === true)
+      handleValidationChange({ e, possibleError: errors[id] });
+      
+      const [newValue] = options.filter((item) => e.target.value == item.key)
+      handleChange({
+        id,
+        value: newValue
+      })
   }
 
   const onBlur = (e) => {
-    if (possibleError && HTMLValidate === true)
-      handleShowNativeValidationMessage(e.target)
+    if (HTMLValidate === true)
+      handleValidationBlur({ e, possibleError: errors[id] });
+
     handleBlur({ id })
   }
 

@@ -4,14 +4,12 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Radio = ({ id, initial, name, value: radioValue, validation, ...props }) => {
+const Radio = ({ id, initial, name, value: radioValue, ...props }) => {
   const { state, actions } = useContext(context)
-  const handleShowNativeValidationMessage = useNativeValidationMessage()
+  const { handleValidationChange , handleValidationBlur } = useNativeValidationMessage()
   const ref = useRef()
-  const { handleChange, handleBlur, handleClick, declareField } = actions
-  const { values, errors } = state
-  const possibleError = errors[props.name]
-  const { HTMLValidate } = validation
+  const { handleChange, handleBlur, declareField } = actions
+  const { values, errors, fields } = state
 
   useEffect(() => {
     const actualInitial = {
@@ -21,21 +19,42 @@ const Radio = ({ id, initial, name, value: radioValue, validation, ...props }) =
     declareField({
       id,
       initial: actualInitial,
-      field: { name, type: 'radio', value: radioValue, validation, ...props }
+      field: { name, type: 'radio', value: radioValue,  ...props }
     })
   }, [id, initial])
 
+  const [radioValidation] = fields
+    .filter((field) => field.name === name)
+    .filter((box) => box?.validation)
+
+  const HTMLValidate = radioValidation?.validation?.HTMLValidate
+
   useEffect(() => {
-    if (ref.current && HTMLValidate === true) {
-      if (possibleError === undefined) ref.current.setCustomValidity("")
-      else ref.current.setCustomValidity(possibleError)
+    if(HTMLValidate === true)
+    {
+      if(ref.current && errors[name] !== undefined)
+        ref.current.setCustomValidity(errors[name])
+      else if(ref.current)
+        ref.current.setCustomValidity('')
     }
-  }, [possibleError, HTMLValidate])
+  }, [ref.current, errors, fields])
 
   const value = getFieldValue(values, id)
 
-  const blurHandler = (e) => {
-    handleShowNativeValidationMessage(e.target)
+  const onChange = (e) => {
+    if (HTMLValidate === true)
+      handleValidationChange({ e, possibleError: errors[name] });
+    
+    handleChange({ id, value: {
+      checked: true,
+      value: radioValue
+    }})
+  }
+
+  const onBlur = (e) => {
+    if (HTMLValidate === true) 
+      handleValidationBlur({ e, possibleError: errors[name] });
+
     handleBlur({ id })
   }
 
@@ -49,34 +68,8 @@ const Radio = ({ id, initial, name, value: radioValue, validation, ...props }) =
         type='radio'
         name={name}
         checked={value.checked}
-        onChange={(e) => {
-          handleChange({
-            id,
-            value: {
-              checked: true,
-              value: radioValue
-            }
-          })
-        }}
-        onBlur={blurHandler}
-        onClick={(e) =>
-          handleClick({
-            id,
-            value: {
-              checked: true,
-              value: radioValue
-            },
-            e,
-            field: {
-              id,
-              initial,
-              name,
-              value: radioValue,
-              type: 'radio',
-              ...props
-            }
-          })
-        }
+        onChange={onChange}
+        onBlur={onBlur}
       />
     </Memoizeable>
   )

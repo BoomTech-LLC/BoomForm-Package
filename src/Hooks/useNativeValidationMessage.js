@@ -1,21 +1,25 @@
 import { useState, useCallback } from 'react'
 
 export const useNativeValidationMessage = () => {
-  const [validationMessageIsShown, setValidationMessageIsShown] =
-    useState(false)
+  const [activeField, setActiveField] = useState(true)
 
-  const blurHandler = useCallback(
-    (field) => {
-      if (!validationMessageIsShown) {
-        field.reportValidity()
-      }
-
-      setValidationMessageIsShown(
-        (validationMessageIsShown) => !validationMessageIsShown
-      )
+  const handleBlur = useCallback(
+    ({ e, possibleError }) => {
+      if(activeField && (possibleError !== undefined && possibleError !== '')) {
+        e.target.reportValidity()
+        setActiveField(false)
+      } else setActiveField(true)
     },
-    [validationMessageIsShown]
+    [ activeField ]
   )
 
-  return blurHandler
+  const handleChange = useCallback(
+    ({ possibleError }) => {
+      if(possibleError !== undefined && possibleError !== '') 
+        setActiveField(true)
+    },
+    [ activeField ]
+  )
+
+  return { handleValidationChange: handleChange , handleValidationBlur: handleBlur }
 }

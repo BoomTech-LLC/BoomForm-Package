@@ -4,12 +4,11 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Textarea = ({ id, initial, validation, ...props }) => {
+const Textarea = ({ id, initial, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
-  const handleShowNativeValidationMessage = useNativeValidationMessage()
+  const { handleValidationChange , handleValidationBlur } = useNativeValidationMessage()
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values, errors } = state
-  const possibleError = errors[id]
   const { HTMLValidate } = validation
   const ref = useRef()
 
@@ -23,20 +22,30 @@ const Textarea = ({ id, initial, validation, ...props }) => {
   }, [id, initial])
 
   useEffect(() => {
-    if (ref.current && HTMLValidate === true)
-      if (possibleError === undefined) ref.current.setCustomValidity("")
-      else ref.current.setCustomValidity(possibleError)
-  }, [possibleError, HTMLValidate])
+    if(HTMLValidate === true){
+      if(ref.current && errors[id] !== undefined)
+        ref.current.setCustomValidity(errors[id])
+      else if(ref.current)
+        ref.current.setCustomValidity('')
+    }
+  }, [ref.current, errors])
+
+  const onChange = (e) => {
+    if (HTMLValidate === true)
+      handleValidationChange({ e, possibleError: errors[id] });
+    
+    handleChange({ id, value: e.target.value })
+  }
+
+  const onBlur = (e) => {
+    if (HTMLValidate === true)
+      handleValidationBlur({ e, possibleError: errors[id] });
+
+    handleBlur({ id })
+  }
 
   const value = getFieldValue(values, id)
   if (value === undefined) return null
-
-  const onChange = (e) => handleChange({ id, value: e.target.value })
-
-  const onBlur = (e) => {
-    if (possibleError && HTMLValidate === true) handleShowNativeValidationMessage(e.target)
-    handleBlur({ id })
-  }
 
   return (
     <Memoizeable field={{ id, initial, value, ...props }}>
