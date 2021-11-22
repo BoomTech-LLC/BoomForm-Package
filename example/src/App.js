@@ -5,8 +5,6 @@ import {
   Textarea,
   Select,
   Checkbox,
-  File,
-  Radio
 } from 'boomform'
 import State from './State'
 
@@ -14,44 +12,45 @@ const App = () => {
   return (
     <BoomForm>
       <form>
-        <div>
-          <Input
-            id='1'
-            type='text'
-            validation={{
-              HTMLValidate: true,
-              required: { msg: 'Req field' },
-              email: { msg: 'Incorrrrrect email' }
-            }}
-            placeholder='Required field'
-          />
-        </div>
-        <div>
-          <Input
-            id='2'
-            type='text'
-            validation={{
-              HTMLValidate: true,
-              required: { msg: 'Req field' },
-              phone: { msg: 'Incorrrrrect email' }
-            }}
-            placeholder='Required field'
-          />
-        </div>
-        <div>
-          <Textarea
-            id='3'
-            validation={{
-              HTMLValidate: true,
-              required: { msg: 'Req field' },
-              email: { msg: 'Inorrrrect email' }
-            }}
-            placeholder='Required field'
-          />
-        </div>
-        <div>
+          <div>
+            <Input
+              id='1'
+              type='text'
+              validation={{
+                HTMLValidate: true,
+                required: { msg: 'Req field' }
+              }}
+              placeholder='Required field'
+            />
+          </div>
+          <div>
+            <Input
+              id='2'
+              type='text'
+              validation={{
+                HTMLValidate: true,
+                required: { msg: 'Req field' },
+                phone: { msg: 'Incorrrrrect phone' },
+                max: { msg: 'Max Mi Xuina', value: 5,  type: "length"}
+              }}
+              placeholder='Required field'
+            />
+          </div>
+          <div>
+            <Input
+              id='3'
+              type='text'
+              validation={{
+                HTMLValidate: true,
+                required: { msg: 'Req field' },
+                phone: { msg: 'Incorrrrrect email' }
+              }}
+              placeholder='Required field'
+            />
+          </div>
+          <div>
           <Select
-            id='4'
+            id='10'
             options={[
               { key: 'placeholder', value: ' -- Choice One -- ' },
               { key: '1', value: 'Today' },
@@ -64,7 +63,46 @@ const App = () => {
             }}
           />
         </div>
-        <div>
+          <div>
+            <Input
+              id='4'
+              type='text'
+              validation={{
+                HTMLValidate: true,
+                required: { msg: 'Req field' },
+                phone: { msg: 'Incorrrrrect email' }
+              }}
+              placeholder='Required field'
+            />
+          </div>
+          <div>
+            <Textarea
+              id='5'
+              validation={{
+                HTMLValidate: true,
+                required: { msg: 'Req field' },
+                email: { msg: 'Inorrrrect email' }
+              }}
+              placeholder='Required field'
+            />
+          </div>
+          <div>
+            <Textarea
+              id='6'
+              validation={{
+                HTMLValidate: true,
+                custom: (value) => {
+                  if(value === "Hrach")
+                    return null;
+                  
+                  return "Hrach ara"
+                }
+              }}
+              placeholder='Required field'
+            />
+          </div>
+
+        {/* <div>
           <Checkbox
             id='5'
             name='x'
@@ -74,7 +112,7 @@ const App = () => {
             }}
           />
           <Checkbox id='6' name='x' value='No' />
-        </div>
+        </div> */}
         <button>Submit</button>
       </form>
 

@@ -50,7 +50,7 @@ const File = ({ id, initial, ...props }) => {
         }}
         onBlur={(e) => {
           handleShowNativeValidationMessage(e.target)
-
+          
           handleBlur({ id })
         }}
         onClick={(e) =>
