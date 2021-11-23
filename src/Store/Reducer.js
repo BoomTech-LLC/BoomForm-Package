@@ -93,7 +93,8 @@ export const reduser = (state, action) => {
           if (defaultValidate) errors[id] = defaultValidate
       }
 
-      if (id.toString().includes('.')) values = setNestedValue(id, initial, values)
+      if (id.toString().includes('.'))
+        values = setNestedValue(id, initial, values)
       else values[id] = initial
 
       defaultValues = { ...values }
@@ -152,7 +153,8 @@ export const reduser = (state, action) => {
 
           break
         default:
-          if (id.toString().includes('.')) values = setNestedValue(id, value, values)
+          if (id.toString().includes('.'))
+            values = setNestedValue(id, value, values)
           else values[id] = value
 
           const error = validate({ type, value, validation })
@@ -193,7 +195,6 @@ export const reduser = (state, action) => {
 
       switch (type) {
         case 'radio':
-        case 'checkbox':
           touched[name] = true
           break
         default:
