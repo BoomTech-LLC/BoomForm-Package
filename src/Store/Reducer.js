@@ -22,7 +22,7 @@ export const reduser = (state, action) => {
   switch (type) {
     case DECLARE_FIELD: {
       const { id, initial, field } = payload
-      let fields = [...state.fields]
+      let { fields } = state
       let { values } = state
       values = deepCopy(values)
       const touched = { ...state.touched }
@@ -31,13 +31,18 @@ export const reduser = (state, action) => {
 
       for (let i = 0; i < fields.length; i++)
         if (fields[i].id === id) {
-          if (fields[i].initial !== initial) {
+          if (
+            fields[i].initial !== initial &&
+            initial !== null &&
+            initial !== undefined
+          ) {
             fields[i].initial = initial
             values = {
               ...values,
               ...changeFieldInitial({ id, initial, values })
             }
-            return { ...state, values }
+            touched[id] = isTouched
+            return { ...state, fields, values, touched }
           }
           return state
         }
@@ -49,35 +54,13 @@ export const reduser = (state, action) => {
         return state
       }
 
-      const { validation, type, name, value } = field
+      const { validation, type } = field
 
       fields = fields
         ? [{ id, initial, ...field }, ...fields]
         : [{ id, initial, ...field }]
 
       switch (type) {
-        case 'radio':
-          if (name === undefined)
-            throw new Error('`Radio` should have a name attribute')
-          if (value === undefined)
-            throw new Error('`Radio` should have a value attribute')
-
-          if (!touched[name]) touched[name] = initial.checked
-
-          const [radioInitial] = fields
-            .filter((field) => field.name === name)
-            .filter((box) => box.initial?.checked)
-          const [radioValidation] = fields
-            .filter((field) => field.name === name)
-            .filter((box) => box?.validation)
-
-          const radioError = handleValidateRadio({
-            value: radioInitial?.initial,
-            validation: radioValidation?.validation
-          })
-
-          if (radioError) errors[name] = radioError
-          break
         case 'select':
           touched[id] = initial.key !== 'placeholder' ? true : false
           const selectError = handleValidateSelect({
@@ -128,18 +111,6 @@ export const reduser = (state, action) => {
         })
 
       switch (type) {
-        case 'radio':
-          const { values: values_ } = handleRadioEdit(
-            values,
-            fields,
-            name,
-            id,
-            value
-          )
-          values = { ...values_ }
-          delete errors[name]
-
-          break
         case 'select':
           if (id.toString().includes('.'))
             values = setNestedValue(id, value, values)
@@ -183,7 +154,6 @@ export const reduser = (state, action) => {
       const { id, handleBlur } = payload
       const { fields } = state
       const [field] = fields.filter((field) => String(field.id) === String(id))
-      const { type, name } = field
       const touched = { ...state.touched }
 
       if (field && field.hasOwnProperty('onBlur'))
@@ -193,13 +163,7 @@ export const reduser = (state, action) => {
           handleBlur
         })
 
-      switch (type) {
-        case 'radio':
-          touched[name] = true
-          break
-        default:
-          touched[id] = true
-      }
+      touched[id] = true
 
       return {
         ...state,

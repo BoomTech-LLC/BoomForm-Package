@@ -5,21 +5,24 @@ export const useNativeValidationMessage = () => {
 
   const handleBlur = useCallback(
     ({ e, possibleError }) => {
-      if(activeField && (possibleError !== undefined && possibleError !== '')) {
+      if (activeField && possibleError !== undefined && possibleError !== '') {
         e.target.reportValidity()
         setActiveField(false)
       } else setActiveField(true)
     },
-    [ activeField ]
+    [activeField]
   )
 
   const handleChange = useCallback(
     ({ possibleError }) => {
-      if(possibleError !== undefined && possibleError !== '') 
+      if (possibleError !== undefined && possibleError !== '')
         setActiveField(true)
     },
-    [ activeField ]
+    [activeField]
   )
 
-  return { handleValidationChange: handleChange , handleValidationBlur: handleBlur }
+  return {
+    handleValidationChange: handleChange,
+    handleValidationBlur: handleBlur
+  }
 }
