@@ -11,29 +11,6 @@ export const setNestedValue = (key, value, values) => {
   return values
 }
 
-export const handleRadioEdit = (values, fields, name, id, value) => {
-  for (let i in fields) {
-    if (fields[i].type === 'radio' && fields[i].name === name)
-      if (fields[i].id.toString().includes('.'))
-        values = setNestedValue(
-          fields[i].id,
-          fields[i].id === id
-            ? { checked: true, value: value?.value || fields[i].value }
-            : { checked: false, value: fields[i].value },
-          values
-        )
-      else if (fields[i].id === id) {
-        values[fields[i].id].checked = true
-        values[fields[i].id].value = value?.value || fields[i].value
-      } else {
-        values[fields[i].id].checked = false
-        values[fields[i].id].value = fields[i].value
-      }
-  }
-
-  return { values }
-}
-
 export const getFieldValue = (values, id) => {
   if (!id) throw 'field should have a id attribute'
   if (!id.toString().includes('.')) return values[id]
@@ -46,8 +23,6 @@ export const getFieldValue = (values, id) => {
 }
 
 export const checkIdStructure = (id, fields) => {
-  const [sameId] = fields.filter((field) => field.id == id)
-  if (sameId) throw new Error('`Field` id is not unique')
   for (let i = 0; i < fields.length; i++) {
     const { id: prevId } = fields[i]
     const splitedPrevId = prevId.toString().split('.')
@@ -72,9 +47,7 @@ export const deepCopy = (object) => {
   let newObject = object
   if (object && typeof object === 'object') {
     newObject = {}
-    for (var i in object) {
-      newObject[i] = deepCopy(object[i])
-    }
+    for (var i in object) newObject[i] = deepCopy(object[i])
   }
   return newObject
 }
