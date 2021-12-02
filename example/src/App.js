@@ -26,7 +26,7 @@ const App = () => {
             id={1}
             payable={1}
             instruction=''
-            initial=''
+            initial='798'
             options={[
               { key: 'placeholder', value: 'Please choose...' },
               {
