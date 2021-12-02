@@ -23,7 +23,9 @@ const Select = ({ id, initial, options, validation = {}, ...props }) => {
 
   useEffect(() => {
     const actualInitial =
-      initial === undefined ? options[0] : getValueByKey(initial)
+      initial === undefined || initial === ''
+        ? options[0]
+        : getValueByKey(initial)
 
     if (initial && initial.key !== 'placeholder' && validation.required)
       setHidePlaceholder(true)

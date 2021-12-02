@@ -25,8 +25,8 @@ const App = () => {
           <Select
             id={1}
             payable={1}
+            instruction=''
             initial=''
-            validation={{ HTMLValidate: true, required: { msg: 'Some shit' } }}
             options={[
               { key: 'placeholder', value: 'Please choose...' },
               {
@@ -63,6 +63,7 @@ const App = () => {
               },
               { key: 'other', value: 'Other' }
             ]}
+            validation={{ HTMLValidate: true, required: { msg: 'Some shit' } }}
           />
         </div>
         <button>Submit</button>
