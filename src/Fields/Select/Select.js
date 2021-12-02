@@ -74,7 +74,7 @@ const Select = ({ id, initial, options, validation = {}, ...props }) => {
   if (value === undefined) return null
 
   let selectedKey = options[0].key
-  if (value.hasOwnProperty('key')) {
+  if (value && value.hasOwnProperty('key')) {
     const { key: actualSelectedKey } = value
     selectedKey = actualSelectedKey
   }
