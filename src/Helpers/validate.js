@@ -1,10 +1,10 @@
 export const validate = ({ value, validation, type }) => {
   // Sxal Check Chisht Cheka Petq
   if (!validation) return false
-  
+
   //Petqa Sirun Grvi
-  if (type === "checkbox" && value === false) {
-    if(validation['required']){
+  if (type === 'checkbox' && value === false) {
+    if (validation['required']) {
       validation['required'].msg
     }
   }
@@ -112,7 +112,7 @@ export const handleValidateSelect = ({ value, validation }) => {
   if (!validation) return false
   for (let item in validation) {
     const { msg } = validation[item]
-    if (item === 'required' && value.key === 'placeholder') return msg
+    if (item === 'required' && value && value.key === 'placeholder') return msg
   }
 }
 export const handleValidateRadio = ({ value, validation }) => {
