@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from 'react'
+import React, { useEffect, useContext, useState, useRef } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
@@ -6,8 +6,10 @@ import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessa
 
 const Select = ({ id, initial, options, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
-  const { handleValidationChange , handleValidationBlur } = useNativeValidationMessage()
+  const { handleValidationChange, handleValidationBlur } =
+    useNativeValidationMessage()
   const ref = useRef()
+  const [hidePlaceholder, setHidePlaceholder] = useState(false)
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
   const { HTMLValidate } = validation
@@ -22,6 +24,10 @@ const Select = ({ id, initial, options, validation = {}, ...props }) => {
   useEffect(() => {
     const actualInitial =
       initial === undefined ? options[0] : getValueByKey(initial)
+
+    if (initial && initial.key !== 'placeholder' && validation.required)
+      setHidePlaceholder(true)
+
     declareField({
       id,
       initial: actualInitial,
@@ -35,28 +41,31 @@ const Select = ({ id, initial, options, validation = {}, ...props }) => {
   }, [id, initial])
 
   useEffect(() => {
-    if(HTMLValidate === true){
-      if(ref.current && errors[id] !== undefined)
+    if (HTMLValidate === true) {
+      if (ref.current && errors[id] !== undefined)
         ref.current.setCustomValidity(errors[id])
-      else if(ref.current)
-        ref.current.setCustomValidity('')
+      else if (ref.current) ref.current.setCustomValidity('')
     }
   }, [ref.current, errors])
 
   const onChange = (e) => {
     if (HTMLValidate === true)
-      handleValidationChange({ e, possibleError: errors[id] });
-      
-      const [newValue] = options.filter((item) => e.target.value == item.key)
-      handleChange({
-        id,
-        value: newValue
-      })
+      handleValidationChange({ e, possibleError: errors[id] })
+
+    const [newValue] = options.filter((item) => e.target.value == item.key)
+
+    if (newValue && newValue.key !== 'placeholder' && validation.required)
+      setHidePlaceholder(true)
+
+    handleChange({
+      id,
+      value: newValue
+    })
   }
 
   const onBlur = (e) => {
     if (HTMLValidate === true)
-      handleValidationBlur({ e, possibleError: errors[id] });
+      handleValidationBlur({ e, possibleError: errors[id] })
 
     handleBlur({ id })
   }
@@ -75,6 +84,8 @@ const Select = ({ id, initial, options, validation = {}, ...props }) => {
       <select value={selectedKey} ref={ref} onChange={onChange} onBlur={onBlur}>
         {options.map((option, index) => {
           const { value: optionValue, label, key: optionKey } = option
+
+          if (optionKey === 'placeholder' && hidePlaceholder) return null
 
           return (
             <option key={index} value={optionKey} name={optionValue}>

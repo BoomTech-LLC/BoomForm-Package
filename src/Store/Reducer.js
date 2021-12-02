@@ -62,7 +62,7 @@ export const reduser = (state, action) => {
 
       switch (type) {
         case 'select':
-          touched[id] = initial.key !== 'placeholder' ? true : false
+          touched[id] = initial && initial.key !== 'placeholder' ? true : false
           const selectError = handleValidateSelect({
             value: initial,
             validation: validation
