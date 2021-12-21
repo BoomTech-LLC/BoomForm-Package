@@ -1,16 +1,11 @@
 import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOUCHED } from './Types'
 import {
   setNestedValue,
-  handleRadioEdit,
   checkIdStructure,
   deepCopy,
   changeFieldInitial
 } from './../Helpers/global'
-import {
-  validate,
-  handleValidateSelect,
-  handleValidateRadio
-} from '../Helpers/validate'
+import { validate, handleValidateSelect } from '../Helpers/validate'
 
 let defaultValues = {},
   defaultTouched = {},
@@ -22,6 +17,7 @@ export const reduser = (state, action) => {
   switch (type) {
     case DECLARE_FIELD: {
       const { id, initial, field } = payload
+      const { validation, type } = field
       let { fields } = state
       let { values } = state
       values = deepCopy(values)
@@ -41,8 +37,16 @@ export const reduser = (state, action) => {
               ...values,
               ...changeFieldInitial({ id, initial, values })
             }
+            const defaultValidate = validate({
+              type,
+              value: initial,
+              validation
+            })
+
             touched[id] = isTouched
-            return { ...state, fields, values, touched }
+            if (defaultValidate) errors[id] = defaultValidate
+            else delete errors[id]
+            return { ...state, fields, values, touched, errors }
           }
           return state
         }
@@ -54,26 +58,28 @@ export const reduser = (state, action) => {
         return state
       }
 
-      const { validation, type } = field
-
       fields = fields
         ? [{ id, initial, ...field }, ...fields]
         : [{ id, initial, ...field }]
 
       switch (type) {
         case 'select':
-          touched[id] = initial && initial.key !== 'placeholder' ? true : false
-          const selectError = handleValidateSelect({
-            value: initial,
-            validation: validation
-          })
-          if (selectError) errors[id] = selectError
-          else delete errors[id]
+          {
+            touched[id] =
+              initial && initial.key !== 'placeholder' ? true : false
+            const selectError = handleValidateSelect({
+              value: initial,
+              validation: validation
+            })
+            if (selectError) errors[id] = selectError
+            else delete errors[id]
+          }
           break
-        default:
+        default: {
           touched[id] = isTouched
           const defaultValidate = validate({ type, value: initial, validation })
           if (defaultValidate) errors[id] = defaultValidate
+        }
       }
 
       if (id.toString().includes('.'))
