@@ -18,7 +18,7 @@ const Select = ({ id, initial, options, validation = {}, ...props }) => {
 
   const getValueByKey = (neededKey) => {
     const [selectedValue] = options.filter((item) => item.key === neededKey)
-    return selectedValue | options[0]
+    return selectedValue || options[0]
   }
 
   useEffect(() => {
