@@ -27,28 +27,21 @@ export const reduser = (state, action) => {
 
       for (let i = 0; i < fields.length; i++)
         if (fields[i].id === id) {
-          if (
-            fields[i].initial !== initial &&
-            initial !== null &&
-            initial !== undefined
-          ) {
-            fields[i].initial = initial
-            values = {
-              ...values,
-              ...changeFieldInitial({ id, initial, values })
-            }
-            const defaultValidate = validate({
-              type,
-              value: initial,
-              validation
-            })
-
-            touched[id] = isTouched
-            if (defaultValidate) errors[id] = defaultValidate
-            else delete errors[id]
-            return { ...state, fields, values, touched, errors }
+          fields[i].initial = initial
+          values = {
+            ...values,
+            ...changeFieldInitial({ id, initial, values })
           }
-          return state
+          const defaultValidate = validate({
+            type,
+            value: initial,
+            validation
+          })
+
+          touched[id] = isTouched
+          if (defaultValidate) errors[id] = defaultValidate
+          else delete errors[id]
+          return { ...state, fields, values, touched, errors }
         }
 
       try {
