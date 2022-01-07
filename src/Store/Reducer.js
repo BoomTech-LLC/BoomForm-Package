@@ -96,6 +96,7 @@ export const reduser = (state, action) => {
       const { id, value, handleChange } = payload
       const { fields } = state
       const [field] = fields.filter((field) => String(field.id) === String(id))
+      if (!field) return
       const { type, name, validation } = field
       let { values } = state
       values = deepCopy(values)
