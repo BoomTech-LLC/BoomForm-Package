@@ -7,7 +7,8 @@ import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessa
 const Input = ({ id, type, initial, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
   const ref = useRef()
-  const { handleValidationChange , handleValidationBlur } = useNativeValidationMessage()
+  const { handleValidationChange, handleValidationBlur } =
+    useNativeValidationMessage()
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
   const { HTMLValidate } = validation
@@ -19,27 +20,28 @@ const Input = ({ id, type, initial, validation = {}, ...props }) => {
       initial: actualInitial,
       field: { type, validation, ...props }
     })
+
+    console.log(`-${id}- changed `, initial)
   }, [id, initial])
 
   useEffect(() => {
-    if(HTMLValidate === true){
-      if(ref.current && errors[id] !== undefined)
+    if (HTMLValidate === true) {
+      if (ref.current && errors[id] !== undefined)
         ref.current.setCustomValidity(errors[id])
-      else if(ref.current)
-        ref.current.setCustomValidity('')
+      else if (ref.current) ref.current.setCustomValidity('')
     }
   }, [ref.current, errors])
 
   const onChange = (e) => {
     if (HTMLValidate === true)
-      handleValidationChange({ e, possibleError: errors[id] });
-    
+      handleValidationChange({ e, possibleError: errors[id] })
+
     handleChange({ id, value: e.target.value })
   }
 
   const onBlur = (e) => {
     if (HTMLValidate === true)
-      handleValidationBlur({ e, possibleError: errors[id] });
+      handleValidationBlur({ e, possibleError: errors[id] })
 
     handleBlur({ id })
   }
