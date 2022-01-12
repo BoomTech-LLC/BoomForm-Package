@@ -19,7 +19,7 @@ const Checkbox = ({ id, initial, validation = {}, ...props }) => {
       initial: initial === undefined ? false : initial,
       field: { type: 'checkbox', validation, ...props }
     })
-  }, [id, initial, validation])
+  }, [id, initial])
 
   useEffect(() => {
     if (HTMLValidate === true) {
