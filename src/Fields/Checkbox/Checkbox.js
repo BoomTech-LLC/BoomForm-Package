@@ -6,7 +6,8 @@ import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessa
 
 const Checkbox = ({ id, initial, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
-  const { handleValidationChange , handleValidationBlur } = useNativeValidationMessage()
+  const { handleValidationChange, handleValidationBlur } =
+    useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
@@ -21,28 +22,25 @@ const Checkbox = ({ id, initial, validation = {}, ...props }) => {
   }, [id, initial])
 
   useEffect(() => {
-    if(HTMLValidate === true)
-    {
-      if(ref.current && errors[id] !== undefined)
+    if (HTMLValidate === true) {
+      if (ref.current && errors[id] !== undefined)
         ref.current.setCustomValidity(errors[id])
-      else if(ref.current)
-        ref.current.setCustomValidity('')
+      else if (ref.current) ref.current.setCustomValidity('')
     }
   }, [ref.current, errors])
 
-  
   const value = getFieldValue(values, id)
 
   const onChange = (e) => {
     if (HTMLValidate === true)
-      handleValidationChange({ e, possibleError: errors[id] });
-    
+      handleValidationChange({ e, possibleError: errors[id] })
+
     handleChange({ id, value: e.target.checked })
   }
 
   const onBlur = (e) => {
     if (HTMLValidate === true)
-      handleValidationBlur({ e, possibleError: errors[id] });
+      handleValidationBlur({ e, possibleError: errors[id] })
 
     handleBlur({ id })
   }

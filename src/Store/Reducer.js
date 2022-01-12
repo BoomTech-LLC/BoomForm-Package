@@ -23,7 +23,7 @@ export const reduser = (state, action) => {
       values = deepCopy(values)
       const touched = { ...state.touched }
       const errors = { ...state.errors }
-      const isTouched = initial === null || initial === undefined ? false : true
+      const isTouched = !initial ? false : true
 
       for (let i = 0; i < fields.length; i++)
         if (fields[i].id === id) {

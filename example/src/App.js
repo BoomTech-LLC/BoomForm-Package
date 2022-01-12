@@ -15,14 +15,15 @@ const App = () => {
     <BoomForm>
       <form>
         <div>
-          <Radio
-            id={1}
-            value='Yes 1'
-            checked={true}
-            validation={{ HTMLValidate: true, required: { msg: 'Something' } }}
+          <Checkbox
+            id='1.yes'
+            name='yes_or_no'
+            value='Yes'
+            validation={{
+              HTMLValidate: true,
+              required: { msg: 'Checkbox Field Is Required' }
+            }}
           />
-          <Radio id={1} value='Yes 2' />
-          <Radio id={1} value='Yes 3' />
         </div>
         <button>Submit</button>
       </form>
