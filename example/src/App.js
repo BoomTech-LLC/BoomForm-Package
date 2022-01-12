@@ -16,14 +16,14 @@ const App = () => {
       <form>
         <div>
           <Checkbox
-            id='1.yes'
-            name='yes_or_no'
+            id='1.2'
             value='Yes'
             validation={{
               HTMLValidate: true,
               required: { msg: 'Checkbox Field Is Required' }
             }}
           />
+          <Checkbox id='1.1' value='Yes' />
         </div>
         <button>Submit</button>
       </form>
