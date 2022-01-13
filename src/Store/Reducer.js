@@ -107,7 +107,8 @@ export const reduser = (state, action) => {
           id,
           value,
           field,
-          handleChange
+          handleChange,
+          state
         })
 
       switch (type) {
