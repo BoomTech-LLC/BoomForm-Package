@@ -26,7 +26,12 @@ export const reduser = (state, action) => {
       const isTouched = !initial ? false : true
 
       for (let i = 0; i < fields.length; i++)
-        if (fields[i].id === id) {
+        if (
+          fields[i].id === id &&
+          fields[i].initial !== initial &&
+          initial !== null &&
+          initial !== undefined
+        ) {
           fields[i].initial = initial
           values = {
             ...values,
