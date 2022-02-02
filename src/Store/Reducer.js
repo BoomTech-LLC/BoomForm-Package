@@ -47,7 +47,7 @@ export const reduser = (state, action) => {
           if (defaultValidate) errors[id] = defaultValidate
           else delete errors[id]
           return { ...state, fields, values, touched, errors }
-        }
+        } else if (fields[i].id === id) return state
 
       try {
         checkIdStructure(id, fields)
@@ -84,9 +84,9 @@ export const reduser = (state, action) => {
         values = setNestedValue(id, initial, values)
       else values[id] = initial
 
-      defaultValues = { ...values }
-      defaultTouched = { ...touched }
-      defaultErros = { ...errors }
+      defaultValues[id] = values[id]
+      defaultTouched[id] = touched[id]
+      if (errors[id]) defaultErros[id] = errors[id]
 
       return {
         ...state,
