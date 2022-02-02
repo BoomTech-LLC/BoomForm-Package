@@ -1,11 +1,16 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import { Context } from 'boomform'
 
-const State = () => {
-  const { state } = useContext(Context)
+const State = ({ setX }) => {
+  const { state, actions } = useContext(Context)
+  const { handleReset } = actions
 
-  console.log(state)
-  return null
+  return (
+    <>
+      <div onClick={() => setX((x) => !x)}>Revert</div>
+      <div onClick={() => handleReset()}>Reset</div>
+    </>
+  )
 }
 
 export default State

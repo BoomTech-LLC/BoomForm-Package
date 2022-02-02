@@ -80,11 +80,14 @@ export const reduser = (state, action) => {
         }
       }
 
-      if (id.toString().includes('.'))
+      if (id.toString().includes('.')) {
         values = setNestedValue(id, initial, values)
-      else values[id] = initial
+        defaultValues = setNestedValue(id, initial, defaultValues)
+      } else {
+        values[id] = initial
+        defaultValues[id] = initial
+      }
 
-      defaultValues[id] = values[id]
       defaultTouched[id] = touched[id]
       if (errors[id]) defaultErros[id] = errors[id]
 

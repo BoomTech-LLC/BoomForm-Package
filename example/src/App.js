@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   BoomForm,
   Input,
@@ -11,23 +11,25 @@ import {
 import State from './State'
 
 const App = () => {
+  const [x, setX] = useState(true)
+
   return (
     <BoomForm>
       <form>
         <div>
-          <Checkbox
-            id='1.2'
-            value='Yes'
-            validation={{
-              HTMLValidate: true,
-              required: { msg: 'Checkbox Field Is Required' }
-            }}
-          />
-          <Checkbox id='1.1' value='Yes' />
+          {x ? (
+            <>
+              a<Input id='1.1' />
+            </>
+          ) : (
+            <>
+              b<Input id='1.2' />
+            </>
+          )}
         </div>
         <button>Submit</button>
       </form>
-      <State />
+      <State setX={setX} />
     </BoomForm>
   )
 }
