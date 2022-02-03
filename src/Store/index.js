@@ -1,8 +1,7 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useMemo } from 'react'
 import Context from './Context'
 import { reduser } from './Reducer'
 import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOUCHED } from './Types'
-import Memoizeable from "../Memoizeable"
 
 const Store = ({ children, ...props }) => {
   const [state, dispatch] = useReducer(reduser, {
@@ -72,16 +71,16 @@ const Store = ({ children, ...props }) => {
         }
       }}
     >
-      <Memoizeable>
-        {children({
+      {useMemo(() => {
+        return children({
           declareField,
           handleReset,
           handleChange,
           handleBlur,
           handleClick
-        })}
-      </Memoizeable>
-    </Context.Provider >
+        })
+      }, [])}
+    </Context.Provider>
   )
 }
 

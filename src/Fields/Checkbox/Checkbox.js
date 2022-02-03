@@ -1,12 +1,12 @@
 import React, { useEffect, useContext, useRef } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
-import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Checkbox = ({ id, initial, validation = {}, actions, ...props }) => {
-  const { state } = useContext(context)
-  const { handleValidationChange, handleValidationBlur } = useNativeValidationMessage()
+const Checkbox = ({ id, initial, validation = {}, ...props }) => {
+  const { state, actions } = useContext(context)
+  const { handleValidationChange, handleValidationBlur } =
+    useNativeValidationMessage()
   const ref = useRef()
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
@@ -47,16 +47,14 @@ const Checkbox = ({ id, initial, validation = {}, actions, ...props }) => {
   if (value === undefined) return null
 
   return (
-    <Memoizeable field={{ id, initial, value, ...props }}>
-      <input
-        {...props}
-        ref={ref}
-        type='checkbox'
-        checked={value}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-    </Memoizeable>
+    <input
+      {...props}
+      ref={ref}
+      type='checkbox'
+      checked={value}
+      onChange={onChange}
+      onBlur={onBlur}
+    />
   )
 }
 

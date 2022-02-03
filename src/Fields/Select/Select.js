@@ -1,11 +1,10 @@
 import React, { useEffect, useContext, useState, useRef } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
-import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Select = ({ id, initial, options, validation = {}, actions, ...props }) => {
-  const { state } = useContext(context)
+const Select = ({ id, initial, options, validation = {}, ...props }) => {
+  const { state, actions } = useContext(context)
   const { handleValidationChange, handleValidationBlur } =
     useNativeValidationMessage()
   const ref = useRef()
@@ -82,21 +81,19 @@ const Select = ({ id, initial, options, validation = {}, actions, ...props }) =>
   }
 
   return (
-    <Memoizeable field={{ id, initial, options, value, selectedKey, ...props }}>
-      <select value={selectedKey} ref={ref} onChange={onChange} onBlur={onBlur}>
-        {options.map((option, index) => {
-          const { value: optionValue, label, key: optionKey } = option
+    <select value={selectedKey} ref={ref} onChange={onChange} onBlur={onBlur}>
+      {options.map((option, index) => {
+        const { value: optionValue, label, key: optionKey } = option
 
-          if (optionKey === 'placeholder' && hidePlaceholder) return null
+        if (optionKey === 'placeholder' && hidePlaceholder) return null
 
-          return (
-            <option key={index} value={optionKey} name={optionValue}>
-              {label || optionValue}
-            </option>
-          )
-        })}
-      </select>
-    </Memoizeable>
+        return (
+          <option key={index} value={optionKey} name={optionValue}>
+            {label || optionValue}
+          </option>
+        )
+      })}
+    </select>
   )
 }
 
