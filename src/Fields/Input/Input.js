@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useRef } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
-import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
 const Input = ({ id, type, initial, validation = {}, ...props }) => {
@@ -20,8 +19,6 @@ const Input = ({ id, type, initial, validation = {}, ...props }) => {
       initial: actualInitial,
       field: { type, validation, ...props }
     })
-
-    console.log(`-${id}- changed `, initial)
   }, [id, initial])
 
   useEffect(() => {
@@ -50,16 +47,14 @@ const Input = ({ id, type, initial, validation = {}, ...props }) => {
   if (value === undefined) return null
 
   return (
-    <Memoizeable field={{ id, type, initial, value, ...props }}>
-      <input
-        {...props}
-        type={type}
-        ref={ref}
-        value={value || ''}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-    </Memoizeable>
+    <input
+      {...props}
+      type={type}
+      ref={ref}
+      value={value || ''}
+      onChange={onChange}
+      onBlur={onBlur}
+    />
   )
 }
 

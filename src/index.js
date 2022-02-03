@@ -9,7 +9,7 @@ import Checkbox from './Fields/Checkbox/Checkbox'
 import Select from './Fields/Select/Select'
 import Radio from './Fields/Radio/Radio'
 import Custom from './Fields/Custom/Custom'
-
+import Emitter from "./Emitter"
 import Viewer from './Fields/Viewer/Viewer'
 import Error from './Additional/Error/Error'
 
@@ -28,5 +28,6 @@ export {
   Radio,
   Custom,
   Viewer,
-  Error
+  Error,
+  Emitter
 }

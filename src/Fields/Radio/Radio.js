@@ -1,7 +1,6 @@
 import React, { useEffect, useContext, useRef } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
-import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
 const Radio = ({
@@ -57,18 +56,16 @@ const Radio = ({
   if (value === undefined) return null
 
   return (
-    <Memoizeable field={{ id, initial, value, ...props }}>
-      <input
-        {...props}
-        ref={ref}
-        type='radio'
-        name={id}
-        value={radioValue}
-        checked={value === radioValue}
-        onChange={onChange}
-        onBlur={onBlur}
-      />
-    </Memoizeable>
+    <input
+      {...props}
+      ref={ref}
+      type='radio'
+      name={id}
+      value={radioValue}
+      checked={value === radioValue}
+      onChange={onChange}
+      onBlur={onBlur}
+    />
   )
 }
 
