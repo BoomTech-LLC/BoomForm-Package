@@ -58,5 +58,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "fbemitter": "^3.0.0"
+  }
 }
