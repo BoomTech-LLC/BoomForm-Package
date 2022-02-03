@@ -15,21 +15,27 @@ const App = () => {
 
   return (
     <BoomForm>
-      <form>
-        <div>
-          {x ? (
-            <>
-              a<Input id='1.1' />
-            </>
-          ) : (
-            <>
-              b<Input id='1.2' />
-            </>
-          )}
-        </div>
-        <button>Submit</button>
-      </form>
-      <State setX={setX} />
+      {(actions) => {
+        return (
+          <>
+            <form>
+              <div>
+                {x ? (
+                  <>
+                    a<Input id='1.1' actions={actions} />
+                  </>
+                ) : (
+                  <>
+                    b<Input id='1.2' actions={actions} />
+                  </>
+                )}
+              </div>
+              <button>Submit</button>
+            </form>
+            <State setX={setX} />
+          </>
+        )
+      }}
     </BoomForm>
   )
 }

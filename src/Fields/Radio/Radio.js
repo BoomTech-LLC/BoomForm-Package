@@ -9,9 +9,10 @@ const Radio = ({
   initial,
   value: radioValue,
   validation = {},
+  actions,
   ...props
 }) => {
-  const { state, actions } = useContext(context)
+  const { state } = useContext(context)
   const { handleValidationChange, handleValidationBlur } =
     useNativeValidationMessage()
   const ref = useRef()

@@ -4,8 +4,8 @@ import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Select = ({ id, initial, options, validation = {}, ...props }) => {
-  const { state, actions } = useContext(context)
+const Select = ({ id, initial, options, validation = {}, actions, ...props }) => {
+  const { state } = useContext(context)
   const { handleValidationChange, handleValidationBlur } =
     useNativeValidationMessage()
   const ref = useRef()

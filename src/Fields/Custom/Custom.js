@@ -3,8 +3,8 @@ import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import Memoizeable from '../../Memoizeable'
 
-const Custom = ({ id, initial, children, ...props }) => {
-  const { state, actions } = useContext(context)
+const Custom = ({ id, initial, children, actions, ...props }) => {
+  const { state } = useContext(context)
   const { handleChange, handleBlur, handleClick, declareField } = actions
   const { values, errors, fields, touched } = state
 
