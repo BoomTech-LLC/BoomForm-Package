@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useMemo } from 'react'
 import Context from './Context'
 import { reduser } from './Reducer'
 import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOUCHED } from './Types'
@@ -71,7 +71,15 @@ const Store = ({ children, ...props }) => {
         }
       }}
     >
-      {children}
+      {useMemo(() => {
+        return children({
+          declareField,
+          handleReset,
+          handleChange,
+          handleBlur,
+          handleClick
+        })
+      }, [])}
     </Context.Provider>
   )
 }
