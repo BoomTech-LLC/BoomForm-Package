@@ -60,6 +60,6 @@
     "dist"
   ],
   "dependencies": {
-    "fbemitter": "^3.0.0"
+    "boom-js-emitter": "^1.0.1"
   }
 }

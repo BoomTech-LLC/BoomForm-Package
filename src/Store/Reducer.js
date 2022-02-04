@@ -6,7 +6,7 @@ import {
   changeFieldInitial
 } from './../Helpers/global'
 import { validate, handleValidateSelect } from '../Helpers/validate'
-import Emitter from "../Emitter"
+import Events from '../Events'
 
 let defaultValues = {},
   defaultTouched = {},
@@ -144,7 +144,7 @@ export const reduser = (state, action) => {
           else delete errors[id]
       }
 
-      Emitter.fieldEmit(id, { values, errors })
+      Events.emitFieldChange(id, { id, state, values, errors })
 
       return {
         ...state,
