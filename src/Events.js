@@ -15,9 +15,8 @@ Emitter.removeFieldListener = function (event_id) {
 }
 
 Emitter.emitFieldChange = function (id, ...args) {
-  console.log(Emitter)
   for (let i = 0; i < Emitter.listenners.length; i++)
-    if (Emitter.listenners[i].includes(id))
+    if (Emitter.listenners[i]?.includes(id))
       Emitter.emit(`${i}-${Emitter.listenners[i].join(',')}`, ...args)
 }
 

@@ -7,6 +7,7 @@ const useField = (ids) => {
 
   const handleDataSet = (payload) => {
     const { state, errors, values, id } = payload
+    const { touched } = state
     const neededValues = {}
 
     for (let i = 0; i < ids.length; i++)
@@ -15,11 +16,12 @@ const useField = (ids) => {
     const structuredData = {
       id,
       value: getFieldValue(values, id),
+      touched: touched[id],
       ids,
       neededValues,
-      oldState: state,
+      prevState: state,
       newErrors: errors,
-      newvalues: values
+      newValues: values,
     }
 
     setData(structuredData)
