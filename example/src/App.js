@@ -13,7 +13,6 @@ import State from './State'
 
 const App = () => {
   const [x, setX] = useState(true)
-  const data = useField(['2', '3'])
 
   return (
     <>
@@ -23,8 +22,8 @@ const App = () => {
             <>
               <form>
                 <div>
-                  <Input id='1' />
-                  <Input id='2' />
+                  <Input id='1.1' />
+                  <Input id='1.2' />
                   <Input id='3' />
                 </div>
                 <button>Submit</button>

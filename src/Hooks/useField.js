@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Emitter from './../Events'
-import { getFieldValue } from './../Helpers/global'
+import { getFieldValue, setNestedValue } from './../Helpers/global'
 
 const useField = (ids) => {
   const [data, setData] = useState(null)
@@ -8,10 +8,14 @@ const useField = (ids) => {
   const handleDataSet = (payload) => {
     const { state, errors, values, id } = payload
     const { touched } = state
-    const neededValues = {}
+    let neededValues = {}
 
     for (let i = 0; i < ids.length; i++)
-      neededValues[ids[i]] = getFieldValue(values, ids[i])
+      neededValues = setNestedValue(
+        ids[i],
+        getFieldValue(values, ids[i]),
+        neededValues
+      )
 
     const structuredData = {
       id,
@@ -21,7 +25,7 @@ const useField = (ids) => {
       neededValues,
       prevState: state,
       newErrors: errors,
-      newValues: values,
+      newValues: values
     }
 
     setData(structuredData)
