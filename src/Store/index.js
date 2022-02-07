@@ -8,8 +8,7 @@ const Store = ({ children, ...props }) => {
     fields: [],
     values: {},
     touched: {},
-    errors: {},
-    ...props
+    errors: {}
   })
 
   const declareField = ({ id, initial, field }) => {
@@ -79,7 +78,7 @@ const Store = ({ children, ...props }) => {
           handleBlur,
           handleClick
         })
-      }, [])}
+      }, Object.values(props))}
     </Context.Provider>
   )
 }

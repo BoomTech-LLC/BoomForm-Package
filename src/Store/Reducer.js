@@ -6,7 +6,7 @@ import {
   changeFieldInitial
 } from './../Helpers/global'
 import { validate, handleValidateSelect } from '../Helpers/validate'
-import Emitter from "../Emitter"
+import Events from '../Events'
 
 let defaultValues = {},
   defaultTouched = {},
@@ -104,7 +104,7 @@ export const reduser = (state, action) => {
     case EDIT_FIELD: {
       const { id, value, handleChange } = payload
       const { fields } = state
-      const [field] = fields.filter((field) => String(field.id) === String(id))
+      const field = fields.find((field) => String(field.id) === String(id))
       if (!field) return state
       const { type, name, validation } = field
       let { values } = state
@@ -144,7 +144,13 @@ export const reduser = (state, action) => {
           else delete errors[id]
       }
 
-      Emitter.fieldEmit(id, { values, errors })
+      Events.emitFieldChange(id, {
+        id,
+        state,
+        values,
+        errors,
+        touched: state.touched[id]
+      })
 
       return {
         ...state,

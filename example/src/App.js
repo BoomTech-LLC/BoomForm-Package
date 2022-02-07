@@ -7,36 +7,41 @@ import {
   Checkbox,
   File,
   Radio,
-  Emitter
+  useField
 } from 'boomform'
 import State from './State'
 
 const App = () => {
   const [x, setX] = useState(true)
-
-  useEffect(() => {
-    Emitter.fieldListener(["2"], (payload) => console.log("ff", payload))
-  }, [])
+  const data = useField(['2', '3'])
 
   return (
-    <BoomForm>
-      {({ handleChange }) => {
-        return (
-          <>
-            <form>
-              <div>
-                <Input id='1' />
-                <Input id='2' />
-                <Input id='3' />
-              </div>
-              <button>Submit</button>
-
-            </form>
-            {/* <State setX={setX} /> */}
-          </>
-        )
-      }}
-    </BoomForm>
+    <>
+      <BoomForm x={x}>
+        {({ handleChange }) => {
+          return (
+            <>
+              <form>
+                <div>
+                  <Input id='1' />
+                  <Input id='2' />
+                  <Input id='3' />
+                </div>
+                <button>Submit</button>
+                <div
+                  onClick={() => {
+                    setX((prev) => !prev)
+                  }}
+                >
+                  La la la
+                </div>
+                {x ? <State /> : null}
+              </form>
+            </>
+          )
+        }}
+      </BoomForm>
+    </>
   )
 }
 
