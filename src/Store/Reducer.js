@@ -144,8 +144,13 @@ export const reduser = (state, action) => {
           else delete errors[id]
       }
 
-
-      Events.emitFieldChange(id, { id, state, values, errors, touched: state.touched[id] })
+      Events.emitFieldChange(id, {
+        id,
+        state,
+        values,
+        errors,
+        touched: state.touched[id]
+      })
 
       return {
         ...state,
