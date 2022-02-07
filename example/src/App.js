@@ -24,7 +24,7 @@ const App = () => {
                 <div>
                   <Input id='1.1' />
                   <Input id='1.2' />
-                  <Input id='3' />
+                  <Input id={3} />
                 </div>
                 <button>Submit</button>
                 <div
