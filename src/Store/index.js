@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo } from 'react'
+import React, { useReducer, useMemo, useCallback } from 'react'
 import Context from './Context'
 import { reduser } from './Reducer'
 import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOUCHED } from './Types'
@@ -33,6 +33,8 @@ const Store = ({ children, ...props }) => {
     })
   }
 
+  const getAndChange = (func) => handleChange(func(state))
+
   const handleBlur = ({ id }) => {
     dispatch({
       type: SET_TOUCHED,
@@ -66,7 +68,8 @@ const Store = ({ children, ...props }) => {
           handleReset,
           handleChange,
           handleBlur,
-          handleClick
+          handleClick,
+          getAndChange
         }
       }}
     >

@@ -4,7 +4,8 @@ import { getFieldValue } from '../../Helpers/global'
 
 const Custom = ({ id, initial, children, ...props }) => {
   const { state, actions } = useContext(context)
-  const { handleChange, handleBlur, handleClick, declareField } = actions
+  const { handleChange, handleBlur, handleClick, declareField, getAndChange } =
+    actions
   const { values, errors, fields, touched } = state
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const Custom = ({ id, initial, children, ...props }) => {
   return children({
     id,
     handleChange,
+    getAndChange,
     handleBlur,
     handleClick,
     value,
