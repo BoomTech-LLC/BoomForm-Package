@@ -1,11 +1,18 @@
+const isObject = (variable) => {
+  return (
+    typeof variable === 'object' &&
+    !Array.isArray(variable) &&
+    variable !== null
+  )
+}
+
 export const setNestedValue = (key, value, values) => {
   const keyPath = key.toString().split('.')
   keyPath.reduce((acc, val, index) => {
     if (keyPath.length - 1 === index) {
       return (acc[val] = value)
     }
-    if (typeof acc[val] !== 'object' || acc[val] === null)
-      return (acc[val] = {})
+    if (!isObject(acc[val]) || acc[val] === null) return (acc[val] = {})
     else return acc[val]
   }, values)
   return values
