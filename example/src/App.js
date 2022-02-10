@@ -28,19 +28,19 @@ const App = () => {
                   <Input id={3} />
                   <Custom id='4'>
                     {({ value, getAndChange }) => {
+                      console.log(value)
                       return (
                         <div
                           onClick={() => {
                             getAndChange((state) => {
-                              console.log('Custom Field hand state', state)
                               return {
                                 id: '4',
-                                value: Math.random()
+                                value: [123, 465, 456]
                               }
                             })
                           }}
                         >
-                          Custom qaq
+                          Custom
                         </div>
                       )
                     }}

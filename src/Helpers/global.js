@@ -1,4 +1,4 @@
-const isObject = (variable) => {
+export const isObject = (variable) => {
   return (
     typeof variable === 'object' &&
     !Array.isArray(variable) &&
@@ -52,7 +52,7 @@ export const checkIdStructure = (id, fields) => {
 
 export const deepCopy = (object) => {
   let newObject = object
-  if (object && typeof object === 'object') {
+  if (object && isObject(object)) {
     newObject = {}
     for (var i in object) newObject[i] = deepCopy(object[i])
   }
