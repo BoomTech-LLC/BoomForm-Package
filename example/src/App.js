@@ -23,28 +23,16 @@ const App = () => {
             <>
               <form>
                 <div>
-                  <Input id='1.1' />
-                  <Input id='1.2' />
-                  <Input id={3} />
-                  <Custom id='4'>
-                    {({ value, getAndChange }) => {
-                      console.log(value)
-                      return (
-                        <div
-                          onClick={() => {
-                            getAndChange((state) => {
-                              return {
-                                id: '4',
-                                value: [123, 465, 456]
-                              }
-                            })
-                          }}
-                        >
-                          Custom
-                        </div>
-                      )
-                    }}
-                  </Custom>
+                  <Select
+                    id='1'
+                    initial='1'
+                    options={[
+                      { key: 'placeholder', value: ' -- Choice One -- ' },
+                      { key: '1', value: 'Today' },
+                      { key: '2', value: 'Tomorrow' },
+                      { key: '3', value: 'Next Week' }
+                    ]}
+                  />
                 </div>
                 <button>Submit</button>
                 <div

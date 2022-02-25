@@ -55,8 +55,9 @@ const Select = ({ id, initial, options, validation = {}, ...props }) => {
 
     const [newValue] = options.filter((item) => e.target.value == item.key)
 
-    if (newValue && newValue.key !== 'placeholder' && validation.required)
-      setHidePlaceholder(true)
+    // Need to add again in reset function
+    // if (newValue && newValue.key !== 'placeholder' && validation.required)
+    //   setHidePlaceholder(true)
 
     handleChange({
       id,
