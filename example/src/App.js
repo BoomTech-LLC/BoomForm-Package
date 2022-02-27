@@ -15,6 +15,10 @@ import State from './State'
 const App = () => {
   const [x, setX] = useState(true)
 
+  const fieldData = useField(['1.1', '1.2', "3"])
+
+  console.log("FIELD DATA", fieldData)
+
   return (
     <>
       <BoomForm x={x}>
@@ -23,9 +27,16 @@ const App = () => {
             <>
               <form>
                 <div>
-                  <Input id='1.1' />
+                  <Input
+                    id='1.1'
+                    initial="Araraaat"
+                    validation={{
+                      required: { msg: 'This Field is required' }
+                    }}
+                  />
                   <Input id='1.2' />
                   <Input id={3} />
+                  <Input id="5" />
                   <Custom id='4'>
                     {({ value, getAndChange }) => {
                       console.log(value)
