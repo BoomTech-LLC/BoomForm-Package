@@ -27,35 +27,16 @@ const App = () => {
             <>
               <form>
                 <div>
-                  <Input
-                    id='1.1'
-                    initial="Araraaat"
-                    validation={{
-                      required: { msg: 'This Field is required' }
-                    }}
+                  <Select
+                    id='1'
+                    initial='1'
+                    options={[
+                      { key: 'placeholder', value: ' -- Choice One -- ' },
+                      { key: '1', value: 'Today' },
+                      { key: '2', value: 'Tomorrow' },
+                      { key: '3', value: 'Next Week' }
+                    ]}
                   />
-                  <Input id='1.2' />
-                  <Input id={3} />
-                  <Input id="5" />
-                  <Custom id='4'>
-                    {({ value, getAndChange }) => {
-                      console.log(value)
-                      return (
-                        <div
-                          onClick={() => {
-                            getAndChange((state) => {
-                              return {
-                                id: '4',
-                                value: [123, 465, 456]
-                              }
-                            })
-                          }}
-                        >
-                          Custom
-                        </div>
-                      )
-                    }}
-                  </Custom>
                 </div>
                 <button>Submit</button>
                 <div
