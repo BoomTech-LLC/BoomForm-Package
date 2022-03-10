@@ -15,6 +15,10 @@ import State from './State'
 const App = () => {
   const [x, setX] = useState(true)
 
+  const fieldData = useField(['1.1', '1.2', "3"])
+
+  console.log("FIELD DATA", fieldData)
+
   return (
     <>
       <BoomForm x={x}>
