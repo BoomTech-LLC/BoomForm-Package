@@ -100,26 +100,24 @@ interface IErrorProps {
   id: string | number
 }
 
-declare module 'boomform' {
-  export const useField: UseField
+export declare const useField: UseField
 
-  export const BoomForm: React.FC
+export declare const BoomForm: React.FC
 
-  export const Input: React.FC<IInputProps>
+export declare const Input: React.FC<IInputProps>
 
-  export const Textarea: React.FC<ITextareaProps>
+export declare const Textarea: React.FC<ITextareaProps>
 
-  export const File: React.FC<IFileProps>
+export declare const File: React.FC<IFileProps>
 
-  export const Checkbox: React.FC<ICheckboxProps>
+export declare const Checkbox: React.FC<ICheckboxProps>
 
-  export const Select: React.FC<ISelectProps>
+export declare const Select: React.FC<ISelectProps>
 
-  export const Radio: React.FC<IRadioProps>
+export declare const Radio: React.FC<IRadioProps>
 
-  export const Custom: React.FC<ICustomProps>
+export declare const Custom: React.FC<ICustomProps>
 
-  export const Viewer: React.FC
+export declare const Viewer: React.FC
 
-  export const Error: React.FC<IErrorProps>
-}
+export declare const Error: React.FC<IErrorProps>
