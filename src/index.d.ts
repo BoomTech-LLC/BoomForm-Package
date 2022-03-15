@@ -30,6 +30,10 @@ type UseField = (ids: string[]) => {
   }
 }
 
+interface IBoomFormProps {
+  fields: ReadonlyArray<any>
+}
+
 interface IInputProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'id'> {
   id: string | number
@@ -103,7 +107,7 @@ interface IErrorProps {
 declare module 'boomform' {
   export const useField: UseField
 
-  export const BoomForm: React.FC
+  export const BoomForm: React.FC<IBoomFormProps>
 
   export const Input: React.FC<IInputProps>
 
