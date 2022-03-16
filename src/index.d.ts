@@ -31,7 +31,7 @@ type UseField = (ids: string[]) => {
 }
 
 interface IBoomFormProps {
-  fields: ReadonlyArray<any>
+  fields?: ReadonlyArray<any>
 }
 
 interface IInputProps
