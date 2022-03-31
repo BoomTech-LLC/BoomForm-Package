@@ -15,19 +15,23 @@ type UseField = (ids: string[]) => {
   ids: string[]
   value: string
   touched: boolean
-  neededValues: { [key: string]: { [key: string]: string } | string }
-  newValues: { [key: string]: { [key: string]: string } | string | null }
+  neededValues: { [key: string]: any }
+  newValues: { [key: string]: any }
   newErrors: { [key: string]: string }
   prevState: {
     errors: { [key: string]: string }
     touched: { [key: string]: boolean }
-    values: { [key: string]: { [key: string]: string | null } | string | null }
+    values: { [key: string]: any }
     fields: {
       id: string | number
       initial: null | string
       type?: string | undefined
     }[]
   }
+}
+
+interface IBoomFormProps {
+  fields: ReadonlyArray<any>
 }
 
 interface IInputProps
@@ -103,7 +107,7 @@ interface IErrorProps {
 declare module 'boomform' {
   export const useField: UseField
 
-  export const BoomForm: React.FC
+  export const BoomForm: React.FC<IBoomFormProps>
 
   export const Input: React.FC<IInputProps>
 
@@ -122,4 +126,16 @@ declare module 'boomform' {
   export const Viewer: React.FC
 
   export const Error: React.FC<IErrorProps>
+
+  export type InputValidationType = IInputProps['validation']
+
+  export type TextareaValidationType = ITextareaProps['validation']
+
+  export type FileValidationType = IFileProps['validation']
+
+  export type CheckboxValidationType = ICheckboxProps['validation']
+
+  export type SelectValidationType = ISelectProps['validation']
+
+  export type RadioValidationType = IRadioProps['validation']
 }
