@@ -8,6 +8,7 @@ interface IValidation {
   email?: { msg: string }
   phone?: { msg: string }
   url?: { msg: string }
+  custom(values: string[]): boolean
 }
 
 type UseField = (ids: string[]) => {
@@ -41,7 +42,14 @@ interface IInputProps
   initial?: string
   validation?: Pick<
     IValidation,
-    'HTMLValidate' | 'required' | 'email' | 'max' | 'min' | 'phone' | 'url'
+    | 'HTMLValidate'
+    | 'required'
+    | 'email'
+    | 'max'
+    | 'min'
+    | 'phone'
+    | 'url'
+    | 'custom'
   >
 }
 
@@ -51,7 +59,14 @@ interface ITextareaProps
   initial?: string
   validation?: Pick<
     IValidation,
-    'HTMLValidate' | 'required' | 'email' | 'max' | 'min' | 'phone' | 'url'
+    | 'HTMLValidate'
+    | 'required'
+    | 'email'
+    | 'max'
+    | 'min'
+    | 'phone'
+    | 'url'
+    | 'custom'
   >
 }
 
