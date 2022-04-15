@@ -8,7 +8,7 @@ interface IValidation {
   email?: { msg: string }
   phone?: { msg: string }
   url?: { msg: string }
-  custom(values: string[]): boolean
+  custom?(values: string[]): string | boolean
 }
 
 type UseField = (ids: string[]) => {

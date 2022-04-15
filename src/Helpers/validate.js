@@ -107,6 +107,7 @@ export const validate = ({ value, validation, type }) => {
         )
           return msg
         break
+
       case 'custom':
         return validation[item](value)
     }
