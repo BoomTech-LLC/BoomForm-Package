@@ -1,9 +1,22 @@
 import { useEffect, useState } from 'react'
 import Emitter from './../Events'
-import { getFieldValue, setNestedValue } from './../Helpers/global'
+import {
+  getFieldValue,
+  setNestedValue,
+  getUseFieldInitial
+} from './../Helpers/global'
 
 const useField = (ids) => {
-  const [data, setData] = useState(null)
+  const [data, setData] = useState({
+    id: null,
+    value: null,
+    touched: null,
+    ids,
+    neededValues: {},
+    prevState: {},
+    newErrors: {},
+    newValues: {}
+  })
 
   const handleDataSet = (payload) => {
     const { state, errors, values, id } = payload
@@ -32,6 +45,8 @@ const useField = (ids) => {
   }
 
   useEffect(() => {
+    setData(getUseFieldInitial(ids))
+
     const event_id = Emitter.addFieldListener(ids, (payload) => {
       setTimeout(() => handleDataSet(payload))
     })
