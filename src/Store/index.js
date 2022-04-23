@@ -1,4 +1,4 @@
-import React, { useReducer, useMemo, useCallback } from 'react'
+import React, { useReducer, useMemo } from 'react'
 import Context from './Context'
 import { reduser } from './Reducer'
 import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOUCHED } from './Types'

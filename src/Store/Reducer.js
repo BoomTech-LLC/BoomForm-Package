@@ -8,6 +8,11 @@ import {
 import { validate, handleValidateSelect } from '../Helpers/validate'
 import Events from '../Events'
 
+const SCS = (state) => {
+  window.__current_form_state = state
+  return state
+}
+
 let defaultValues = {},
   defaultTouched = {},
   defaultErros = {}
@@ -47,14 +52,14 @@ export const reduser = (state, action) => {
           touched[id] = isTouched
           if (defaultValidate) errors[id] = defaultValidate
           else delete errors[id]
-          return { ...state, fields, values, touched, errors }
-        } else if (fields[i].id === id) return state
+          return SCS({ ...state, fields, values, touched, errors })
+        } else if (fields[i].id === id) return SCS(state)
 
       try {
         checkIdStructure(id, fields)
       } catch (error) {
         console.error(error)
-        return state
+        return SCS(state)
       }
 
       fields = fields
@@ -92,20 +97,20 @@ export const reduser = (state, action) => {
       defaultTouched[id] = touched[id]
       if (errors[id]) defaultErros[id] = errors[id]
 
-      return {
+      return SCS({
         ...state,
         values,
         touched,
         fields,
         errors
-      }
+      })
     }
 
     case EDIT_FIELD: {
       const { id, value, handleChange } = payload
       const { fields } = state
       const field = fields.find((field) => String(field.id) === String(id))
-      if (!field) return state
+      if (!field) return SCS(state)
       const { type, name, validation } = field
       let { values } = state
       values = deepCopy(values)
@@ -152,20 +157,20 @@ export const reduser = (state, action) => {
         touched: state.touched[id]
       })
 
-      return {
+      return SCS({
         ...state,
         values,
         errors
-      }
+      })
     }
 
     case RESET_FORM: {
-      return {
+      return SCS({
         ...state,
         values: defaultValues,
         touched: defaultTouched,
         errors: defaultErros
-      }
+      })
     }
 
     case SET_TOUCHED: {
@@ -183,13 +188,13 @@ export const reduser = (state, action) => {
 
       touched[id] = true
 
-      return {
+      return SCS({
         ...state,
         touched
-      }
+      })
     }
 
     default:
-      return state
+      return SCS(state)
   }
 }

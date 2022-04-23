@@ -2,8 +2,8 @@ import React, { useContext } from 'react'
 import { Context, useField } from 'boomform'
 
 const State = ({ actions }) => {
-  const data = useField(['1', 3])
-  console.log('State:', data)
+  const field = useField(['1', '2'])
+  console.log(field)
   return null
 }
 
