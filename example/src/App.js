@@ -1,62 +1,30 @@
-import React, { useEffect, useState, useMemo } from 'react'
-import {
-  BoomForm,
-  Input,
-  Textarea,
-  Select,
-  Checkbox,
-  File,
-  Radio,
-  useField,
-  Custom
-} from 'boomform'
-import State from './State'
+import React from 'react'
+import { BoomForm, Input, useField } from 'boomform'
 
-const initials = {
-  a: 'Barev',
-  b: { key: 'placeholder', value: ' -- Choice One -- ' },
-  c: 'Textarea shit',
-  d: true,
-  r: 'dsknfsd'
-  // e: 'barev2'
+const SomeComponent = () => {
+  const neededState = useField(['user'])
+  console.log(neededState)
+  return 'Check your console'
 }
 
 const App = () => {
-  const [x, setX] = useState(false)
-
   return (
     <>
-      <BoomForm x={x}>
-        {({ handleChange }) => {
-          return (
-            <>
-              <form>
-                <Input id='a' />
-                <Select
-                  id='b'
-                  options={[
-                    { key: '1', value: 'Today' },
-                    { key: 'placeholder', value: ' -- Choice One -- ' },
-                    { key: '2', value: 'Tomorrow' },
-                    { key: '3', value: 'Next Week' }
-                  ]}
-                />
-                <Textarea id='c' />
-                <Checkbox id='d' />
-                <Radio id='e' value='barev1' />
-                <Radio id='e' value='barev2' />
-                <Custom id='r'>
-                  {({ value }) => {
-                    console.log(value)
-                    return <>{value}</>
-                  }}
-                </Custom>
-                {x && <State />}
-                <div onClick={() => setX((p) => !p)}>123</div>
-              </form>
-            </>
-          )
-        }}
+      <BoomForm>
+        {() => (
+          <>
+            <form>
+              Name: <Input id='user.name' />
+              <br />
+              Surname: <Input id='user.surname' />
+              <br />
+              <p>I'm not rendering `SomeComponent`</p>
+              <br />
+              <Input id='thing' />
+            </form>
+            <SomeComponent />
+          </>
+        )}
       </BoomForm>
     </>
   )

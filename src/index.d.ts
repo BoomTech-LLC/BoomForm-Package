@@ -33,6 +33,7 @@ type UseField = (ids: string[]) => {
 
 interface IBoomFormProps {
   fields: ReadonlyArray<any>
+  initialValues: any[]
 }
 
 interface IInputProps
@@ -137,8 +138,6 @@ declare module 'boomform' {
   export const Radio: React.FC<IRadioProps>
 
   export const Custom: React.FC<ICustomProps>
-
-  export const Viewer: React.FC
 
   export const Error: React.FC<IErrorProps>
 
