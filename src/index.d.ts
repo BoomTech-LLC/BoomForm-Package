@@ -32,8 +32,8 @@ type UseField = (ids: string[]) => {
 }
 
 interface IBoomFormProps {
-  fields: ReadonlyArray<any>
-  initialValues: any[]
+  fields?: ReadonlyArray<any>
+  initialValues?: any[]
 }
 
 interface IInputProps
@@ -140,6 +140,8 @@ declare module 'boomform' {
   export const Custom: React.FC<ICustomProps>
 
   export const Error: React.FC<IErrorProps>
+
+  export const Context: React.createContext<any>
 
   export type InputValidationType = IInputProps['validation']
 
