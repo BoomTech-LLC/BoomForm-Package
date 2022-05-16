@@ -32,6 +32,7 @@ type UseField = (ids: string[]) => {
 }
 
 interface IBoomFormProps {
+  children: (declareFields: any) => React.ReactNode
   fields?: ReadonlyArray<any>
   initials?: any[]
 }
