@@ -32,7 +32,15 @@ type UseField = (ids: string[]) => {
 }
 
 interface IBoomFormProps {
-  children: (declareFields: any) => React.ReactNode
+  children: (
+    declareFields: any,
+    declareField: any,
+    handleReset: any,
+    handleChange: any,
+    handleBlur: any,
+    handleClick: any,
+    getAndChange: any
+  ) => React.ReactNode
   fields?: ReadonlyArray<any>
   initials?: any[]
 }
@@ -115,6 +123,18 @@ interface IRadioProps
 
 interface ICustomProps {
   id: string | number
+  children: (
+    id: any,
+    handleChange: any,
+    getAndChange: any,
+    handleBlur: any,
+    handleClick: any,
+    value: any,
+    values: any,
+    errors: any,
+    fields: any,
+    touched: any
+  ) => React.ReactNode
 }
 
 interface IErrorProps {
@@ -143,6 +163,8 @@ declare module 'boomform' {
   export const Error: React.FC<IErrorProps>
 
   export const Context: React.createContext<any>
+
+  export type DeclareFields = any
 
   export type InputValidationType = IInputProps['validation']
 
