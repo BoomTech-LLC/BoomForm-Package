@@ -1,32 +1,46 @@
-import React from 'react'
-import { BoomForm, Input, useField } from 'boomform'
+import React, { useContext } from 'react'
+import { BoomForm, Input, Context } from 'boomform'
 
-const SomeComponent = () => {
-  const neededState = useField(['user'])
-  console.log(neededState)
-  return 'Check your console'
+const State = () => {
+  const x = useContext(Context)
+
+  console.log(x.state)
+
+  return null
+}
+
+const dynamicInitaials = {
+  'field.123.barev': null,
+  'addhsfjsdf.dsfnasd.adfasdf': 'dadsd'
 }
 
 const App = () => {
   return (
-    <>
-      <BoomForm>
-        {() => (
-          <>
-            <form>
-              Name: <Input id='user.name' />
-              <br />
-              Surname: <Input id='user.surname' />
-              <br />
-              <p>I'm not rendering `SomeComponent`</p>
-              <br />
-              <Input id='thing' />
-            </form>
-            <SomeComponent />
-          </>
-        )}
-      </BoomForm>
-    </>
+    <BoomForm initials={{ 1.1: 'askjfnss' }}>
+      {({ declareFields }) => (
+        <>
+          Simple Input:
+          <Input
+            id={'1.1'}
+            validation={{
+              HTMLValidate: true,
+              required: { msg: 'This Field is required' }
+            }}
+          />
+          <Input
+            id={'1.2'}
+            validation={{
+              HTMLValidate: true,
+              required: { msg: 'This Field is required' }
+            }}
+          />
+          <button onClick={() => declareFields(dynamicInitaials)}>
+            sdkfnsd
+          </button>
+          <State />
+        </>
+      )}
+    </BoomForm>
   )
 }
 

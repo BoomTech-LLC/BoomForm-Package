@@ -33,7 +33,7 @@ type UseField = (ids: string[]) => {
 
 interface IBoomFormProps {
   fields?: ReadonlyArray<any>
-  initialValues?: any[]
+  initials?: any[]
 }
 
 interface IInputProps

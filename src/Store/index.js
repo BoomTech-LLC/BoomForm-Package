@@ -1,7 +1,13 @@
 import React, { useReducer, useMemo, useEffect } from 'react'
 import Context from './Context'
 import { reduser } from './Reducer'
-import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOUCHED } from './Types'
+import {
+  DECLARE_FIELD,
+  EDIT_FIELD,
+  RESET_FORM,
+  SET_TOUCHED,
+  DECLARE_FIELDS
+} from './Types'
 
 const Store = ({ children, initials, ...props }) => {
   const [state, dispatch] = useReducer(reduser, {
@@ -11,21 +17,7 @@ const Store = ({ children, initials, ...props }) => {
     errors: {}
   })
 
-  useEffect(() => {
-    if (initials) {
-      Object.keys(initials).forEach((key) => {
-        const isSelect = typeof initials[key] === 'object'
-
-        declareField({
-          id: key,
-          initial: initials[key],
-          field: {
-            type: isSelect ? 'select' : 'non_select'
-          }
-        })
-      })
-    }
-  }, [initials])
+  useEffect(() => declareFields(initials), [initials])
 
   const declareField = ({ id, initial, field }) => {
     dispatch({
@@ -35,6 +27,13 @@ const Store = ({ children, initials, ...props }) => {
         initial,
         field
       }
+    })
+  }
+
+  const declareFields = (payload) => {
+    dispatch({
+      type: DECLARE_FIELDS,
+      payload
     })
   }
 
@@ -81,6 +80,7 @@ const Store = ({ children, initials, ...props }) => {
         state,
         actions: {
           declareField,
+          declareFields,
           handleReset,
           handleChange,
           handleBlur,
@@ -92,6 +92,7 @@ const Store = ({ children, initials, ...props }) => {
       {useMemo(() => {
         return children({
           declareField,
+          declareFields,
           handleReset,
           handleChange,
           handleBlur,

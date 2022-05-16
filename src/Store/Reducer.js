@@ -1,4 +1,10 @@
-import { DECLARE_FIELD, EDIT_FIELD, RESET_FORM, SET_TOUCHED } from './Types'
+import {
+  DECLARE_FIELD,
+  EDIT_FIELD,
+  RESET_FORM,
+  SET_TOUCHED,
+  DECLARE_FIELDS
+} from './Types'
 import {
   setNestedValue,
   checkIdStructure,
@@ -104,6 +110,27 @@ export const reduser = (state, action) => {
         fields,
         errors
       })
+    }
+
+    case DECLARE_FIELDS: {
+      let state_ = { ...state }
+
+      if (payload) {
+        Object.keys(payload).forEach((key) => {
+          const isSelect = typeof payload[key] === 'object'
+
+          state_ = reduser(state_, {
+            type: DECLARE_FIELD,
+            payload: {
+              id: key,
+              initial: payload[key],
+              field: { type: isSelect ? 'select' : 'non_select' }
+            }
+          })
+        })
+      }
+
+      return state_
     }
 
     case EDIT_FIELD: {
