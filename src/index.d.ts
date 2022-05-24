@@ -42,7 +42,7 @@ interface IBoomFormProps {
     getAndChange: any
   ) => React.ReactNode
   fields?: ReadonlyArray<any>
-  initials?: any[]
+  initials?: any
 }
 
 interface IInputProps
