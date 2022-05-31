@@ -84,7 +84,7 @@ export const getUseFieldInitial = (ids) => {
     neededValues,
     prevState: window.__current_form_state,
     newErrors: errors,
-    newValues: values
+    newTouched: touched
   }
 
   return structuredData

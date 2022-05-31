@@ -19,6 +19,7 @@ type UseField = (ids: string[]) => {
   neededValues: { [key: string]: any }
   newValues: { [key: string]: any }
   newErrors: { [key: string]: string }
+  newTouched: { [key: string]: string }
   prevState: {
     errors: { [key: string]: string }
     touched: { [key: string]: boolean }

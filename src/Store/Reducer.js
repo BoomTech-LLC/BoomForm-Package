@@ -108,7 +108,7 @@ export const reduser = (state, action) => {
         state,
         values,
         errors,
-        touched: state.touched[id]
+        touched
       })
 
       return SCS({
@@ -189,7 +189,7 @@ export const reduser = (state, action) => {
         state,
         values,
         errors,
-        touched: state.touched[id]
+        touched: state.touched
       })
 
       return SCS({
@@ -222,6 +222,14 @@ export const reduser = (state, action) => {
         })
 
       touched[id] = true
+
+      Events.emitFieldChange(id, {
+        id,
+        state,
+        values: state.values,
+        errors: state.errors,
+        touched
+      })
 
       return SCS({
         ...state,
