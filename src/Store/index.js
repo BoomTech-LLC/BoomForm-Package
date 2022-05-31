@@ -1,6 +1,6 @@
 import React, { useReducer, useMemo, useEffect } from 'react'
 import Context from './Context'
-import { reduser } from './Reducer'
+import { reduser, SCS } from './Reducer'
 import {
   DECLARE_FIELD,
   EDIT_FIELD,
@@ -18,6 +18,7 @@ const Store = ({ children, initials, ...props }) => {
   })
 
   useEffect(() => declareFields(initials), [initials])
+  useEffect(() => SCS(state), [])
 
   const declareField = ({ id, initial, field }) => {
     dispatch({

@@ -14,7 +14,7 @@ import {
 import { validate, handleValidateSelect } from '../Helpers/validate'
 import Events from '../Events'
 
-const SCS = (state) => {
+export const SCS = (state) => {
   window.__current_form_state = state
   return state
 }
