@@ -1,42 +1,34 @@
 import React, { useContext } from 'react'
-import { BoomForm, Input, Context } from 'boomform'
+import { BoomForm, Input, useField } from 'boomform'
 
 const State = () => {
-  const x = useContext(Context)
+  const x = useField(['x'])
 
-  console.log(x.state)
+  console.log('some shit', x)
 
   return null
 }
 
-const dynamicInitaials = {
-  'field.123.barev': null,
-  'addhsfjsdf.dsfnasd.adfasdf': 'dadsd'
-}
-
 const App = () => {
   return (
-    <BoomForm initials={{ 1.1: 'askjfnss' }}>
-      {({ declareFields }) => (
+    <BoomForm>
+      {() => (
         <>
           Simple Input:
           <Input
-            id={'1.1'}
+            id={'x.y'}
             validation={{
               HTMLValidate: true,
               required: { msg: 'This Field is required' }
             }}
           />
           <Input
-            id={'1.2'}
+            id={'x.z'}
             validation={{
               HTMLValidate: true,
               required: { msg: 'This Field is required' }
             }}
           />
-          <button onClick={() => declareFields(dynamicInitaials)}>
-            sdkfnsd
-          </button>
           <State />
         </>
       )}

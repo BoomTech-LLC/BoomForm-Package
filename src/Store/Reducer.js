@@ -103,6 +103,14 @@ export const reduser = (state, action) => {
       defaultTouched[id] = touched[id]
       if (errors[id]) defaultErros[id] = errors[id]
 
+      Events.emitFieldChange(id, {
+        id,
+        state,
+        values,
+        errors,
+        touched: state.touched[id]
+      })
+
       return SCS({
         ...state,
         values,
