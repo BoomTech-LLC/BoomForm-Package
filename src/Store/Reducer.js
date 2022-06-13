@@ -28,7 +28,7 @@ export const reduser = (state, action) => {
 
   switch (type) {
     case DECLARE_FIELD: {
-      const { id, initial, field } = payload
+      const { id, initial, field, doNotEmit } = payload
       const { validation, type } = field
       let { fields } = state
       let { values } = state
@@ -103,13 +103,14 @@ export const reduser = (state, action) => {
       defaultTouched[id] = touched[id]
       if (errors[id]) defaultErros[id] = errors[id]
 
-      Events.emitFieldChange(id, {
-        id,
-        state,
-        values,
-        errors,
-        touched
-      })
+      if (!doNotEmit)
+        Events.emitFieldChange(id, {
+          id,
+          state,
+          values,
+          errors,
+          touched
+        })
 
       return SCS({
         ...state,
@@ -124,7 +125,8 @@ export const reduser = (state, action) => {
       let state_ = { ...state }
 
       if (payload) {
-        Object.keys(payload).forEach((key) => {
+        const keys = Object.keys(payload)
+        keys.forEach((key, index) => {
           const isSelect = typeof payload[key] === 'object'
 
           state_ = reduser(state_, {
@@ -132,7 +134,8 @@ export const reduser = (state, action) => {
             payload: {
               id: key,
               initial: payload[key],
-              field: { type: isSelect ? 'select' : 'non_select' }
+              field: { type: isSelect ? 'select' : 'non_select' },
+              doNotEmit: index !== keys.length - 1
             }
           })
         })
