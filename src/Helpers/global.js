@@ -89,3 +89,52 @@ export const getUseFieldInitial = (ids) => {
 
   return structuredData
 }
+
+export const replaceIdInObject = (obj, oldId, newId) => {
+  let newObj = {}
+  Object.keys(obj).forEach((key) => {
+    if (key.indexOf(oldId) === 0) newObj[key.replace(oldId, newId)] = obj[key]
+    else newObj[key] = obj[key]
+  })
+
+  return newObj
+}
+
+export const replaceIdInFieldsArray = (arr, oldId, newId) => {
+  arr.forEach((value) => {
+    if (value.id.indexOf(oldId) === 0) value.id = value.id.replace(oldId, newId)
+  })
+
+  return [...arr]
+}
+
+export const replaceIdInValues = (values, oldId, newId) => {
+  const oldIds = oldId.split('.')
+  const newIds = newId.split('.')
+
+  if (oldIds.length !== newIds.length) return values
+
+  Object.keys(values).forEach((key) => {
+    if (key === oldIds[0]) {
+      let firstNewId = newIds[0]
+      let firstOldId = oldIds[0]
+
+      if (firstNewId !== firstOldId) {
+        values[firstNewId] = values[firstOldId]
+        delete values[firstOldId]
+      }
+
+      newIds.shift()
+      oldIds.shift()
+
+      if (isObject(values[firstNewId]) && oldIds.length !== 0)
+        values[firstNewId] = replaceIdInValues(
+          values[firstNewId],
+          oldIds.join('.'),
+          newIds.join('.')
+        )
+    }
+  })
+
+  return values
+}

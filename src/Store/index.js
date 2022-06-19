@@ -6,7 +6,8 @@ import {
   EDIT_FIELD,
   RESET_FORM,
   SET_TOUCHED,
-  DECLARE_FIELDS
+  DECLARE_FIELDS,
+  UPDATE_ID
 } from './Types'
 
 const Store = ({ children, initials, ...props }) => {
@@ -75,6 +76,16 @@ const Store = ({ children, initials, ...props }) => {
     })
   }
 
+  const updateId = ({ oldId, newId }) => {
+    dispatch({
+      type: UPDATE_ID,
+      payload: {
+        oldId,
+        newId
+      }
+    })
+  }
+
   return (
     <Context.Provider
       value={{
@@ -86,7 +97,8 @@ const Store = ({ children, initials, ...props }) => {
           handleChange,
           handleBlur,
           handleClick,
-          getAndChange
+          getAndChange,
+          updateId
         }
       }}
     >
@@ -97,7 +109,8 @@ const Store = ({ children, initials, ...props }) => {
           handleReset,
           handleChange,
           handleBlur,
-          handleClick
+          handleClick,
+          updateId
         })
       }, Object.values(props))}
     </Context.Provider>

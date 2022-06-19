@@ -40,7 +40,8 @@ interface IBoomFormProps {
     handleChange: any,
     handleBlur: any,
     handleClick: any,
-    getAndChange: any
+    getAndChange: any,
+    updateId: any
   ) => React.ReactNode
   fields?: ReadonlyArray<any>
   initials?: any

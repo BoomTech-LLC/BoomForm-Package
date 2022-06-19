@@ -3,13 +3,17 @@ import {
   EDIT_FIELD,
   RESET_FORM,
   SET_TOUCHED,
-  DECLARE_FIELDS
+  DECLARE_FIELDS,
+  UPDATE_ID
 } from './Types'
 import {
   setNestedValue,
   checkIdStructure,
   deepCopy,
-  changeFieldInitial
+  changeFieldInitial,
+  replaceIdInObject,
+  replaceIdInFieldsArray,
+  replaceIdInValues
 } from './../Helpers/global'
 import { validate, handleValidateSelect } from '../Helpers/validate'
 import Events from '../Events'
@@ -237,6 +241,29 @@ export const reduser = (state, action) => {
       return SCS({
         ...state,
         touched
+      })
+    }
+
+    case UPDATE_ID: {
+      const { oldId, newId } = payload
+      const { errors, fields, touched, values } = state
+
+      let doExists = false
+      for (let i = 0; i < fields.length; i++)
+        if (fields[i].id.indexOf(oldId) === 0) doExists = true
+
+      if (!doExists) return SCS(state)
+
+      const newErrors = replaceIdInObject(errors, oldId, newId)
+      const newFields = replaceIdInFieldsArray(fields, oldId, newId)
+      const newTouched = replaceIdInObject(touched, oldId, newId)
+      const newValues = replaceIdInValues(values, oldId, newId)
+
+      return SCS({
+        fields: newFields,
+        values: { ...newValues },
+        touched: newTouched,
+        errors: newErrors
       })
     }
 
