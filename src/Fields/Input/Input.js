@@ -40,7 +40,7 @@ const Input = ({ id, type, initial, validation = {}, ...props }) => {
     if (HTMLValidate === true)
       handleValidationBlur({ e, possibleError: errors[id] })
 
-    handleBlur({ id })
+    handleBlur({ id, value: e.target.value })
   }
 
   const value = getFieldValue(values, id)

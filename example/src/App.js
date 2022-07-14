@@ -1,43 +1,18 @@
-import React, { useContext, useState } from 'react'
-import { BoomForm, Input, Context } from 'boomform'
-
-const State = () => {
-  const x = useContext(Context)
-
-  console.log('Data', x.state)
-
-  return null
-}
+import React from 'react'
+import { BoomForm, Input } from 'boomform'
 
 const App = () => {
-  const [id, setId] = useState('x.z')
-
   return (
-    <BoomForm ids={id}>
+    <BoomForm>
       {({ updateId }) => (
         <>
-          Simple Input:
           <Input
-            id={`${id}.b`}
-            validation={{
-              required: { msg: 'This Field is required' }
+            id='qwe'
+            placeholder='dsfslkdn'
+            onBlur={(data) => {
+              console.log('data', data)
             }}
           />
-          <Input
-            id={`${id}.a`}
-            validation={{
-              required: { msg: 'This Field is required' }
-            }}
-          />
-          <div
-            onClick={() => {
-              updateId({ oldId: 'x.z', newId: 'as.otherShit' })
-              setId('as.otherShit')
-            }}
-          >
-            Update
-          </div>
-          <State />
         </>
       )}
     </BoomForm>

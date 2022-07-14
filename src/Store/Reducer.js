@@ -216,7 +216,7 @@ export const reduser = (state, action) => {
     }
 
     case SET_TOUCHED: {
-      const { id, handleBlur } = payload
+      const { id, value, handleBlur } = payload
       const { fields } = state
       const [field] = fields.filter((field) => String(field.id) === String(id))
       const touched = { ...state.touched }
@@ -224,6 +224,7 @@ export const reduser = (state, action) => {
       if (field && field.hasOwnProperty('onBlur'))
         field.onBlur({
           id,
+          value,
           field,
           handleBlur
         })

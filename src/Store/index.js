@@ -52,10 +52,10 @@ const Store = ({ children, initials, ...props }) => {
 
   const getAndChange = (func) => handleChange(func(state))
 
-  const handleBlur = ({ id }) => {
+  const handleBlur = ({ id, value }) => {
     dispatch({
       type: SET_TOUCHED,
-      payload: { id, handleBlur }
+      payload: { id, value, handleBlur }
     })
   }
 
