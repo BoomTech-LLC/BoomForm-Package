@@ -77,22 +77,22 @@ export const getUseFieldInitial = (ids) => {
     newTouched: []
   }
 
-  // if(window.__current_form_state){
-  const { values, touched, errors } = window.__current_form_state
-  let neededValues = {}
+  if (window.__current_form_state) {
+    const { values, touched, errors } = window.__current_form_state
+    let neededValues = {}
 
-  for (let i = 0; i < ids.length; i++)
-    neededValues = setNestedValue(
-      ids[i],
-      getFieldValue(values, ids[i]),
-      neededValues
-    )
+    for (let i = 0; i < ids.length; i++)
+      neededValues = setNestedValue(
+        ids[i],
+        getFieldValue(values, ids[i]),
+        neededValues
+      )
 
-  structuredData.neededValues = neededValues
-  structuredData.prevState = window.__current_form_state
-  structuredData.newErrors = errors
-  structuredData.newTouched = touched
-  // }
+    structuredData.neededValues = neededValues
+    structuredData.prevState = window.__current_form_state
+    structuredData.newErrors = errors
+    structuredData.newTouched = touched
+  }
 
   return structuredData
 }
