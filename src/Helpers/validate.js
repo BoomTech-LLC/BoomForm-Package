@@ -1,5 +1,5 @@
 export const validate = ({ value, validation, type, values }) => {
-  console.log(values)
+
   // Sxal Check Chisht Cheka Petq
   if (!validation) return false
 
