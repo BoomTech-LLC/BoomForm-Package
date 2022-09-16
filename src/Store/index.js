@@ -19,7 +19,9 @@ const Store = ({ children, initials, ...props }) => {
   })
 
   useEffect(() => declareFields(initials), [initials])
-  useEffect(() => SCS(state), [])
+  useEffect(() => {
+    SCS(state)
+  }, [])
 
   const declareField = ({ id, initial, field }) => {
     dispatch({
