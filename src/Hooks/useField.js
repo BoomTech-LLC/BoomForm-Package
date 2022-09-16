@@ -62,7 +62,7 @@ const useField = (ids) => {
       if (current_event.current)
         Emitter.removeFieldListener(current_event.current)
     }
-  }, [ids])
+  }, [JSON.stringify(ids)])
 
   return data
 }
