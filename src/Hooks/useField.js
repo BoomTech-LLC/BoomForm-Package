@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Emitter from './../Events'
 import {
   getFieldValue,
@@ -18,6 +18,8 @@ const useField = (ids) => {
     newValues: {},
     newTouched: {}
   })
+
+  const current_event = useRef(null)
 
   const handleDataSet = (payload) => {
     const { state, errors, values, touched, id } = payload
@@ -49,12 +51,18 @@ const useField = (ids) => {
   useEffect(() => {
     setData(getUseFieldInitial(ids))
 
-    const event_id = Emitter.addFieldListener(ids, (payload) => {
+    if (current_event.current)
+      Emitter.removeFieldListener(current_event.current)
+
+    current_event.current = Emitter.addFieldListener(ids, (payload) => {
       setTimeout(() => handleDataSet(payload))
     })
 
-    return () => Emitter.removeFieldListener(event_id)
-  }, [])
+    return () => {
+      if (current_event.current)
+        Emitter.removeFieldListener(current_event.current)
+    }
+  }, [ids])
 
   return data
 }
