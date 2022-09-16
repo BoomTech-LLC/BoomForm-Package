@@ -1,4 +1,4 @@
-export const validate = ({ value, validation, type }) => {
+export const validate = ({ value, validation, type ,values}) => {
   // Sxal Check Chisht Cheka Petq
   if (!validation) return false
 
@@ -109,7 +109,7 @@ export const validate = ({ value, validation, type }) => {
         break
 
       case 'custom':
-        return validation[item](value)
+        return validation[item](value,values)
     }
   }
 }

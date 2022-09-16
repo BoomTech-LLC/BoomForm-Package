@@ -56,7 +56,8 @@ export const reduser = (state, action) => {
           const defaultValidate = validate({
             type,
             value: initial,
-            validation
+            validation,
+            values
           })
 
           touched[id] = isTouched
@@ -91,7 +92,7 @@ export const reduser = (state, action) => {
           break
         default: {
           touched[id] = isTouched
-          const defaultValidate = validate({ type, value: initial, validation })
+          const defaultValidate = validate({ type, value: initial, validation,values })
           if (defaultValidate) errors[id] = defaultValidate
         }
       }
@@ -185,7 +186,7 @@ export const reduser = (state, action) => {
             values = setNestedValue(id, value, values)
           else values[id] = value
 
-          const error = validate({ type, value, validation })
+          const error = validate({ type, value, validation,values })
 
           if (error) errors[id] = error
           else delete errors[id]
