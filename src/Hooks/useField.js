@@ -51,9 +51,6 @@ const useField = (ids) => {
   useEffect(() => {
     setData(getUseFieldInitial(ids))
 
-    if (current_event.current)
-      Emitter.removeFieldListener(current_event.current)
-
     current_event.current = Emitter.addFieldListener(ids, (payload) => {
       setTimeout(() => handleDataSet(payload))
     })
