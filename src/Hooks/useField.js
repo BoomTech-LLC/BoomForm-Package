@@ -52,7 +52,7 @@ const useField = (ids) => {
     setData(getUseFieldInitial(ids))
 
     current_event.current = Emitter.addFieldListener(ids, (payload) => {
-      handleDataSet(payload)
+      setTimeout(() => handleDataSet(payload))
     })
 
     return () => {
