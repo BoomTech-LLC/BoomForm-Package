@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useRef } from 'react'
 import context from './../../Store/Context'
-import { getFieldValue } from '../../Helpers/global'
+import { getFieldValue,iphoneCheck } from '../../Helpers/global'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
 const Input = ({ id, type, initial, validation = {}, ...props }) => {
@@ -34,6 +34,17 @@ const Input = ({ id, type, initial, validation = {}, ...props }) => {
       handleValidationChange({ e, possibleError: errors[id] })
 
     handleChange({ id, value: e.target.value })
+    if (type === 'date' && ref.current) {
+
+      ref.current.defaultValue = '';
+      const target = e.target; 
+    
+      if (iphoneCheck()) {
+        setTimeout(() => {
+          target.defaultValue = ''; 
+        },100)
+      }
+  }
   }
 
   const onBlur = (e) => {
@@ -45,7 +56,7 @@ const Input = ({ id, type, initial, validation = {}, ...props }) => {
 
   const value = getFieldValue(values, id)
   if (value === undefined) return null
-
+console.log(value);
   return (
     <input
       {...props}

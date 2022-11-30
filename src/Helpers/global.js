@@ -145,3 +145,10 @@ export const replaceIdInValues = (values, oldId, newId) => {
 
   return values
 }
+
+
+export const iphoneCheck = () => {
+  if (typeof window === `undefined` || typeof navigator === `undefined`) return false;
+
+  return /iPhone/i.test(navigator.userAgent || navigator.vendor || (window.opera && opera.toString() === `[object Opera]`));
+};
