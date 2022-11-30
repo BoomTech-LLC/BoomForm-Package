@@ -56,7 +56,7 @@ const Input = ({ id, type, initial, validation = {}, ...props }) => {
 
   const value = getFieldValue(values, id)
   if (value === undefined) return null
-console.log(value);
+
   return (
     <input
       {...props}
