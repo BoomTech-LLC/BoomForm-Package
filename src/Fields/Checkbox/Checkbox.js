@@ -34,7 +34,7 @@ const Checkbox = ({ id, initial, validation = {}, ...props }) => {
     if (HTMLValidate === true)
       handleValidationChange({ e, possibleError: errors[id] })
 
-    handleChange({ id, value: e.target.checked })
+    handleChange({ id, value: e.target.checked, e, ref, })
   }
 
   const onBlur = (e) => {
