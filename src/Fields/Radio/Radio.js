@@ -42,7 +42,9 @@ const Radio = ({
 
     handleChange({
       id,
-      value: e.target.value
+      value: e.target.value,
+      e,
+      ref,
     })
   }
 

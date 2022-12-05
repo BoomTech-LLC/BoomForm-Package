@@ -149,7 +149,7 @@ export const reduser = (state, action) => {
     }
 
     case EDIT_FIELD: {
-      const { id, value, handleChange } = payload
+      const { id, value, handleChange,e,ref } = payload
       const { fields } = state
       const field = fields.find((field) => String(field.id) === String(id))
       if (!field) return SCS(state)
@@ -164,7 +164,9 @@ export const reduser = (state, action) => {
           value,
           field,
           handleChange,
-          state
+          state,
+          e,
+          ref,
         })
 
       switch (type) {

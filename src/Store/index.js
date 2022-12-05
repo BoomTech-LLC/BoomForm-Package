@@ -41,13 +41,15 @@ const Store = ({ children, initials, ...props }) => {
     })
   }
 
-  const handleChange = ({ id, value }) => {
+  const handleChange = ({ id, value,e,ref }) => {
     dispatch({
       type: EDIT_FIELD,
       payload: {
         id,
         value,
-        handleChange
+        handleChange,
+        e,
+        ref,
       }
     })
   }

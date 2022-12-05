@@ -61,7 +61,9 @@ const Select = ({ id, initial, options, validation = {}, ...props }) => {
 
     handleChange({
       id,
-      value: newValue
+      value: newValue,
+      e,
+      ref,
     })
   }
 
