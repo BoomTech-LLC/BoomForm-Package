@@ -33,7 +33,7 @@ const Input = ({ id, type, initial, validation = {}, ...props }) => {
     if (HTMLValidate === true)
       handleValidationChange({ e, possibleError: errors[id] })
 
-    handleChange({ id, value: e.target.value, e, ref, })
+    handleChange({ id, value: e.target.value, event: { ...e }, ref, })
   }
 
   const onBlur = (e) => {
