@@ -165,7 +165,7 @@ export const reduser = (state, action) => {
           field,
           handleChange,
           state,
-          e,
+          event,
           ref,
         })
 
