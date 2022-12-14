@@ -20,7 +20,7 @@
   <p align="center">
     Building a form is as easy as making coffee. :coffee:
     <br />
-    <a href="https://form.boomform.com/"><strong>Explore the docs »</strong></a>
+    <a href="https://boomform.boomform.com/"><strong>Explore the docs »</strong></a>
     <br />
     <br />
     <a href="https://codesandbox.io/s/objective-tharp-irrv2">View Demo</a>
