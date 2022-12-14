@@ -93,7 +93,7 @@ const App = () => {
  
 export default App
 ```
-Store contains all essential attributes like fields, values, touched, errors. You can read more about it [here](https://form.boomform.com/start#data-usage)
+Store contains all essential attributes like fields, values, touched, errors. You can read more about it [here](https://boomform.boomform.com/)
 
 Also You can check the [example](https://codesandbox.io/s/boomform-forked-l54j1) for more clarity
 
