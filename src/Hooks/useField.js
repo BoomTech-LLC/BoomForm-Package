@@ -23,7 +23,7 @@ const useField = (ids) => {
 
   const handleDataSet = (payload) => {
     const { state, errors, values, touched, id } = payload
-
+ 
     let neededValues = {}
 
     for (let i = 0; i < ids.length; i++)
@@ -59,8 +59,7 @@ const useField = (ids) => {
       if (current_event.current)
         Emitter.removeFieldListener(current_event.current)
     }
-  }, [JSON.stringify(ids)])
-
+  }, [JSON.stringify(ids),JSON.stringify(data.id)])
   return data
 }
 
