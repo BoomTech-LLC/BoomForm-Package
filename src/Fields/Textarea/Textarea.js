@@ -32,8 +32,7 @@ const Textarea = ({ id, initial, validation = {}, ...props }) => {
   const onChange = (e) => {
     if (HTMLValidate === true)
       handleValidationChange({ e, possibleError: errors[id] })
-
-    handleChange({ id, value: e.target.value, event:{...e}, ref, })
+    handleChange({ id, value: e.target.value, event: { ...e }, ref })
   }
 
   const onBlur = (e) => {

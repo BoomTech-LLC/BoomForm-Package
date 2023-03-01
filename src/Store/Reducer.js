@@ -4,7 +4,8 @@ import {
   RESET_FORM,
   SET_TOUCHED,
   DECLARE_FIELDS,
-  UPDATE_ID
+  UPDATE_ID,
+  DELETE_FIELD
 } from './Types'
 import {
   setNestedValue,
@@ -149,7 +150,7 @@ export const reduser = (state, action) => {
     }
 
     case EDIT_FIELD: {
-      const { id, value, handleChange,e,ref } = payload
+      const { id, value, handleChange, e, ref } = payload
       const { fields } = state
       const field = fields.find((field) => String(field.id) === String(id))
       if (!field) return SCS(state)
@@ -166,7 +167,7 @@ export const reduser = (state, action) => {
           handleChange,
           state,
           event,
-          ref,
+          ref
         })
 
       switch (type) {
@@ -267,6 +268,21 @@ export const reduser = (state, action) => {
         values: { ...newValues },
         touched: newTouched,
         errors: newErrors
+      })
+    }
+    case DELETE_FIELD: {
+      const { id: deleteId } = payload
+      const { fields, values, touched } = state
+      const filteredFields = fields.filter(({ id }) => {
+        return id !== deleteId
+      })
+      const { [deleteId]: removeValue, ...filteredValues } = values
+      const { [deleteId]: touchedValue, ...filteredTouched } = touched
+      return SCS({
+        ...state,
+        fields: filteredFields,
+        values: filteredValues,
+        touched: filteredTouched
       })
     }
 

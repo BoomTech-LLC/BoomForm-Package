@@ -7,7 +7,8 @@ import {
   RESET_FORM,
   SET_TOUCHED,
   DECLARE_FIELDS,
-  UPDATE_ID
+  UPDATE_ID,
+  DELETE_FIELD
 } from './Types'
 
 const Store = ({ children, initials, ...props }) => {
@@ -41,7 +42,7 @@ const Store = ({ children, initials, ...props }) => {
     })
   }
 
-  const handleChange = ({ id, value,event,ref }) => {
+  const handleChange = ({ id, value, event, ref }) => {
     dispatch({
       type: EDIT_FIELD,
       payload: {
@@ -49,7 +50,7 @@ const Store = ({ children, initials, ...props }) => {
         value,
         handleChange,
         event,
-        ref,
+        ref
       }
     })
   }
@@ -89,6 +90,14 @@ const Store = ({ children, initials, ...props }) => {
       }
     })
   }
+  const deleteField = (id) => {
+    dispatch({
+      type: DELETE_FIELD,
+      payload: {
+        id
+      }
+    })
+  }
 
   return (
     <Context.Provider
@@ -102,7 +111,8 @@ const Store = ({ children, initials, ...props }) => {
           handleBlur,
           handleClick,
           getAndChange,
-          updateId
+          updateId,
+          deleteField
         }
       }}
     >
@@ -114,7 +124,8 @@ const Store = ({ children, initials, ...props }) => {
           handleChange,
           handleBlur,
           handleClick,
-          updateId
+          updateId,
+          deleteField
         })
       }, Object.values(props))}
     </Context.Provider>
