@@ -272,17 +272,22 @@ export const reduser = (state, action) => {
     }
     case DELETE_FIELD: {
       const { id: deleteId } = payload
-      const { fields, values, touched } = state
+      const { fields, values, touched, errors } = state
       const filteredFields = fields.filter(({ id }) => {
         return id !== deleteId
       })
       const { [deleteId]: removeValue, ...filteredValues } = values
       const { [deleteId]: touchedValue, ...filteredTouched } = touched
+      const deleteErrors = { ...errors }
+      if (deleteErrors[deleteId]) {
+        delete deleteErrors[deleteId]
+      }
       return SCS({
         ...state,
         fields: filteredFields,
         values: filteredValues,
-        touched: filteredTouched
+        touched: filteredTouched,
+        errors: deleteErrors
       })
     }
 
