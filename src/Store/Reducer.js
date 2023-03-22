@@ -4,7 +4,8 @@ import {
   RESET_FORM,
   SET_TOUCHED,
   DECLARE_FIELDS,
-  UPDATE_ID
+  UPDATE_ID,
+  DELETE
 } from './Types'
 import {
   setNestedValue,
@@ -13,7 +14,9 @@ import {
   changeFieldInitial,
   replaceIdInObject,
   replaceIdInFieldsArray,
-  replaceIdInValues
+  replaceIdInValues,
+  deleteDeepObject,
+  deleteDeepStringsKey
 } from './../Helpers/global'
 import { validate, handleValidateSelect } from '../Helpers/validate'
 import Events from '../Events'
@@ -29,11 +32,11 @@ let defaultValues = {},
 
 export const reduser = (state, action) => {
   const { type, payload } = action
-
   switch (type) {
     case DECLARE_FIELD: {
       const { id, initial, field, doNotEmit } = payload
       const { validation, type } = field
+
       let { fields } = state
       let { values } = state
       values = deepCopy(values)
@@ -149,7 +152,7 @@ export const reduser = (state, action) => {
     }
 
     case EDIT_FIELD: {
-      const { id, value, handleChange,e,ref } = payload
+      const { id, value, handleChange, e, ref } = payload
       const { fields } = state
       const field = fields.find((field) => String(field.id) === String(id))
       if (!field) return SCS(state)
@@ -166,7 +169,7 @@ export const reduser = (state, action) => {
           handleChange,
           state,
           event,
-          ref,
+          ref
         })
 
       switch (type) {
@@ -269,7 +272,29 @@ export const reduser = (state, action) => {
         errors: newErrors
       })
     }
+    case DELETE: {
+      const { value } = payload
+      let splitedValue = value.split('.')
+      const { values } = state
+      const { fields } = state
+      const { touched } = state
+      const { errors } = state
 
+      let newFields = fields.filter((field) => {
+        return !field.id.includes(value)
+      })
+      let newValues = deleteDeepObject(splitedValue, values)
+      let newTouched = deleteDeepStringsKey(value, touched)
+      let newErrors = deleteDeepObject(splitedValue, errors)
+
+      return SCS({
+        ...state,
+        fields: newFields,
+        values: newValues,
+        touched: newTouched,
+        errors: newErrors
+      })
+    }
     default:
       return SCS(state)
   }
