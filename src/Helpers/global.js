@@ -145,3 +145,31 @@ export const replaceIdInValues = (values, oldId, newId) => {
 
   return values
 }
+
+export const deleteDeepObject = (array, obj) => {
+  for (let i = 0; i <= array.length; i++) {
+    for (let key in obj) {
+      if (obj[array[i]] !== undefined) {
+        if (typeof obj[array[i]] === 'object') {
+          let newArray = array.slice(i)
+          if (i === newArray.length) {
+            delete obj[array[i]]
+          }
+          deleteDeepObject(newArray, obj[array[i]])
+        } else {
+          delete obj[array[i]]
+        }
+      }
+    }
+  }
+  return obj
+}
+
+export const deleteDeepStringsKey = (value, obj) => {
+  for (let key in obj) {
+    if (key.includes(value)) {
+      delete obj[key]
+    }
+  }
+  return obj
+}
