@@ -8,6 +8,7 @@ interface IValidation {
   email?: { msg: string }
   phone?: { msg: string }
   url?: { msg: string }
+  regEx?: { msg: string; value: string }
   custom?(values: string[]): string | boolean
 }
 
@@ -61,6 +62,7 @@ interface IInputProps
     | 'min'
     | 'phone'
     | 'url'
+    | 'regEx'
     | 'custom'
   >
 }
@@ -78,6 +80,7 @@ interface ITextareaProps
     | 'min'
     | 'phone'
     | 'url'
+    | 'regEx'
     | 'custom'
   >
 }
