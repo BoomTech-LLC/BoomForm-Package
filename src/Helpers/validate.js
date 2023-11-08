@@ -16,7 +16,7 @@ export const validate = ({ value, validation, type }) => {
     switch (item) {
       case 'required':
         if (typeof value === 'string' && !value.trim()) return msg
-        else if(!value) return msg
+        else if (!value) return msg
         break
 
       case 'max':
@@ -107,6 +107,13 @@ export const validate = ({ value, validation, type }) => {
           value
         )
           return msg
+        break
+
+      case 'regEx':
+        const param = `${parameter}`
+        if (!new RegExp(param).test(value)) {
+          return msg
+        }
         break
 
       case 'custom':
