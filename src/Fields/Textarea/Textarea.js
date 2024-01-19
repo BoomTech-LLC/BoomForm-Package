@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useRef } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
+import filterInputProps from '../../Helpers/inputAttributes'
 
 const Textarea = ({ id, initial, validation = {}, ...props }) => {
   const { state, actions } = useContext(context)
@@ -33,7 +34,7 @@ const Textarea = ({ id, initial, validation = {}, ...props }) => {
     if (HTMLValidate === true)
       handleValidationChange({ e, possibleError: errors[id] })
 
-    handleChange({ id, value: e.target.value, event:{...e}, ref, })
+    handleChange({ id, value: e.target.value, event: { ...e }, ref })
   }
 
   const onBlur = (e) => {
@@ -48,7 +49,7 @@ const Textarea = ({ id, initial, validation = {}, ...props }) => {
 
   return (
     <textarea
-      {...props}
+      {...filterInputProps(props)}
       value={value || ''}
       ref={ref}
       onChange={onChange}

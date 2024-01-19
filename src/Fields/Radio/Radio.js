@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useRef } from 'react'
 import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
+import filterInputProps from '../../Helpers/inputAttributes'
 
 const Radio = ({
   id,
@@ -43,8 +44,8 @@ const Radio = ({
     handleChange({
       id,
       value: e.target.value,
-      event:{...e},
-      ref,
+      event: { ...e },
+      ref
     })
   }
 
@@ -59,7 +60,7 @@ const Radio = ({
 
   return (
     <input
-      {...props}
+      {...filterInputProps(props)}
       ref={ref}
       type='radio'
       name={id}
