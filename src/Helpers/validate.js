@@ -116,6 +116,14 @@ export const validate = ({ value, validation, type }) => {
         }
         break
 
+      case 'word':
+        if (!/[a-zA-Z]/.test(value) && value) return msg
+        break
+
+      case 'number':
+        if (!/\d/.test(value) && value) return msg
+        break
+
       case 'custom':
         return validation[item](value)
     }
