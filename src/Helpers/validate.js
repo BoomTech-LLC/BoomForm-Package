@@ -60,7 +60,7 @@ export const validate = ({ value, validation, type }) => {
       const validationValue = validation[item]
       let message
       if (typeof validator === 'function') {
-        const esim = validationValue.some((item) => {
+        validationValue.some((item) => {
           const { value: regex, msg } = item
           const isValid = validator(value, regex)
           if (!isValid) {
