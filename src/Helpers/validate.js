@@ -26,8 +26,10 @@ const validationFunctions = {
     /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.([a-zA-Z]{2,5}[\.]{0,1}(.*))$/i.test(
       value
     ),
-  regEx: (value, parameter) => {
-    return new RegExp(parameter).test(value)
+  regEx: (value, parameter, unicode) => {
+    return unicode
+      ? new RegExp(parameter, unicode).test(value)
+      : new RegExp(parameter).test(value)
   },
   custom: (value, customFunction) => customFunction(value)
 }
@@ -61,8 +63,8 @@ export const validate = ({ value, validation, type }) => {
       let message
       if (typeof validator === 'function') {
         validationValue.some((item) => {
-          const { value: regex, msg } = item
-          const isValid = validator(value, regex)
+          const { value: regex, msg, unicode } = item
+          const isValid = validator(value, regex, unicode)
           if (!isValid) {
             message = msg
           }
