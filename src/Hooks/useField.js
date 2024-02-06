@@ -1,73 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Emitter from './../Events'
-// import {
-//   getFieldValue,
-//   setNestedValue,
-//   getUseFieldInitial
-// } from './../Helpers/global'
-
-const isObject = (variable) => {
-  return (
-    typeof variable === 'object' &&
-    !Array.isArray(variable) &&
-    variable !== null
-  )
-}
-const getFieldValue = (values, id) => {
-  if (!id) throw 'field should have a id attribute'
-  if (!id.toString().includes('.')) return values[id]
-  let idPath = id.split('.')
-  idPath = idPath.filter((path) => path)
-  return [values].concat(idPath).reduce((acc, val) => {
-    if (!acc) return undefined
-    return acc[val]
-  })
-}
-const setNestedValue = (key, value, values) => {
-  const keyPath = key.toString().split('.')
-  keyPath.reduce((acc, val, index) => {
-    if (keyPath.length - 1 === index) {
-      return (acc[val] = value)
-    }
-    if (!isObject(acc[val]) || acc[val] === null) return (acc[val] = {})
-    else return acc[val]
-  }, values)
-
-  // console.log('Setting nested value', values)
-  return values
-}
-
-const getUseFieldInitial = (ids) => {
-  const structuredData = {
-    id: null,
-    value: null,
-    touched: null,
-    ids,
-    neededValues: {},
-    prevState: {},
-    newErrors: [],
-    newTouched: []
-  }
-
-  if (window.__current_form_state) {
-    const { values, touched, errors } = window.__current_form_state
-    let neededValues = {}
-
-    for (let i = 0; i < ids.length; i++)
-      neededValues = setNestedValue(
-        ids[i],
-        getFieldValue(values, ids[i]),
-        neededValues
-      )
-
-    structuredData.neededValues = neededValues
-    structuredData.prevState = window.__current_form_state
-    structuredData.newErrors = errors
-    structuredData.newTouched = touched
-  }
-  // console.log('Returning', structuredData)
-  return structuredData
-}
+import {
+  getFieldValue,
+  setNestedValue,
+  getUseFieldInitial
+} from './../Helpers/global'
 
 const useField = (ids) => {
   const [data, setData] = useState({
@@ -110,11 +47,9 @@ const useField = (ids) => {
     },
     [ids]
   )
-
   useEffect(() => {
     setData(initialValues)
     current_event.current = Emitter.addFieldListener(ids, (payload) => {
-      console.log('asdasdsa', payload)
       setTimeout(() => handleDataSet(payload))
     })
     return () => {
