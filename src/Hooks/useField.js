@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Emitter from './../Events'
 import {
   getFieldValue,
@@ -18,12 +18,6 @@ const useField = (ids) => {
     newValues: {},
     newTouched: {}
   })
-  const initialValues = useMemo(() => {
-    return getUseFieldInitial(ids)
-  }, [
-    JSON.stringify(ids),
-    JSON.stringify(Object.keys(window.__current_form_state || []))
-  ])
   const current_event = useRef(null)
 
   const handleDataSet = useCallback(
@@ -48,7 +42,7 @@ const useField = (ids) => {
     [ids]
   )
   useEffect(() => {
-    setData(initialValues)
+    setData(getUseFieldInitial(ids))
     current_event.current = Emitter.addFieldListener(ids, (payload) => {
       setTimeout(() => handleDataSet(payload))
     })
