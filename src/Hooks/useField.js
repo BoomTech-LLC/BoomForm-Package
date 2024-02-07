@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import Emitter from './../Events'
 import {
   getFieldValue,
@@ -18,48 +18,40 @@ const useField = (ids) => {
     newValues: {},
     newTouched: {}
   })
-
   const current_event = useRef(null)
 
-  const handleDataSet = (payload) => {
-    const { state, errors, values, touched, id } = payload
- 
-    let neededValues = {}
-
-    for (let i = 0; i < ids.length; i++)
-      neededValues = setNestedValue(
-        ids[i],
-        getFieldValue(values, ids[i]),
-        neededValues
-      )
-
-    const structuredData = {
-      id,
-      value: getFieldValue(values, id),
-      touched: touched[id],
-      ids,
-      neededValues,
-      prevState: state,
-      newErrors: errors,
-      newValues: values,
-      newTouched: touched
-    }
-
-    setData(structuredData)
-  }
-
+  const handleDataSet = useCallback(
+    (payload) => {
+      const { state, errors, values, touched, id } = payload
+      const neededValues = ids.reduce((acc, id) => {
+        return setNestedValue(id, getFieldValue(values, id), acc)
+      }, {})
+      const structuredData = {
+        id,
+        value: getFieldValue(values, id),
+        touched: touched[id],
+        ids,
+        neededValues,
+        prevState: state,
+        newErrors: errors,
+        newValues: values,
+        newTouched: touched
+      }
+      setData(structuredData)
+    },
+    [ids]
+  )
   useEffect(() => {
     setData(getUseFieldInitial(ids))
-
     current_event.current = Emitter.addFieldListener(ids, (payload) => {
       setTimeout(() => handleDataSet(payload))
     })
-
     return () => {
       if (current_event.current)
         Emitter.removeFieldListener(current_event.current)
     }
-  }, [JSON.stringify(ids),JSON.stringify(data.id)])
+  }, [JSON.stringify(ids)])
+
   return data
 }
 
