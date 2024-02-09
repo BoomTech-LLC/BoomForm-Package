@@ -34,13 +34,8 @@ const validationFunctions = {
 }
 
 export const validate = ({ value, validation, type }) => {
+  console.log('🚀 ~ validate ~ value:', value)
   if (!validation) return false
-
-  if (type === 'checkbox' && value === false) {
-    if (validation['required']) {
-      return validation['required'](value)
-    }
-  }
 
   if (value === null) value = ''
 
