@@ -30,8 +30,7 @@ const validationFunctions = {
     return unicode
       ? new RegExp(parameter, unicode).test(value)
       : new RegExp(parameter).test(value)
-  },
-  custom: (value, customFunction) => customFunction(value)
+  }
 }
 
 export const validate = ({ value, validation, type }) => {
@@ -46,22 +45,14 @@ export const validate = ({ value, validation, type }) => {
   if (value === null) value = ''
 
   for (let item in validation) {
-    if (item !== 'regEx') {
-      const validator = validationFunctions[item]
-      const { type, msg, value: parameter } = validation[item]
+    switch (item) {
+      case 'HTMLValidate':
+        break
+      case 'regEx': {
+        const validator = validationFunctions[item]
+        const validationValue = validation[item]
+        let message
 
-      if (validator) {
-        if (typeof validator === 'function') {
-          if (!validator(value, parameter)) return msg
-        } else if (validator[type] && !validator[type](value, parameter)) {
-          return msg
-        }
-      }
-    } else {
-      const validator = validationFunctions[item]
-      const validationValue = validation[item]
-      let message
-      if (typeof validator === 'function') {
         validationValue.some((item) => {
           const { value: regex, msg, unicode } = item
           const isValid = validator(value, regex, unicode)
@@ -70,9 +61,31 @@ export const validate = ({ value, validation, type }) => {
           }
           return !isValid
         })
-      }
 
-      return message ? message : undefined
+        return message
+      }
+      case 'custom': {
+        if (typeof validation[item] === 'function')
+          return validation[item](value)
+        else throw new Error(`Custom validation must be a function`)
+
+        break
+      }
+      default: {
+        const validator = validationFunctions[item]
+
+        if (validator) {
+          const { type, msg, value: parameter } = validation[item]
+          if (!type) {
+            if (!validator(value, parameter)) return msg
+          } else if (validator[type] && !validator[type](value, parameter)) {
+            return msg
+          }
+        } else {
+          throw new Error(`Validation type ${item} not found`)
+        }
+        break
+      }
     }
   }
 }
