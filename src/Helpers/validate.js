@@ -71,8 +71,13 @@ export const validate = ({ value, validation, type }) => {
         if (validator) {
           const { type, msg, value: parameter } = validation[item]
           if (!type) {
-            if (!validator(value, parameter)) return msg
-          } else if (validator[type] && !validator[type](value, parameter)) {
+            if (typeof validator === 'function' && !validator(value, parameter))
+              return msg
+          } else if (
+            validator[type] &&
+            typeof validator[type] === 'function' &&
+            !validator[type](value, parameter)
+          ) {
             return msg
           }
         } else {
