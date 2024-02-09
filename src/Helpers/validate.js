@@ -34,7 +34,6 @@ const validationFunctions = {
 }
 
 export const validate = ({ value, validation, type }) => {
-  console.log('🚀 ~ validate ~ value:', value)
   if (!validation) return false
 
   if (value === null) value = ''
