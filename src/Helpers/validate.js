@@ -110,10 +110,22 @@ export const validate = ({ value, validation, type }) => {
         break
 
       case 'regEx':
-        const param = `${parameter}`
-        if (!new RegExp(param).test(value)) {
-          return msg
+        const regex = validation['regEx']
+
+        if (Array.isArray(regex)) {
+          for (const item of regex) {
+            const regexInstance = new RegExp(item.value, item.unicode || '')
+            if (!regexInstance.test(value)) {
+              return item.msg
+            }
+          }
+        } else {
+          const param = `${parameter}`
+          if (!new RegExp(param).test(value)) {
+            return msg
+          }
         }
+
         break
 
       case 'custom':
