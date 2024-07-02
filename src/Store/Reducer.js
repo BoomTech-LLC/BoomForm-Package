@@ -212,6 +212,11 @@ export const reduser = (state, action) => {
     }
 
     case RESET_FORM: {
+      state.fields.forEach((field) => {
+        if(field.type === 'radio'){
+          defaultValues[field.id] = field.initial;
+        }
+      })
       return SCS({
         ...state,
         values: defaultValues,
