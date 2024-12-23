@@ -3,7 +3,14 @@ import context from './../../Store/Context'
 import { getFieldValue } from '../../Helpers/global'
 import { useNativeValidationMessage } from '../../Hooks/useNativeValidationMessage'
 
-const Input = ({ id, type, initial, validation = {}, ...props }) => {
+const Input = ({
+  id,
+  type,
+  initial,
+  validation = {},
+  matchPassword = {},
+  ...props
+}) => {
   const { state, actions } = useContext(context)
   const ref = useRef()
   const { handleValidationChange, handleValidationBlur } =
@@ -11,6 +18,7 @@ const Input = ({ id, type, initial, validation = {}, ...props }) => {
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
   const { HTMLValidate } = validation
+  const isConfirm = `${id}`.includes('_confirm')
 
   useEffect(() => {
     const actualInitial = initial === undefined ? null : initial
@@ -23,9 +31,16 @@ const Input = ({ id, type, initial, validation = {}, ...props }) => {
 
   useEffect(() => {
     if (HTMLValidate === true) {
-      if (ref.current && errors[id] !== undefined)
+      if (isConfirm) {
+        const realId = id.split('_')[0]
+        if (values[id] !== values[realId]) {
+          ref.current.setCustomValidity(matchPassword?.msg)
+        }
+      } else if (ref.current && errors[id] !== undefined) {
         ref.current.setCustomValidity(errors[id])
-      else if (ref.current) ref.current.setCustomValidity('')
+      } else if (ref.current) {
+        ref.current.setCustomValidity('')
+      }
     }
   }, [ref.current, errors])
 
