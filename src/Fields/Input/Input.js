@@ -8,7 +8,7 @@ const Input = ({
   type,
   initial,
   validation = {},
-  matchPassword = {},
+  matchInput = {},
   ...props
 }) => {
   const { state, actions } = useContext(context)
@@ -34,7 +34,7 @@ const Input = ({
       if (isConfirm) {
         const realId = id.split('_')[0]
         if (values[id] !== values[realId]) {
-          ref.current.setCustomValidity(matchPassword?.msg)
+          ref.current.setCustomValidity(matchInput?.msg)
         }
       } else if (ref.current && errors[id] !== undefined) {
         ref.current.setCustomValidity(errors[id])
