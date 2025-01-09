@@ -8,7 +8,7 @@ const Input = ({
   type,
   initial,
   validation = {},
-  matchInput = {},
+  match = {},
   ...props
 }) => {
   const { state, actions } = useContext(context)
@@ -18,7 +18,6 @@ const Input = ({
   const { handleChange, handleBlur, declareField } = actions
   const { values, errors } = state
   const { HTMLValidate } = validation
-  const isConfirm = `${id}`.includes('_confirm')
 
   useEffect(() => {
     const actualInitial = initial === undefined ? null : initial
@@ -31,10 +30,10 @@ const Input = ({
 
   useEffect(() => {
     if (HTMLValidate === true) {
-      if (isConfirm) {
-        const realId = id.split('_')[0]
-        if (values[id] !== values[realId]) {
-          ref.current.setCustomValidity(matchInput?.msg)
+      if (match.id) {
+        const matchId = match.id
+        if (values[id] !== values[matchId]) {
+          ref.current.setCustomValidity(match?.msg)
         }
       } else if (ref.current && errors[id] !== undefined) {
         ref.current.setCustomValidity(errors[id])
