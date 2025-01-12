@@ -29,17 +29,17 @@ const Input = ({
   }, [id, initial])
 
   useEffect(() => {
-    if (HTMLValidate === true) {
-      if (match.id) {
-        const matchId = match.id
-        if (values[id] !== values[matchId]) {
-          ref.current.setCustomValidity(match?.msg)
-        }
-      } else if (ref.current && errors[id] !== undefined) {
-        ref.current.setCustomValidity(errors[id])
-      } else if (ref.current) {
+    if (!HTMLValidate || !ref.current) return
+    if (match?.id) {
+      if (values[id] !== values[match.id]) {
+        ref.current.setCustomValidity(match?.msg || '')
+      } else {
         ref.current.setCustomValidity('')
       }
+    } else if (errors?.[id] !== undefined) {
+      ref.current.setCustomValidity(errors[id])
+    } else {
+      ref.current.setCustomValidity('')
     }
   }, [ref.current, errors])
 
